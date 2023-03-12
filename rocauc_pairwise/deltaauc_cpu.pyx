@@ -38,7 +38,7 @@ def deltaauc_exact(int_or_long [::1] y_true,
         int_or_long lj = y_true[j]
 
 
-        int_or_long deltaji = lj - li
+        np.float64_t deltaji = lj - li
     
     cdef:    
         np.float64_t deltai = 0.5 * counters_p[i]*counters_n[i] - 0.5*(counters_p[i] + deltaji) * (1.0 * counters_n[i] - deltaji)
@@ -57,7 +57,7 @@ def deltaauc_exact(int_or_long [::1] y_true,
     if ypredi == ypredj:
         multiplicate *= 0
 
-    return multiplicate * (delta_eq + float(deltai) + float(deltaj) - deltaji * abs(float(y_pred_right[i] - y_pred_left[j]))) / float(n_ones * n_zeroes)
+    return multiplicate * (delta_eq + deltai + deltaj - deltaji * abs(y_pred_right[i] - y_pred_left[j])) / (n_ones * n_zeroes)
            
 @cython.boundscheck(False)
 @cython.wraparound(False)
@@ -67,9 +67,10 @@ def deltaauc(int_or_long [::1] y_true,
              np.int32_t n_zeroes,
              np.int32_t i, np.int32_t j):
     cdef:
-        np.int64_t i_ = 0
-        np.int64_t j_ = 0
+        np.float64_t i_ = 0
+        np.float64_t j_ = 0
 
     i_, j_ = y_pred_ranks[i], y_pred_ranks[j]
-    deltaauc_ =  (float(y_true[i] - y_true[j]) * (j_ - i_)) / (n_ones * n_zeroes)
+
+    deltaauc_ =  ((y_true[i] - y_true[j]) * (j_ - i_)) / (n_ones * n_zeroes)
     return deltaauc_
