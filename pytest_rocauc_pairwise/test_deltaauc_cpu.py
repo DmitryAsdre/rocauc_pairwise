@@ -32,7 +32,7 @@ def compute_deltaauc_true_auc(y_true, y_pred, i, j):
 def compute_deltaauc_exact_true_auc(y_true, y_pred, i, j):
     auc_true = delta_auc_score(y_true, y_pred, i, j)
     
-    y_pred_argsorted = np.argsort(y_pred)[::-1]
+    y_pred_argsorted = np.argsort(y_pred)
     n_ones = np.sum(y_true)
     n_zeroes = len(y_true) - np.sum(y_true)
     
