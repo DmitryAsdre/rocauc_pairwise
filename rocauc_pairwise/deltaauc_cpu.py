@@ -50,5 +50,5 @@ def deltaauc(y_true,
              n_zeroes,
              i, j):
     i_, j_ = y_pred_ranks[i], y_pred_ranks[j]
-    deltaauc_ =  (y_true[i] - y_true[j]) * (i_ - j_) / (n_ones * n_zeroes)
+    deltaauc_ =  (y_true[i] - y_true[j]) * (j_ - i_) / (n_ones * n_zeroes)
     return deltaauc_
