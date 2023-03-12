@@ -128,4 +128,4 @@ dmypy.json
 # Pyre type checker
 .pyre/
 /build
-deltaauc_package_examples.ipynb
+./deltaauc_package_examples.ipynb
