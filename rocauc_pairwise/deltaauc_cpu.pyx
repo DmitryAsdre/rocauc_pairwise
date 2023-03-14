@@ -2,30 +2,30 @@ cimport numpy as np
 import numpy as np
 cimport cython
 
-ctypedef fused int_or_long:
+ctypedef fused int_t:
     np.int64_t
     np.int32_t
 
-ctypedef fused float_or_double:
+ctypedef fused float_t:
     np.float32_t
     np.float64_t
 
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
-def deltaauc_exact(int_or_long [::1] y_true,
-                   float_or_double [::1] y_pred,
+def deltaauc_exact(int_t [::1] y_true,
+                   float_t [::1] y_pred,
                    np.int32_t [::1] counters_p,
                    np.int32_t [::1] counters_n,
                    np.int32_t [::1] y_pred_left,
                    np.int32_t [::1] y_pred_right,
                    np.int32_t n_ones,
                    np.int32_t n_zeroes,
-                   int_or_long i, 
-                   int_or_long j):
+                   int_t i, 
+                   int_t j):
     cdef:
-        float_or_double ypredi = y_pred[i]
-        float_or_double ypredj = y_pred[j]
+        float_t ypredi = y_pred[i]
+        float_t ypredj = y_pred[j]
     
     if ypredi < ypredj:
         i, j = j, i
@@ -34,8 +34,8 @@ def deltaauc_exact(int_or_long [::1] y_true,
     ypredj = y_pred[j]
 
     cdef: 
-        int_or_long li = y_true[i]
-        int_or_long lj = y_true[j]
+        int_t li = y_true[i]
+        int_t lj = y_true[j]
 
 
         np.float64_t deltaji = lj - li
@@ -61,7 +61,7 @@ def deltaauc_exact(int_or_long [::1] y_true,
            
 @cython.boundscheck(False)
 @cython.wraparound(False)
-def deltaauc(int_or_long [::1] y_true,
+def deltaauc(int_t [::1] y_true,
              np.int64_t [::1] y_pred_ranks,
              np.int32_t n_ones,
              np.int32_t n_zeroes,

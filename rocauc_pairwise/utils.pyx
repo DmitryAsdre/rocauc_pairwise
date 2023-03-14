@@ -2,11 +2,11 @@ cimport numpy as np
 import numpy as np
 cimport cython
 
-ctypedef fused int_or_long:
+ctypedef fused int_t:
     np.int64_t
     np.int32_t
 
-ctypedef fused float_or_double:
+ctypedef fused float_t:
     np.float32_t
     np.float64_t
 
@@ -14,8 +14,8 @@ ctypedef fused float_or_double:
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
-def get_non_unique_labels_count(int_or_long [::1] y_true, 
-                                float_or_double [::1] y_pred, 
+def get_non_unique_labels_count(int_t [::1] y_true, 
+                                float_t [::1] y_pred, 
                                 np.int64_t [::1] y_pred_argsorted):
     cdef:
         np.int32_t counter_p = 0 
@@ -47,7 +47,7 @@ def get_non_unique_labels_count(int_or_long [::1] y_true,
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
-def get_non_unique_borders(float_or_double [::1] y_pred,
+def get_non_unique_borders(float_t [::1] y_pred,
                            np.int64_t [::1] y_pred_argsorted):
 
     cdef:
@@ -81,8 +81,8 @@ def get_non_unique_borders(float_or_double [::1] y_pred,
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
-def get_inverse_argsort(int_or_long [::1] y_true, 
-                        float_or_double [::1] y_pred):
+def get_inverse_argsort(int_t [::1] y_true, 
+                        float_t [::1] y_pred):
     cdef:
         np.int64_t [::1] y_pred_argsorted = np.argsort(y_pred)
         np.int64_t [::1] y_pred_ranks = np.zeros_like(y_true, dtype=np.int64)
@@ -95,8 +95,8 @@ def get_inverse_argsort(int_or_long [::1] y_true,
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
-def get_labelscount_borders(int_or_long [::1] y_true, 
-                            float_or_double [::1] y_pred,
+def get_labelscount_borders(int_t [::1] y_true, 
+                            float_t [::1] y_pred,
                             np.int64_t [::1] y_pred_argsorted):    
     cdef:
         np.int32_t[::1] counters_n
