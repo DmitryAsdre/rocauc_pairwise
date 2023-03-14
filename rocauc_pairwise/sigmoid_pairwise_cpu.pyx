@@ -35,23 +35,23 @@ def sigmoid_pairwise_loss(int_t [::1] y_true,
         np.uint32_t j = 0
         np.float64_t P_hat = 0.
         np.float64_t P = 0.
-        np.float64_t cur_log_loss = 0.
         np.uint32_t size = y_true.shape[0]
+
+        np.uint32_t P_GROSS = 13
+        np.uint32_t P_SMALL = 173
 
     
 
-    for i in range(size):#prange(size, nogil=True, schedule='dynamic', num_threads=num_threads):
-        for j in range(i + 1):
-            #P_hat = 0.5 *(y_true[i] - y_true[j]) + 0.5
+    for i in prange(size, nogil=True, schedule='dynamic', num_threads=num_threads):
+        i = (P_GROSS*i) % size
+        for j in range(i, -1, -1):
+            j = (P_SMALL*j) % (i + 1)
             if y_true[i] == y_true[j]:
                 P_hat = 0.5
             else:
                 P_hat = float(y_true[i] > y_true[j])
             P = 1.0 / (1.0 + (exp_pred[j] / exp_pred[i]))
-            cur_log_loss = P_hat*log(P + eps) + (1.0 - P_hat)*log(1.0 - P - eps)
-            #if i == j:
-            #    cur_log_loss *= 0.5
-            loss += cur_log_loss
+            loss += P_hat*log(P + eps) + (1.0 - P_hat)*log(1.0 - P - eps)
     return loss
 
 
@@ -91,7 +91,10 @@ def sigmoid_pairwise_diff_hess(int_t [::1] y_true,
         for j in range(i + 1, -1, -1):
             j = (P_GROSS * j) % (i + 1)
             exp_tmp_diff = exp_pred[i] / exp_pred[j]
-            P_hat = 0.5 *(y_true[i] - y_true[j]) + 0.5
+            if y_true[i] == y_true[j]:
+                P_hat = 0.5
+            else:
+                P_hat = float(y_true[i] > y_true[j])
             cur_d_dx_i = ((P_hat - 1.) * exp_tmp_diff + P_hat) / (exp_tmp_diff + 1.)
             cur_d_dx_j = - cur_d_dx_i
             cur_d2_dx2_i = -exp_pred[i]*exp_pred[j]*((exp_pred[j])/ (exp_tmp_diff + 1.)) ** 2
