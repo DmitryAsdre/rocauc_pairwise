@@ -1,5 +1,3 @@
-#import numpy as np
-#from libcpp.vector cimport vector
 cimport numpy as np
 import numpy as np
 cimport cython

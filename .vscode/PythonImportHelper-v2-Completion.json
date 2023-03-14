@@ -1,0 +1,342 @@
+[
+    {
+        "label": "deepcopy",
+        "importPath": "copy",
+        "description": "copy",
+        "isExtraImport": true,
+        "detail": "copy",
+        "documentation": {}
+    },
+    {
+        "label": "sys",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sys",
+        "description": "sys",
+        "detail": "sys",
+        "documentation": {}
+    },
+    {
+        "label": "numpy",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "numpy",
+        "description": "numpy",
+        "detail": "numpy",
+        "documentation": {}
+    },
+    {
+        "label": "roc_auc_score",
+        "importPath": "sklearn.metrics",
+        "description": "sklearn.metrics",
+        "isExtraImport": true,
+        "detail": "sklearn.metrics",
+        "documentation": {}
+    },
+    {
+        "label": "deltaauc",
+        "importPath": "rocauc_pairwise.deltaauc_cpu",
+        "description": "rocauc_pairwise.deltaauc_cpu",
+        "isExtraImport": true,
+        "detail": "rocauc_pairwise.deltaauc_cpu",
+        "documentation": {}
+    },
+    {
+        "label": "deltaauc_exact",
+        "importPath": "rocauc_pairwise.deltaauc_cpu",
+        "description": "rocauc_pairwise.deltaauc_cpu",
+        "isExtraImport": true,
+        "detail": "rocauc_pairwise.deltaauc_cpu",
+        "documentation": {}
+    },
+    {
+        "label": "get_inverse_argsort",
+        "importPath": "rocauc_pairwise.utils",
+        "description": "rocauc_pairwise.utils",
+        "isExtraImport": true,
+        "detail": "rocauc_pairwise.utils",
+        "documentation": {}
+    },
+    {
+        "label": "get_labelscount_borders",
+        "importPath": "rocauc_pairwise.utils",
+        "description": "rocauc_pairwise.utils",
+        "isExtraImport": true,
+        "detail": "rocauc_pairwise.utils",
+        "documentation": {}
+    },
+    {
+        "label": "get_non_unique_labels_count",
+        "importPath": "rocauc_pairwise.utils",
+        "description": "rocauc_pairwise.utils",
+        "isExtraImport": true,
+        "detail": "rocauc_pairwise.utils",
+        "documentation": {}
+    },
+    {
+        "label": "get_non_unique_borders",
+        "importPath": "rocauc_pairwise.utils",
+        "description": "rocauc_pairwise.utils",
+        "isExtraImport": true,
+        "detail": "rocauc_pairwise.utils",
+        "documentation": {}
+    },
+    {
+        "label": "get_labelscount_borders",
+        "importPath": "rocauc_pairwise.utils",
+        "description": "rocauc_pairwise.utils",
+        "isExtraImport": true,
+        "detail": "rocauc_pairwise.utils",
+        "documentation": {}
+    },
+    {
+        "label": "get_inverse_argsort",
+        "importPath": "rocauc_pairwise.utils",
+        "description": "rocauc_pairwise.utils",
+        "isExtraImport": true,
+        "detail": "rocauc_pairwise.utils",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "pyximport",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pyximport",
+        "description": "pyximport",
+        "detail": "pyximport",
+        "documentation": {}
+    },
+    {
+        "label": "jit",
+        "importPath": "numba",
+        "description": "numba",
+        "isExtraImport": true,
+        "detail": "numba",
+        "documentation": {}
+    },
+    {
+        "label": "delta_auc_score",
+        "kind": 2,
+        "importPath": "pytest_rocauc_pairwise.test_deltaauc_cpu",
+        "description": "pytest_rocauc_pairwise.test_deltaauc_cpu",
+        "peekOfCode": "def delta_auc_score(y_true, y_pred, i, j):\n    auc_1 = roc_auc_score(y_true, y_pred)\n    y_pred_ = deepcopy(y_pred)\n    y_pred_[i], y_pred_[j] = y_pred_[j], y_pred_[i]\n    auc_2 = roc_auc_score(y_true, y_pred_)\n    return auc_1 - auc_2\ndef compute_deltaauc_true_auc(y_true, y_pred, i, j):\n    auc_true = delta_auc_score(y_true, y_pred, i, j)\n    y_pred_ranks = get_inverse_argsort(y_true, y_pred)\n    n_ones = np.sum(y_true)",
+        "detail": "pytest_rocauc_pairwise.test_deltaauc_cpu",
+        "documentation": {}
+    },
+    {
+        "label": "compute_deltaauc_true_auc",
+        "kind": 2,
+        "importPath": "pytest_rocauc_pairwise.test_deltaauc_cpu",
+        "description": "pytest_rocauc_pairwise.test_deltaauc_cpu",
+        "peekOfCode": "def compute_deltaauc_true_auc(y_true, y_pred, i, j):\n    auc_true = delta_auc_score(y_true, y_pred, i, j)\n    y_pred_ranks = get_inverse_argsort(y_true, y_pred)\n    n_ones = np.sum(y_true)\n    n_zeroes = len(y_true) - np.sum(y_true)    \n    auc_deltaauc = deltaauc(y_true, y_pred_ranks, n_ones, n_zeroes, i, j)\n    return auc_true, auc_deltaauc\ndef compute_deltaauc_exact_true_auc(y_true, y_pred, i, j):\n    auc_true = delta_auc_score(y_true, y_pred, i, j)\n    y_pred_argsorted = np.argsort(y_pred)",
+        "detail": "pytest_rocauc_pairwise.test_deltaauc_cpu",
+        "documentation": {}
+    },
+    {
+        "label": "compute_deltaauc_exact_true_auc",
+        "kind": 2,
+        "importPath": "pytest_rocauc_pairwise.test_deltaauc_cpu",
+        "description": "pytest_rocauc_pairwise.test_deltaauc_cpu",
+        "peekOfCode": "def compute_deltaauc_exact_true_auc(y_true, y_pred, i, j):\n    auc_true = delta_auc_score(y_true, y_pred, i, j)\n    y_pred_argsorted = np.argsort(y_pred)\n    n_ones = np.sum(y_true)\n    n_zeroes = len(y_true) - np.sum(y_true)\n    counters_p, counters_n, y_pred_left, y_pred_right = get_labelscount_borders(y_true, y_pred, y_pred_argsorted)\n    auc_deltaauc_exact = deltaauc_exact(y_true, y_pred,\n                                        counters_n, counters_p,\n                                        y_pred_left, y_pred_right,\n                                        n_ones, n_zeroes, i, j)",
+        "detail": "pytest_rocauc_pairwise.test_deltaauc_cpu",
+        "documentation": {}
+    },
+    {
+        "label": "test_deltaauc_1",
+        "kind": 2,
+        "importPath": "pytest_rocauc_pairwise.test_deltaauc_cpu",
+        "description": "pytest_rocauc_pairwise.test_deltaauc_cpu",
+        "peekOfCode": "def test_deltaauc_1():\n    y_true = [0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1]\n    y_pred = [0.5, 0.5, 0.5, 0.1, 0.05, 0.02, 0.02, 0.02, 0.02, 0.02, 0.01]\n    y_pred = np.array(y_pred)\n    y_true = np.array(y_true)\n    auc_true, auc_deltaauc = compute_deltaauc_true_auc(y_true, y_pred, 4, 9)\n    assert np.abs(auc_deltaauc - auc_true) < 1e-5\ndef test_deltaauc_2():\n    y_true = [0, 1, 0, 1, 0, 1, 1, 0]\n    y_pred = [.5, .4, .3, .2, .1, .05, .02, .01]",
+        "detail": "pytest_rocauc_pairwise.test_deltaauc_cpu",
+        "documentation": {}
+    },
+    {
+        "label": "test_deltaauc_2",
+        "kind": 2,
+        "importPath": "pytest_rocauc_pairwise.test_deltaauc_cpu",
+        "description": "pytest_rocauc_pairwise.test_deltaauc_cpu",
+        "peekOfCode": "def test_deltaauc_2():\n    y_true = [0, 1, 0, 1, 0, 1, 1, 0]\n    y_pred = [.5, .4, .3, .2, .1, .05, .02, .01]\n    y_pred = np.array(y_pred)\n    y_true = np.array(y_true)\n    auc_true, auc_deltaauc = compute_deltaauc_true_auc(y_true, y_pred, 0, 6)\n    assert np.abs(auc_deltaauc - auc_true) < 1e-5\ndef test_deltaauc_3():\n    y_true = [0, 1, 0, 1, 0, 1, 1, 0]\n    y_pred = [.5, .4, .3, .2, .1, .05, .02, .01]",
+        "detail": "pytest_rocauc_pairwise.test_deltaauc_cpu",
+        "documentation": {}
+    },
+    {
+        "label": "test_deltaauc_3",
+        "kind": 2,
+        "importPath": "pytest_rocauc_pairwise.test_deltaauc_cpu",
+        "description": "pytest_rocauc_pairwise.test_deltaauc_cpu",
+        "peekOfCode": "def test_deltaauc_3():\n    y_true = [0, 1, 0, 1, 0, 1, 1, 0]\n    y_pred = [.5, .4, .3, .2, .1, .05, .02, .01]\n    y_pred = np.array(y_pred)\n    y_true = np.array(y_true)\n    auc_true, auc_deltaauc = compute_deltaauc_true_auc(y_true, y_pred, 0, 1)\n    assert np.abs(auc_deltaauc - auc_true) < 1e-5\ndef test_deltaauc_4():\n    y_true = [0, 1, 0, 1, 0, 1, 1, 0]\n    y_pred = [.5, .4, .3, .2, .1, .05, .02, .01]",
+        "detail": "pytest_rocauc_pairwise.test_deltaauc_cpu",
+        "documentation": {}
+    },
+    {
+        "label": "test_deltaauc_4",
+        "kind": 2,
+        "importPath": "pytest_rocauc_pairwise.test_deltaauc_cpu",
+        "description": "pytest_rocauc_pairwise.test_deltaauc_cpu",
+        "peekOfCode": "def test_deltaauc_4():\n    y_true = [0, 1, 0, 1, 0, 1, 1, 0]\n    y_pred = [.5, .4, .3, .2, .1, .05, .02, .01]\n    y_pred = np.array(y_pred)\n    y_true = np.array(y_true)\n    auc_true, auc_deltaauc = compute_deltaauc_true_auc(y_true, y_pred, 0, 7)\n    assert np.abs(auc_deltaauc - auc_true) < 1e-5\ndef test_deltaauc_5():\n    y_true = [0, 1, 0, 1, 0, 1, 1, 0]\n    y_pred = [.5, .4, .3, .2, .1, .05, .02, .01]",
+        "detail": "pytest_rocauc_pairwise.test_deltaauc_cpu",
+        "documentation": {}
+    },
+    {
+        "label": "test_deltaauc_5",
+        "kind": 2,
+        "importPath": "pytest_rocauc_pairwise.test_deltaauc_cpu",
+        "description": "pytest_rocauc_pairwise.test_deltaauc_cpu",
+        "peekOfCode": "def test_deltaauc_5():\n    y_true = [0, 1, 0, 1, 0, 1, 1, 0]\n    y_pred = [.5, .4, .3, .2, .1, .05, .02, .01]\n    y_pred = np.array(y_pred)\n    y_true = np.array(y_true)\n    auc_true, auc_deltaauc = compute_deltaauc_true_auc(y_true, y_pred, 1, 0)\n    assert np.abs(auc_deltaauc - auc_true) < 1e-5        \ndef test_deltaauc_exact_1():\n    y_true = [0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1]\n    y_pred = [0.5, 0.5, 0.5, 0.1, 0.05, 0.02, 0.02, 0.02, 0.02, 0.02, 0.01]",
+        "detail": "pytest_rocauc_pairwise.test_deltaauc_cpu",
+        "documentation": {}
+    },
+    {
+        "label": "test_deltaauc_exact_1",
+        "kind": 2,
+        "importPath": "pytest_rocauc_pairwise.test_deltaauc_cpu",
+        "description": "pytest_rocauc_pairwise.test_deltaauc_cpu",
+        "peekOfCode": "def test_deltaauc_exact_1():\n    y_true = [0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1]\n    y_pred = [0.5, 0.5, 0.5, 0.1, 0.05, 0.02, 0.02, 0.02, 0.02, 0.02, 0.01]\n    y_pred = np.array(y_pred)\n    y_true = np.array(y_true)\n    auc_true, auc_deltaauc_exact = compute_deltaauc_exact_true_auc(y_true, y_pred, 0, 8)\n    assert np.abs(auc_deltaauc_exact - auc_true) < 1e-5\ndef test_deltaauc_exact_2():\n    y_true = [0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1]\n    y_pred = [0.5, 0.5, 0.5, 0.1, 0.05, 0.02, 0.02, 0.02, 0.02, 0.02, 0.01]",
+        "detail": "pytest_rocauc_pairwise.test_deltaauc_cpu",
+        "documentation": {}
+    },
+    {
+        "label": "test_deltaauc_exact_2",
+        "kind": 2,
+        "importPath": "pytest_rocauc_pairwise.test_deltaauc_cpu",
+        "description": "pytest_rocauc_pairwise.test_deltaauc_cpu",
+        "peekOfCode": "def test_deltaauc_exact_2():\n    y_true = [0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1]\n    y_pred = [0.5, 0.5, 0.5, 0.1, 0.05, 0.02, 0.02, 0.02, 0.02, 0.02, 0.01]\n    y_pred = np.array(y_pred)\n    y_true = np.array(y_true)\n    auc_true, auc_deltaauc_exact = compute_deltaauc_exact_true_auc(y_true, y_pred, 8, 0)\n    assert np.abs(auc_deltaauc_exact - auc_true) < 1e-5\ndef test_deltaauc_exact_3():\n    y_true = [0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1]\n    y_pred = [0.5, 0.5, 0.5, 0.1, 0.05, 0.02, 0.02, 0.02, 0.02, 0.02, 0.01]",
+        "detail": "pytest_rocauc_pairwise.test_deltaauc_cpu",
+        "documentation": {}
+    },
+    {
+        "label": "test_deltaauc_exact_3",
+        "kind": 2,
+        "importPath": "pytest_rocauc_pairwise.test_deltaauc_cpu",
+        "description": "pytest_rocauc_pairwise.test_deltaauc_cpu",
+        "peekOfCode": "def test_deltaauc_exact_3():\n    y_true = [0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1]\n    y_pred = [0.5, 0.5, 0.5, 0.1, 0.05, 0.02, 0.02, 0.02, 0.02, 0.02, 0.01]\n    y_pred = np.array(y_pred)\n    y_true = np.array(y_true)\n    auc_true, auc_deltaauc_exact = compute_deltaauc_exact_true_auc(y_true, y_pred, 0, 2)\n    assert np.abs(auc_deltaauc_exact - auc_true) < 1e-5\ndef test_deltaauc_exact_4():\n    y_true = [0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1]\n    y_pred = [0.5, 0.5, 0.5, 0.1, 0.05, 0.02, 0.02, 0.02, 0.02, 0.02, 0.01]",
+        "detail": "pytest_rocauc_pairwise.test_deltaauc_cpu",
+        "documentation": {}
+    },
+    {
+        "label": "test_deltaauc_exact_4",
+        "kind": 2,
+        "importPath": "pytest_rocauc_pairwise.test_deltaauc_cpu",
+        "description": "pytest_rocauc_pairwise.test_deltaauc_cpu",
+        "peekOfCode": "def test_deltaauc_exact_4():\n    y_true = [0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1]\n    y_pred = [0.5, 0.5, 0.5, 0.1, 0.05, 0.02, 0.02, 0.02, 0.02, 0.02, 0.01]\n    y_pred = np.array(y_pred)\n    y_true = np.array(y_true)\n    auc_true, auc_deltaauc_exact = compute_deltaauc_exact_true_auc(y_true, y_pred, 0, 0)\n    assert np.abs(auc_deltaauc_exact - auc_true) < 1e-5\ndef test_deltaauc_exact_5():\n    y_true = [0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1]\n    y_pred = [0.5, 0.5, 0.5, 0.1, 0.05, 0.02, 0.02, 0.02, 0.02, 0.02, 0.01]",
+        "detail": "pytest_rocauc_pairwise.test_deltaauc_cpu",
+        "documentation": {}
+    },
+    {
+        "label": "test_deltaauc_exact_5",
+        "kind": 2,
+        "importPath": "pytest_rocauc_pairwise.test_deltaauc_cpu",
+        "description": "pytest_rocauc_pairwise.test_deltaauc_cpu",
+        "peekOfCode": "def test_deltaauc_exact_5():\n    y_true = [0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1]\n    y_pred = [0.5, 0.5, 0.5, 0.1, 0.05, 0.02, 0.02, 0.02, 0.02, 0.02, 0.01]\n    y_pred = np.array(y_pred)\n    y_true = np.array(y_true)\n    auc_true, auc_deltaauc_exact = compute_deltaauc_exact_true_auc(y_true, y_pred, 0, 2)\n    assert np.abs(auc_deltaauc_exact - auc_true) < 1e-5\ndef test_deltaauc_exact_6():\n    y_true = [0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1]\n    y_pred = [0.5, 0.5, 0.5, 0.1, 0.05, 0.02, 0.02, 0.02, 0.02, 0.02, 0.01]",
+        "detail": "pytest_rocauc_pairwise.test_deltaauc_cpu",
+        "documentation": {}
+    },
+    {
+        "label": "test_deltaauc_exact_6",
+        "kind": 2,
+        "importPath": "pytest_rocauc_pairwise.test_deltaauc_cpu",
+        "description": "pytest_rocauc_pairwise.test_deltaauc_cpu",
+        "peekOfCode": "def test_deltaauc_exact_6():\n    y_true = [0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1]\n    y_pred = [0.5, 0.5, 0.5, 0.1, 0.05, 0.02, 0.02, 0.02, 0.02, 0.02, 0.01]\n    y_pred = np.array(y_pred)\n    y_true = np.array(y_true)\n    auc_true, auc_deltaauc_exact = compute_deltaauc_exact_true_auc(y_true, y_pred, 3, 4)\n    assert np.abs(auc_deltaauc_exact - auc_true) < 1e-5",
+        "detail": "pytest_rocauc_pairwise.test_deltaauc_cpu",
+        "documentation": {}
+    },
+    {
+        "label": "test_get_inverse_argsort",
+        "kind": 2,
+        "importPath": "pytest_rocauc_pairwise.test_utils",
+        "description": "pytest_rocauc_pairwise.test_utils",
+        "peekOfCode": "def test_get_inverse_argsort():\n    inversed_argsort = get_inverse_argsort(y_true, y_pred)\n    sorted_array = []\n    for i in inversed_argsort:\n        sorted_array.append(y_pred[i])\n    sorted_array_numpy = np.sort(y_pred)[::-1]\n    assert (np.array(sorted_array) == sorted_array_numpy).all()\ndef test_get_non_unique_borders():\n    y_pred_argsorted = np.argsort(y_pred)#[::-1].copy()\n    y_pred_left, y_pred_right = get_non_unique_borders(y_pred, y_pred_argsorted)",
+        "detail": "pytest_rocauc_pairwise.test_utils",
+        "documentation": {}
+    },
+    {
+        "label": "test_get_non_unique_borders",
+        "kind": 2,
+        "importPath": "pytest_rocauc_pairwise.test_utils",
+        "description": "pytest_rocauc_pairwise.test_utils",
+        "peekOfCode": "def test_get_non_unique_borders():\n    y_pred_argsorted = np.argsort(y_pred)#[::-1].copy()\n    y_pred_left, y_pred_right = get_non_unique_borders(y_pred, y_pred_argsorted)\n    y_pred_left_true = [0, 0, 0, 3, 4, 5, 5, 5, 5, 5]\n    y_pred_right_true = [2, 2, 2, 3, 4, 9, 9, 9, 9, 9]\n    assert (np.array(y_pred_left_true) == y_pred_left).all()\n    assert (np.array(y_pred_right_true) == y_pred_right).all()\ndef test_get_non_unique_labels_count():\n    y_pred_argsorted = np.argsort(y_pred)\n    counters_p, counters_n = get_non_unique_labels_count(y_true, y_pred, y_pred_argsorted)",
+        "detail": "pytest_rocauc_pairwise.test_utils",
+        "documentation": {}
+    },
+    {
+        "label": "test_get_non_unique_labels_count",
+        "kind": 2,
+        "importPath": "pytest_rocauc_pairwise.test_utils",
+        "description": "pytest_rocauc_pairwise.test_utils",
+        "peekOfCode": "def test_get_non_unique_labels_count():\n    y_pred_argsorted = np.argsort(y_pred)\n    counters_p, counters_n = get_non_unique_labels_count(y_true, y_pred, y_pred_argsorted)\n    counters_p_true = [1, 1, 1, 1, 0, 3, 3, 3, 3, 3]\n    counters_n_true = [2, 2, 2, 0, 1, 2, 2, 2, 2, 2]\n    assert (np.array(counters_p_true) == counters_p).all()\n    assert (np.array(counters_n_true) == counters_n).all()\ndef test_get_labelscount_borders():\n    y_pred_argsorted = np.argsort(y_pred)#[::-1].copy()\n    counters_p, counters_n, y_pred_left, y_pred_right = get_labelscount_borders(y_true, y_pred, y_pred_argsorted)",
+        "detail": "pytest_rocauc_pairwise.test_utils",
+        "documentation": {}
+    },
+    {
+        "label": "test_get_labelscount_borders",
+        "kind": 2,
+        "importPath": "pytest_rocauc_pairwise.test_utils",
+        "description": "pytest_rocauc_pairwise.test_utils",
+        "peekOfCode": "def test_get_labelscount_borders():\n    y_pred_argsorted = np.argsort(y_pred)#[::-1].copy()\n    counters_p, counters_n, y_pred_left, y_pred_right = get_labelscount_borders(y_true, y_pred, y_pred_argsorted)\n    y_pred_left_true = [0, 0, 0, 3, 4, 5, 5, 5, 5, 5]\n    y_pred_right_true = [2, 2, 2, 3, 4, 9, 9, 9, 9, 9]\n    counters_p_true = [1, 1, 1, 1, 0, 3, 3, 3, 3, 3]\n    counters_n_true = [2, 2, 2, 0, 1, 2, 2, 2, 2, 2]\n    assert (np.array(y_pred_left_true) == y_pred_left).all()\n    assert (np.array(y_pred_right_true) == y_pred_right).all()\n    assert (np.array(counters_p_true) == counters_p).all()",
+        "detail": "pytest_rocauc_pairwise.test_utils",
+        "documentation": {}
+    },
+    {
+        "label": "os.environ[\"C_INCLUDE_PATH\"]",
+        "kind": 5,
+        "importPath": "pytest_rocauc_pairwise.test_utils",
+        "description": "pytest_rocauc_pairwise.test_utils",
+        "peekOfCode": "os.environ[\"C_INCLUDE_PATH\"] = np.get_include()\nimport pyximport\npyximport.install()\nimport numpy as np\nfrom rocauc_pairwise.utils import get_non_unique_labels_count\nfrom rocauc_pairwise.utils import get_non_unique_borders\nfrom rocauc_pairwise.utils import get_labelscount_borders\nfrom rocauc_pairwise.utils import get_inverse_argsort\ny_true = [0, 1, 0, 1, 0, 1, 1, 0, 1, 0]\ny_pred = [0.5, 0.5, 0.5, 0.1, 0.05, 0.02, 0.02, 0.02, 0.02, 0.02]",
+        "detail": "pytest_rocauc_pairwise.test_utils",
+        "documentation": {}
+    },
+    {
+        "label": "y_true",
+        "kind": 5,
+        "importPath": "pytest_rocauc_pairwise.test_utils",
+        "description": "pytest_rocauc_pairwise.test_utils",
+        "peekOfCode": "y_true = [0, 1, 0, 1, 0, 1, 1, 0, 1, 0]\ny_pred = [0.5, 0.5, 0.5, 0.1, 0.05, 0.02, 0.02, 0.02, 0.02, 0.02]\ny_pred = np.array(y_pred)\ny_true = np.array(y_true)\ndef test_get_inverse_argsort():\n    inversed_argsort = get_inverse_argsort(y_true, y_pred)\n    sorted_array = []\n    for i in inversed_argsort:\n        sorted_array.append(y_pred[i])\n    sorted_array_numpy = np.sort(y_pred)[::-1]",
+        "detail": "pytest_rocauc_pairwise.test_utils",
+        "documentation": {}
+    },
+    {
+        "label": "y_pred",
+        "kind": 5,
+        "importPath": "pytest_rocauc_pairwise.test_utils",
+        "description": "pytest_rocauc_pairwise.test_utils",
+        "peekOfCode": "y_pred = [0.5, 0.5, 0.5, 0.1, 0.05, 0.02, 0.02, 0.02, 0.02, 0.02]\ny_pred = np.array(y_pred)\ny_true = np.array(y_true)\ndef test_get_inverse_argsort():\n    inversed_argsort = get_inverse_argsort(y_true, y_pred)\n    sorted_array = []\n    for i in inversed_argsort:\n        sorted_array.append(y_pred[i])\n    sorted_array_numpy = np.sort(y_pred)[::-1]\n    assert (np.array(sorted_array) == sorted_array_numpy).all()",
+        "detail": "pytest_rocauc_pairwise.test_utils",
+        "documentation": {}
+    },
+    {
+        "label": "y_pred",
+        "kind": 5,
+        "importPath": "pytest_rocauc_pairwise.test_utils",
+        "description": "pytest_rocauc_pairwise.test_utils",
+        "peekOfCode": "y_pred = np.array(y_pred)\ny_true = np.array(y_true)\ndef test_get_inverse_argsort():\n    inversed_argsort = get_inverse_argsort(y_true, y_pred)\n    sorted_array = []\n    for i in inversed_argsort:\n        sorted_array.append(y_pred[i])\n    sorted_array_numpy = np.sort(y_pred)[::-1]\n    assert (np.array(sorted_array) == sorted_array_numpy).all()\ndef test_get_non_unique_borders():",
+        "detail": "pytest_rocauc_pairwise.test_utils",
+        "documentation": {}
+    },
+    {
+        "label": "y_true",
+        "kind": 5,
+        "importPath": "pytest_rocauc_pairwise.test_utils",
+        "description": "pytest_rocauc_pairwise.test_utils",
+        "peekOfCode": "y_true = np.array(y_true)\ndef test_get_inverse_argsort():\n    inversed_argsort = get_inverse_argsort(y_true, y_pred)\n    sorted_array = []\n    for i in inversed_argsort:\n        sorted_array.append(y_pred[i])\n    sorted_array_numpy = np.sort(y_pred)[::-1]\n    assert (np.array(sorted_array) == sorted_array_numpy).all()\ndef test_get_non_unique_borders():\n    y_pred_argsorted = np.argsort(y_pred)#[::-1].copy()",
+        "detail": "pytest_rocauc_pairwise.test_utils",
+        "documentation": {}
+    },
+    {
+        "label": "sigmoid_pairwise",
+        "kind": 2,
+        "importPath": "rocauc_pairwise.pairwise_sigmoid_cpu",
+        "description": "rocauc_pairwise.pairwise_sigmoid_cpu",
+        "peekOfCode": "def sigmoid_pairwise(exp_pred, y_true, y_pre)",
+        "detail": "rocauc_pairwise.pairwise_sigmoid_cpu",
+        "documentation": {}
+    }
+]
