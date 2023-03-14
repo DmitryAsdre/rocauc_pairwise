@@ -53,5 +53,6 @@ def test_squared(float_or_double [::1] y_pred):
         np.int64_t j = 0
 
     for i in prange(size**2, nogil=True, schedule='dynamic', num_threads=12):
+        
         ssum += sin(y_pred[i%size] + y_pred[j//size])
     return ssum
