@@ -129,3 +129,4 @@ dmypy.json
 .pyre/
 /build
 ./deltaauc_package_examples.ipynb
+/.vscode

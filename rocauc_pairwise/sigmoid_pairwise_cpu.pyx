@@ -9,9 +9,6 @@ from libc.stdlib cimport malloc, free
 from libcpp cimport bool
 
 
-
-
-
 ctypedef fused int_t:
     np.int64_t
     np.int32_t
@@ -37,15 +34,10 @@ def sigmoid_pairwise_loss(int_t [::1] y_true,
         np.float64_t P = 0.
         np.uint32_t size = y_true.shape[0]
 
-        np.uint32_t P_GROSS = 13
-        np.uint32_t P_SMALL = 173
-
     
 
-    for i in prange(size, nogil=True, schedule='dynamic', num_threads=num_threads):
-        i = (P_GROSS*i) % size
+    for i in prange(size, nogil=True, schedule='static', num_threads=num_threads):
         for j in range(i, -1, -1):
-            j = (P_SMALL*j) % (i + 1)
             if y_true[i] == y_true[j]:
                 P_hat = 0.5
             else:
@@ -77,27 +69,22 @@ def sigmoid_pairwise_diff_hess(int_t [::1] y_true,
 
         np.float64_t P_hat = 0.
 
-        np.uint32_t P_GROSS = 13
-        np.uint32_t P_SMALL = 173
-
         np.float64_t [::1] grad = np.zeros([size,], dtype=np.float64)
         np.float64_t [::1] hess = np.zeros([size,], dtype=np.float64)
  
     for l in range(size):
         openmp.omp_init_lock(&(locks[l]))
 
-    for i in prange(size, nogil=True, schedule='dynamic', num_threads=num_threads):
-        i = (P_SMALL * i) % size
-        for j in range(i + 1, -1, -1):
-            j = (P_GROSS * j) % (i + 1)
+    for i in prange(size, nogil=True, schedule='static', num_threads=num_threads):
+        for j in range(i + 1):
             exp_tmp_diff = exp_pred[i] / exp_pred[j]
             if y_true[i] == y_true[j]:
                 P_hat = 0.5
             else:
                 P_hat = float(y_true[i] > y_true[j])
             cur_d_dx_i = ((P_hat - 1.) * exp_tmp_diff + P_hat) / (exp_tmp_diff + 1.)
-            cur_d_dx_j = - cur_d_dx_i
-            cur_d2_dx2_i = -exp_pred[i]*exp_pred[j]*((exp_pred[j])/ (exp_tmp_diff + 1.)) ** 2
+            cur_d_dx_j = -cur_d_dx_i
+            cur_d2_dx2_i = (-exp_pred[i]*exp_pred[j]) / (exp_pred[i] + exp_pred[j])**2
             cur_d2_dx2_j = cur_d2_dx2_i
 
             openmp.omp_set_lock(&(locks[j]))
@@ -106,8 +93,8 @@ def sigmoid_pairwise_diff_hess(int_t [::1] y_true,
             openmp.omp_unset_lock(&(locks[j]))
         
             openmp.omp_set_lock(&(locks[i]))
-            grad[i] += cur_d2_dx2_i
-            hess[i] += cur_d2_dx2_j
+            grad[i] += cur_d_dx_i
+            hess[i] += cur_d2_dx2_i
             openmp.omp_unset_lock(&(locks[i]))
     free(locks)
 
