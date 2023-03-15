@@ -37,7 +37,15 @@ def sigmoid_pairwise_loss(int_t [::1] y_true,
     
 
     for i in prange(size, nogil=True, schedule='static', num_threads=num_threads):
+        if i % 2 == 1:
+            i = size - i//2 - 1
+        else:
+            i = i // 2
         for j in range(i, -1, -1):
+            if j % 2 == 1:
+                j = (i + 1) - j//2 - 1
+            else:
+                j = j // 2
             if y_true[i] == y_true[j]:
                 P_hat = 0.5
             else:
@@ -71,12 +79,22 @@ def sigmoid_pairwise_diff_hess(int_t [::1] y_true,
 
         np.float64_t [::1] grad = np.zeros([size,], dtype=np.float64)
         np.float64_t [::1] hess = np.zeros([size,], dtype=np.float64)
+
+        np.uint32_t P = 0
  
     for l in range(size):
         openmp.omp_init_lock(&(locks[l]))
 
     for i in prange(size, nogil=True, schedule='static', num_threads=num_threads):
+        if i % 2 == 1:
+            i = size - i//2 - 1
+        else:
+            i = i // 2
         for j in range(i + 1):
+            if j % 2 == 1:
+                j = (i + 1) - j//2 - 1
+            else:
+                j = j // 2
             exp_tmp_diff = exp_pred[i] / exp_pred[j]
             if y_true[i] == y_true[j]:
                 P_hat = 0.5
