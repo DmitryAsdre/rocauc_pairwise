@@ -130,3 +130,4 @@ dmypy.json
 /build
 ./deltaauc_package_examples.ipynb
 /.vscode
+/test_copy.ipynb

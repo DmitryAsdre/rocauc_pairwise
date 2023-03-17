@@ -87,6 +87,17 @@ def test_deltaauc_4():
     
     assert np.abs(auc_deltaauc - auc_true) < 1e-5
 
+def test_deltaauc_unique():
+    y_true = np.array([i%2 for i in range(1, 9)], dtype=np.int64)
+    y_pred = np.array([np.log(i) for i in range(1, 9)], dtype=np.float64)
+    permutation = [0, 1, 2, 3, 5, 6, 7, 4]
+    y_pred = y_pred[permutation]
+    for i in range(8):
+        for j in range(8):
+            auc_true, auc_deltaauc = compute_deltaauc_true_auc(y_true, y_pred, i, j)
+    
+            assert np.abs(auc_deltaauc - auc_true) < 1e-5
+
 def test_deltaauc_5():
     y_true = [0, 1, 0, 1, 0, 1, 1, 0]
     y_pred = [.5, .4, .3, .2, .1, .05, .02, .01]

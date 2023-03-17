@@ -1,6 +1,4 @@
 import numpy as np
-import sys
-#sys.path.append('../')
 
 from rocauc_pairwise.sigmoid_pairwise_cpu import sigmoid_pairwise_loss
 from rocauc_pairwise.sigmoid_pairwise_cpu import sigmoid_pairwise_diff_hess
@@ -46,6 +44,7 @@ def test_sigmoid_pairwise_loss_4x4_ranking():
     log_loss_ = sigmoid_pairwise_loss(y_true, np.exp(y_pred), 1)
 
     assert np.abs(log_loss_true - log_loss_) < 1e-5
+
 
 
 def test_sigmoid_pairwise_all_zeros():
