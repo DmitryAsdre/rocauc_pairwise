@@ -5,8 +5,8 @@ sys.path.append('../')
 import numpy as np
 from sklearn.metrics import roc_auc_score
 
-from rocauc_pairwise.deltaauc_cpu import deltaauc
-from rocauc_pairwise.deltaauc_cpu import deltaauc_exact
+from rocauc_pairwise.deltaauc_cpu import deltaauc_wrapper as deltaauc
+from rocauc_pairwise.deltaauc_cpu import deltaauc_exact_wrapper as deltaauc_exact
 
 from rocauc_pairwise.utils import get_inverse_argsort
 from rocauc_pairwise.utils import get_labelscount_borders

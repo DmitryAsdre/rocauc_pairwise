@@ -1,28 +1,22 @@
 cimport numpy as np
 import numpy as np
 cimport cython
+from libc.stdlib cimport abs
 
-ctypedef fused int_t:
-    np.int64_t
-    np.int32_t
-
-ctypedef fused float_t:
-    np.float32_t
-    np.float64_t
 
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
-def deltaauc_exact(int_t [::1] y_true,
-                   float_t [::1] y_pred,
-                   np.int32_t [::1] counters_p,
-                   np.int32_t [::1] counters_n,
-                   np.int32_t [::1] y_pred_left,
-                   np.int32_t [::1] y_pred_right,
-                   np.int32_t n_ones,
-                   np.int32_t n_zeroes,
-                   int_t i, 
-                   int_t j):
+cdef np.float64_t deltaauc_exact(int_t [::1] y_true,
+                                 float_t [::1] y_pred,
+                                 np.int32_t [::1] counters_p,
+                                 np.int32_t [::1] counters_n,
+                                 np.int32_t [::1] y_pred_left,
+                                 np.int32_t [::1] y_pred_right,
+                                 np.int32_t n_ones,
+                                 np.int32_t n_zeroes,
+                                 int_t i, 
+                                 int_t j) nogil:
     cdef:
         float_t ypredi = y_pred[i]
         float_t ypredj = y_pred[j]
@@ -58,19 +52,48 @@ def deltaauc_exact(int_t [::1] y_true,
         multiplicate *= 0
 
     return multiplicate * (delta_eq + deltai + deltaj - deltaji * abs(y_pred_right[i] - y_pred_left[j])) / (n_ones * n_zeroes)
+
+@cython.boundscheck(False)
+@cython.wraparound(False)
+def deltaauc_exact_wrapper (int_t [::1] y_true,
+                            float_t [::1] y_pred,
+                            np.int32_t [::1] counters_p,
+                            np.int32_t [::1] counters_n,
+                            np.int32_t [::1] y_pred_left,
+                            np.int32_t [::1] y_pred_right,
+                            np.int32_t n_ones,
+                            np.int32_t n_zeroes,
+                            int_t i, 
+                            int_t j):
+
+    return deltaauc_exact(y_true, y_pred, 
+                          counters_p, counters_n, 
+                          y_pred_left, y_pred_right, 
+                          n_ones, n_zeroes, i, j)
            
 @cython.boundscheck(False)
 @cython.wraparound(False)
-def deltaauc(int_t [::1] y_true,
-             np.int64_t [::1] y_pred_ranks,
-             np.int32_t n_ones,
-             np.int32_t n_zeroes,
-             np.int32_t i, np.int32_t j):
+cdef np.float64_t deltaauc(int_t [::1] y_true,
+                        np.int64_t [::1] y_pred_ranks,
+                        np.int32_t n_ones,
+                        np.int32_t n_zeroes,
+                        np.int32_t i, np.int32_t j) nogil:
     cdef:
         np.float64_t i_ = 0
         np.float64_t j_ = 0
+        np.float64_t deltaauc_ = 0.
 
     i_, j_ = y_pred_ranks[i], y_pred_ranks[j]
 
     deltaauc_ =  ((y_true[i] - y_true[j]) * (j_ - i_)) / (n_ones * n_zeroes)
     return deltaauc_
+
+@cython.boundscheck(False)
+@cython.wraparound(False)
+def deltaauc_wrapper(int_t [::1] y_true,
+                     np.int64_t [::1] y_pred_ranks,
+                     np.int32_t n_ones,
+                     np.int32_t n_zeroes,
+                     np.int32_t i, np.int32_t j):
+    return deltaauc(y_true, y_pred_ranks, n_ones, n_zeroes, i, j) 
+
