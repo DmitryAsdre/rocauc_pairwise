@@ -35,7 +35,7 @@ std::pair<int*, int*> get_non_unique_labels_count(int * y_true, T * y_pred, long
         }
     }
     
-    return std::make_pair<int*, int*>(counters_p, counters_n);
+    return std::make_pair<int*, int*>(&*counters_p, &*counters_n);
 }
 
 template<typename T> 
@@ -71,7 +71,7 @@ std::pair<int*, int*> get_non_unique_borders(T * y_pred, long * y_pred_argsorted
         }
     }
     
-    std::make_pair<int*, int*>(y_pred_left, y_pred_right);
+    std::make_pair<int*, int*>(&*y_pred_left, &*y_pred_right);
 }
 
 template<typename T>
@@ -79,7 +79,7 @@ std::tuple<int*, int*, int*, int*> get_labelscount_borders(int * y_true, T * y_p
     std::pair<int*, int*> counters = get_non_unique_labels_count<T>(y_true, y_pred, y_pred_argsorted, N);
     std::pair<int*, int*> y_pred_sides = get_non_unique_borders<T>(y_pred, y_pred_argsorted, N);
 
-    return std::make_tuple<int*, int*, int*, int*>(counters.first, counters.second, y_pred_sides.first, y_pred_sides.second);
+    return std::make_tuple<int*, int*, int*, int*>(&*(counters.first), &*(counters.second), &*(y_pred_sides.first), &*(y_pred_sides.second));
 }
 
 template<typename T>
