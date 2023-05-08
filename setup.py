@@ -106,7 +106,7 @@ except AttributeError:
     numpy_include = numpy.get_numpy_include()
 
 
-ext = Extension('test_add_python',
+ext = Extension('roc_auc_pairwise',
         sources = ['src/cython/utils.pyx', 'src/cpu/utils.cpp'],
         library_dirs = [CUDA['lib64']],
         libraries = ['cudart'],
@@ -117,13 +117,13 @@ ext = Extension('test_add_python',
         # and not with gcc the implementation of this trick is in
         # customize_compiler()
         extra_compile_args= {
-            'gcc': ['-fopenmp'],
+            'gcc': ['-fopenmp', '-lstdc++'],
             'nvcc': ['--ptxas-options=-v', '-c',
                 '--compiler-options', "'-fPIC'"
                 ]
             },
-        extra_link_args= ['-fopenmp'],
-            include_dirs = [numpy_include, CUDA['include'], 'src']
+        extra_link_args= ['-fopenmp', '-lstdc++'],
+        include_dirs = [numpy_include, CUDA['include'], 'src']
         )
 
 

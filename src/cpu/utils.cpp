@@ -5,8 +5,8 @@
 #include <tuple>
 #include "utils.hpp"
 
-template <typename T>
-std::pair<int*, int*> get_non_unique_labels_count(int * y_true, T * y_pred, long * y_pred_argsorted, size_t N){
+template <class T_true, class T_pred, class T_argsorted>
+std::pair<int*, int*> get_non_unique_labels_count(T_true* y_true, T_pred* y_pred, T_argsorted* y_pred_argsorted, size_t N){
     int counter_p(0), counter_n(0);
     int l_pointer(0), r_pointer(0);
 
@@ -38,8 +38,8 @@ std::pair<int*, int*> get_non_unique_labels_count(int * y_true, T * y_pred, long
     return std::make_pair<int*, int*>(&*counters_p, &*counters_n);
 }
 
-template<typename T> 
-std::pair<int*, int*> get_non_unique_borders(T * y_pred, long * y_pred_argsorted, size_t N){
+template<class T_pred, class T_argsorted> 
+std::pair<int*, int*> get_non_unique_borders(T_pred* y_pred, T_argsorted* y_pred_argsorted, size_t N){
     int left_p(0), right_p(0), j(0), s(0);
 
     int * y_pred_left = new int[N];
@@ -71,19 +71,19 @@ std::pair<int*, int*> get_non_unique_borders(T * y_pred, long * y_pred_argsorted
         }
     }
     
-    std::make_pair<int*, int*>(&*y_pred_left, &*y_pred_right);
+    return std::make_pair<int*, int*>(&*y_pred_left, &*y_pred_right);
 }
 
-template<typename T>
-std::tuple<int*, int*, int*, int*> get_labelscount_borders(int * y_true, T * y_pred, long * y_pred_argsorted, size_t N){
-    std::pair<int*, int*> counters = get_non_unique_labels_count<T>(y_true, y_pred, y_pred_argsorted, N);
-    std::pair<int*, int*> y_pred_sides = get_non_unique_borders<T>(y_pred, y_pred_argsorted, N);
+template<class T_true, class T_pred, class T_argsorted>
+std::tuple<int*, int*, int*, int*> get_labelscount_borders(T_true* y_true, T_pred* y_pred, T_argsorted* y_pred_argsorted, size_t N){
+    std::pair<int*, int*> counters = get_non_unique_labels_count<T_true, T_pred, T_argsorted>(y_true, y_pred, y_pred_argsorted, N);
+    std::pair<int*, int*> y_pred_sides = get_non_unique_borders<T_pred, T_argsorted>(y_pred, y_pred_argsorted, N);
 
     return std::make_tuple<int*, int*, int*, int*>(&*(counters.first), &*(counters.second), &*(y_pred_sides.first), &*(y_pred_sides.second));
 }
 
-template<typename T>
-long * get_inverse_argsort(int * y_true, T * y_pred, long * y_pred_argsorted, size_t N){
+template<class T_true, class T_pred, class T_argsorted>
+long * get_inverse_argsort(T_true* y_true, T_pred* y_pred, T_argsorted* y_pred_argsorted, size_t N){
     long * y_pred_ranks = new long[N];
     memset((void*)y_pred_ranks, 0, N*sizeof(long));
 
