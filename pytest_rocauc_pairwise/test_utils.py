@@ -50,7 +50,7 @@ def test_get_non_unique_labels_count():
     
     assert (np.array(counters_p_true) == counters_p).all()
     assert (np.array(counters_n_true) == counters_n).all()
-    
+        
 def test_get_labelscount_borders():
     y_pred_argsorted = np.argsort(y_pred)#[::-1].copy()
     

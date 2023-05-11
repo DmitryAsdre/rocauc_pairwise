@@ -3,10 +3,7 @@ np.import_array()
 import numpy as np
 cimport cython
 from libcpp.utility cimport pair
-
-cdef extern from '../cpu/tuple.hpp':
-    cdef cppclass tuple_4[T_1, T_2, T_3, T_4]:
-        pass
+from libc.stdint cimport int32_t
 
 ctypedef fused int_t:
     np.int64_t
@@ -20,11 +17,12 @@ ctypedef fused float_t:
     np.float32_t
     np.float64_t
 
-cdef extern from '../cpu/utils.cpp':
+
+cdef extern from '../src/cpu/utils.cpp':
     pair[int*, int*] get_non_unique_labels_count[T_true, T_pred, T_argsorted](T_true* y_true, T_pred* y_pred, T_argsorted* y_pred_argsorted, size_t N)
     pair[int*, int*] get_non_unique_borders[T_pred, T_argsorted](T_pred* y_pred, T_argsorted* y_pred_argsorted, size_t N)
-    tuple_4[int*, int*, int*, int*] get_labelscount_borders[T_true, T_pred, T_argsorted](T_true* y_true, T_pred* y_pred, T_argsorted* y_pred_argsorted, size_t N)
     long* get_inverse_argsort[T_true, T_pred, T_argsorted](T_true* y_true, T_pred* y_pred, T_argsorted* y_pred_argsorted, size_t N)
+
 
 
 @cython.boundscheck(False)

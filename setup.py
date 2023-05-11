@@ -106,8 +106,8 @@ except AttributeError:
     numpy_include = numpy.get_numpy_include()
 
 
-ext = Extension('roc_auc_pairwise',
-        sources = ['src/cython/utils.pyx', 'src/cpu/utils.cpp'],
+exts = [Extension('roc_auc_pairwise.utils',
+        sources = ['roc_auc_pairwise/utils.pyx', 'src/cpu/utils.cpp'],
         library_dirs = [CUDA['lib64']],
         libraries = ['cudart'],
         language = 'c++',
@@ -124,7 +124,45 @@ ext = Extension('roc_auc_pairwise',
             },
         extra_link_args= ['-fopenmp', '-lstdc++'],
         include_dirs = [numpy_include, CUDA['include'], 'src']
-        )
+        ),
+        Extension('roc_auc_pairwise.deltaauc_cpu',
+        sources = ['roc_auc_pairwise/deltaauc_cpu.pyx', 'src/cpu/deltaauc.cpp'],
+        library_dirs = [CUDA['lib64']],
+        libraries = ['cudart'],
+        language = 'c++',
+        runtime_library_dirs = [CUDA['lib64']],
+        # This syntax is specific to this build system
+        # we're only going to use certain compiler args with nvcc
+        # and not with gcc the implementation of this trick is in
+        # customize_compiler()
+        extra_compile_args= {
+            'gcc': ['-fopenmp', '-lstdc++'],
+            'nvcc': ['--ptxas-options=-v', '-c',
+                '--compiler-options', "'-fPIC'"
+                ]
+            },
+        extra_link_args= ['-fopenmp', '-lstdc++'],
+        include_dirs = [numpy_include, CUDA['include'], 'src']
+        ),
+        Extension('roc_auc_pairwise.sigmoid_pairwise_cpu',
+        sources = ['roc_auc_pairwise/sigmoid_pairwise_cpu.pyx', 'src/cpu/sigmoid_pairwise.cpp'],
+        library_dirs = [CUDA['lib64']],
+        libraries = ['cudart'],
+        language = 'c++',
+        runtime_library_dirs = [CUDA['lib64']],
+        # This syntax is specific to this build system
+        # we're only going to use certain compiler args with nvcc
+        # and not with gcc the implementation of this trick is in
+        # customize_compiler()
+        extra_compile_args= {
+            'gcc': ['-fopenmp', '-lstdc++'],
+            'nvcc': ['--ptxas-options=-v', '-c',
+                '--compiler-options', "'-fPIC'"
+                ]
+            },
+        extra_link_args= ['-fopenmp', '-lstdc++'],
+        include_dirs = [numpy_include, CUDA['include'], 'src'])
+        ]
 
 
 
@@ -133,7 +171,7 @@ setup(name = 'roc_auc_pairwise',
       author = 'Dmitry Michaylin',
       version = '0.1',
 
-      ext_modules = [ext],
+      ext_modules = exts,
 
       # Inject our custom trigger
       cmdclass = {'build_ext': custom_build_ext},

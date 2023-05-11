@@ -6,15 +6,15 @@
 #include "utils.hpp"
 
 template <class T_true, class T_pred, class T_argsorted>
-std::pair<int*, int*> get_non_unique_labels_count(T_true* y_true, T_pred* y_pred, T_argsorted* y_pred_argsorted, size_t N){
-    int counter_p(0), counter_n(0);
-    int l_pointer(0), r_pointer(0);
+std::pair<int32_t*, int32_t*> get_non_unique_labels_count(T_true* y_true, T_pred* y_pred, T_argsorted* y_pred_argsorted, size_t N){
+    int32_t counter_p(0), counter_n(0);
+    int32_t l_pointer(0), r_pointer(0);
 
-    int * counters_p = new int[N];
-    int * counters_n = new int[N];
+    int32_t * counters_p = new int32_t[N];
+    int32_t * counters_n = new int32_t[N];
 
-    memset((void*) counters_p, 0, N*sizeof(int));
-    memset((void*) counters_n, 0, N*sizeof(int));
+    memset((void*) counters_p, 0, N*sizeof(int32_t));
+    memset((void*) counters_n, 0, N*sizeof(int32_t));
 
     for(r_pointer = 0; r_pointer < N; r_pointer++){
         if(y_true[y_pred_argsorted[r_pointer]] == 1)
@@ -35,18 +35,18 @@ std::pair<int*, int*> get_non_unique_labels_count(T_true* y_true, T_pred* y_pred
         }
     }
     
-    return std::make_pair<int*, int*>(&*counters_p, &*counters_n);
+    return std::make_pair<int32_t*, int32_t*>(&*counters_p, &*counters_n);
 }
 
 template<class T_pred, class T_argsorted> 
-std::pair<int*, int*> get_non_unique_borders(T_pred* y_pred, T_argsorted* y_pred_argsorted, size_t N){
-    int left_p(0), right_p(0), j(0), s(0);
+std::pair<int32_t*, int32_t*> get_non_unique_borders(T_pred* y_pred, T_argsorted* y_pred_argsorted, size_t N){
+    int32_t left_p(0), right_p(0), j(0), s(0);
 
-    int * y_pred_left = new int[N];
-    int * y_pred_right = new int[N];
+    int32_t * y_pred_left = new int32_t[N];
+    int32_t * y_pred_right = new int32_t[N];
 
-    memset((void*)y_pred_left, 0, N*sizeof(int));
-    memset((void*)y_pred_right, 0, N*sizeof(int));
+    memset((void*)y_pred_left, 0, N*sizeof(int32_t));
+    memset((void*)y_pred_right, 0, N*sizeof(int32_t));
 
     for(j = 0; j < N; j++){
         s = N - j - 1;
@@ -71,15 +71,15 @@ std::pair<int*, int*> get_non_unique_borders(T_pred* y_pred, T_argsorted* y_pred
         }
     }
     
-    return std::make_pair<int*, int*>(&*y_pred_left, &*y_pred_right);
+    return std::make_pair<int32_t*, int32_t*>(&*y_pred_left, &*y_pred_right);
 }
 
 template<class T_true, class T_pred, class T_argsorted>
-std::tuple<int*, int*, int*, int*> get_labelscount_borders(T_true* y_true, T_pred* y_pred, T_argsorted* y_pred_argsorted, size_t N){
-    std::pair<int*, int*> counters = get_non_unique_labels_count<T_true, T_pred, T_argsorted>(y_true, y_pred, y_pred_argsorted, N);
-    std::pair<int*, int*> y_pred_sides = get_non_unique_borders<T_pred, T_argsorted>(y_pred, y_pred_argsorted, N);
+std::tuple<int32_t*, int32_t*, int32_t*, int32_t*> get_labelscount_borders(T_true* y_true, T_pred* y_pred, T_argsorted* y_pred_argsorted, size_t N){
+    std::pair<int32_t*, int32_t*> counters = get_non_unique_labels_count<T_true, T_pred, T_argsorted>(y_true, y_pred, y_pred_argsorted, N);
+    std::pair<int32_t*, int32_t*> y_pred_sides = get_non_unique_borders<T_pred, T_argsorted>(y_pred, y_pred_argsorted, N);
 
-    return std::make_tuple<int*, int*, int*, int*>(&*(counters.first), &*(counters.second), &*(y_pred_sides.first), &*(y_pred_sides.second));
+    return std::make_tuple<int32_t*, int32_t*, int32_t*, int32_t*>(&*(counters.first), &*(counters.second), &*(y_pred_sides.first), &*(y_pred_sides.second));
 }
 
 template<class T_true, class T_pred, class T_argsorted>

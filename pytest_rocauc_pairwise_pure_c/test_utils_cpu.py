@@ -1,8 +1,8 @@
 import numpy as np
 
-from roc_auc_pairwise import get_non_unique_labels_count_py
-from roc_auc_pairwise import get_non_unique_borders_py
-from roc_auc_pairwise import get_inverse_argsort_py
+from roc_auc_pairwise.utils import get_non_unique_labels_count_py
+from roc_auc_pairwise.utils import get_non_unique_borders_py
+from roc_auc_pairwise.utils import get_inverse_argsort_py
 
 def test_get_inverse_argsort():
     y_true = [0, 1, 0, 1, 0, 1, 1, 0, 1, 0]

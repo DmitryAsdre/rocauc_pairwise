@@ -8,13 +8,13 @@
 #include <tuple>
 
 template <class T_true, class T_pred, class T_argsorted>
-std::pair<int*, int*> get_non_unique_labels_count(T_true* y_true, T_pred* y_pred, T_argsorted* y_pred_argsorted, size_t N);
+std::pair<int32_t*, int32_t*> get_non_unique_labels_count(T_true* y_true, T_pred* y_pred, T_argsorted* y_pred_argsorted, size_t N);
 
 template<class T_pred, class T_argsorted> 
-std::pair<int*, int*> get_non_unique_borders(T_pred* y_pred, T_argsorted* y_pred_argsorted, size_t N);
+std::pair<int32_t*, int32_t*> get_non_unique_borders(T_pred* y_pred, T_argsorted* y_pred_argsorted, size_t N);
 
 template<class T_true, class T_pred, class T_argsorted>
-std::tuple<int*, int*, int*, int*> get_labelscount_borders(T_true* y_true, T_pred* y_pred, T_argsorted* y_pred_argsorted, size_t N);
+std::tuple<int32_t*, int32_t*, int32_t*, int32_t*> get_labelscount_borders(T_true* y_true, T_pred* y_pred, T_argsorted* y_pred_argsorted, size_t N);
 
 template<class T_true, class T_pred, class T_argsorted>
 long* get_inverse_argsort(T_true* y_true, T_pred* y_pred, T_argsorted* y_pred_argsorted, size_t N);
