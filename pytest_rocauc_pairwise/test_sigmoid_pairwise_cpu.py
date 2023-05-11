@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 
 from rocauc_pairwise.sigmoid_pairwise_cpu import sigmoid_pairwise_loss
 from rocauc_pairwise.sigmoid_pairwise_cpu import sigmoid_pairwise_diff_hess
@@ -86,7 +87,23 @@ def test_sigmoid_pairwise_all_ones_big():
     log_loss_ = sigmoid_pairwise_loss(y_true, np.exp(y_pred), 6)
 
     assert np.abs(log_loss_true - log_loss_) < 1e-5
-
+    
+    
+def test_sigmoid_non_unique_8_parquet():
+    """Test sigmoid loss for non unique 8 len y_true"""
+    
+    df = pd.read_parquet('./tests_non_unique_8.parquet')
+    
+    for i in df.shape[0]:
+        y_true = df.iloc[i].y_true
+        y_pred = df.iloc[i].y_pred
+        sigm_loss = df.iloc[i].loss_sigm
+        
+        sigm_loss_ = sigmoid_pairwise_loss_py(y_true, y_pred)
+        
+        
+        assert np.abs(sigm_loss_ - sigm_loss) < 1e-5
+        
 
 def test_sigmoid_pairwise_hess_grad_one_thread():
     """Test hess and grad function in one thread"""

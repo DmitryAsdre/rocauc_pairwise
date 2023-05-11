@@ -36,7 +36,7 @@ std::pair<double*, double*> sigmoid_pairwise_diff_hess(T_true* y_true, T_pred* e
     #pragma omp parallel for
         for(size_t i = 0; i < N; i++){
             size_t _i = (i % 2 == 1) ? N - size_t(i / 2) - 1 : size_t(i / 2);
-            for(size_t j = 0; j < _i + 1; j++){
+            for(size_t j = 0; j < _i; j++){
                 double exp_tmp_diff = exp_pred[_i] / exp_pred[j];
                 double P_hat = (y_true[_i] == y_true[j]) ? 0.5d : double(y_true[_i] > y_true[j]);
 
