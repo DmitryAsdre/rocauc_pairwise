@@ -4,8 +4,7 @@
 #include <cstring>
 #include <tuple>
 #include "deltaauc.hpp"
-
-const double EPS = 1e-90;
+#include "constants.hpp"
 
 template<class T_true, class T_ranks>
 double deltaauc(T_true* y_true, T_ranks* y_pred_ranks,

@@ -183,5 +183,15 @@ def test_deltaauc_exact_6():
     
     
     assert np.abs(auc_deltaauc_exact - auc_true) < 1e-5
+    
+def test_deltaauc_equal_numbers():
+    y_true = [0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1]
+    y_pred = [0.5, 0.5, 0.5, 0.1, 0.05, 0.02, 0.02, 0.02, 0.02, 0.02, 0.01]
+    y_pred = np.array(y_pred)
+    y_true = np.array(y_true)
+    
+    auc_true, auc_deltaauc = compute_deltaauc_true_auc(y_true, y_pred, 4, 4)
+    
+    assert np.abs(auc_deltaauc - auc_true) < 1e-5
 
  

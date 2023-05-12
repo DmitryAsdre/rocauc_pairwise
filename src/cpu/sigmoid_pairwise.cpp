@@ -4,8 +4,8 @@
 #include <cstring>
 #include <tuple>
 #include "sigmoid_pairwise.hpp"
+#include "constants.hpp"
 
-const double EPS = 1e-90;
 
 template<class T_true, class T_pred>
 double sigmoid_pairwise_loss(T_true* y_true, T_pred* exp_pred, size_t N){
@@ -56,6 +56,5 @@ std::pair<double*, double*> sigmoid_pairwise_diff_hess(T_true* y_true, T_pred* e
                     hess[_i] += cur_d2_dx2_i;
             }
         }
-
     return std::make_pair<double*, double*>(&*grad, &*hess);
 }

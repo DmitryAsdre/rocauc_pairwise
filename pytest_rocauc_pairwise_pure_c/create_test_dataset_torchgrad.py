@@ -54,7 +54,7 @@ def generate_grad_hess_torch(y_pred, y_true):
     d_loss_dx_auc = grad(outputs=loss_auc, inputs=y_pred_auc)
     
     d2_loss_dx2_sigm = hessian(partial(sigmoid_pairwise_torch, y_true=y_true), y_pred_auc)
-    d2_loss_dx2_auc = hessian(partial(sigmoid_pairwise_torch, y_true=y_true), y_pred_sigm)
+    d2_loss_dx2_auc = hessian(partial(sigmoid_pairwise_roc_auc_torch, y_true=y_true), y_pred_sigm)
     
     return loss_sigm.detach().numpy(),\
            loss_auc.detach().numpy(),\
