@@ -17,11 +17,10 @@ cdef extern from '../src/cuda/deltaauc.cuh':
 @cython.wraparound(False)
 def deltaauc_py(np.ndarray[np.int32_t, ndim=1, mode='c'] y_true,
                 np.ndarray[np.int32_t, ndim=1, mode='c'] y_pred_ranks,
+                size_t n_ones, size_t n_zeroes,
                 size_t i, size_t j):
     cdef:
-        size_t n_ones = np.sum(y_true)
         size_t N = y_true.shape[0]
-        size_t n_zeroes = N - n_ones
     
         float _deltaauc = 0
     
@@ -37,11 +36,10 @@ def deltaauc_exact_py(np.ndarray[np.int32_t, ndim=1, mode='c'] y_true,
                       np.ndarray[np.int32_t, ndim=1, mode='c'] counters_n,
                       np.ndarray[np.int32_t, ndim=1, mode='c'] y_pred_left, 
                       np.ndarray[np.int32_t, ndim=1, mode='c'] y_pred_right,
+                      size_t n_ones, size_t n_zeroes,
                       size_t i, size_t j):
     cdef:
-        size_t n_ones = np.sum(y_true)
         size_t N = y_true.shape[0]
-        size_t n_zeroes = N - n_ones
 
         float _deltaauc = 0
     

@@ -17,12 +17,12 @@ float deltaauc(int32_t* y_true, int32_t* y_pred_ranks,
 
     cudaError_t err;
 
-    err = cudaMalloc((void**) &y_true_device, size);
+    err = cudaMalloc((void**)&y_true_device, size);
     assert(err == 0);
     err = cudaMemcpy((void*)y_true_device, (void*)y_true, size, cudaMemcpyHostToDevice);
     assert(err == 0);
 
-    err = cudaMalloc((void**) &y_pred_ranks_device, size);
+    err = cudaMalloc((void**)&y_pred_ranks_device, size);
     assert(err == 0);
     err = cudaMemcpy((void*)y_pred_ranks_device, (void*)y_pred_ranks, size, cudaMemcpyHostToDevice);
     assert(err == 0);
@@ -68,9 +68,9 @@ float deltaauc_exact(int32_t* y_true, float* y_pred,
     err = cudaMemcpy((void*)y_true_device, (void*)y_true, N*sizeof(int32_t), cudaMemcpyHostToDevice);
     assert(err == 0);
 
-    err = cudaMalloc((void**)&y_pred, N*sizeof(float));
+    err = cudaMalloc((void**)&y_pred_device, N*sizeof(float));
     assert(err == 0);
-    err = cudaMemcpy((void*)y_pred, (void*)y_pred, N*sizeof(float), cudaMemcpyHostToDevice);
+    err = cudaMemcpy((void*)y_pred_device, (void*)y_pred, N*sizeof(float), cudaMemcpyHostToDevice);
     assert(err == 0);
 
     err = cudaMalloc((void**)&counters_p_device, N*sizeof(int32_t));
@@ -90,7 +90,7 @@ float deltaauc_exact(int32_t* y_true, float* y_pred,
 
     err = cudaMalloc((void**)&y_pred_right_device, N*sizeof(int32_t));
     assert(err == 0);
-    err = cudaMemcpy((void*)y_pred_right_device, (void*)y_pred_left, N*sizeof(int32_t), cudaMemcpyHostToDevice);
+    err = cudaMemcpy((void*)y_pred_right_device, (void*)y_pred_right, N*sizeof(int32_t), cudaMemcpyHostToDevice);
     assert(err == 0);
 
     err = cudaMalloc((void**)&_deltaauc_device, sizeof(float));

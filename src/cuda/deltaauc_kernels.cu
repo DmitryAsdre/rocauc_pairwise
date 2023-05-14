@@ -29,7 +29,7 @@ __device__ float deltaauc_exact_kernel(int32_t* y_true, float* y_pred,
                                        size_t n_ones, size_t n_zeroes, size_t i, size_t j){
     float ypredi = y_pred[i];
     float ypredj = y_pred[j];
-
+    
     if(ypredi < ypredj){
         size_t tmpi = i;
         i = j;
@@ -46,7 +46,7 @@ __device__ float deltaauc_exact_kernel(int32_t* y_true, float* y_pred,
 
     float delta_eq = 0.f;
     float multiplicate = 1.f;
-
+    
     if(fabsf(deltaji + 1.f) < EPS_CU)
         delta_eq = counters_p[i] + counters_n[j] - 2.f;
     else
@@ -54,7 +54,7 @@ __device__ float deltaauc_exact_kernel(int32_t* y_true, float* y_pred,
     
     if(fabsf(deltaji) < EPS_CU || fabsf(ypredi - ypredj) < EPS_CU)
         multiplicate *= 0;
-
+    
     return multiplicate * (delta_eq + deltai + deltaj - deltaji * fabsf(y_pred_right[i] - y_pred_left[j])) / (n_ones * n_zeroes);
 }
 
