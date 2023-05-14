@@ -71,6 +71,7 @@ std::pair<float*, float*> sigmoid_pairwise_grad_hess(int32_t* y_true, float* exp
     err = cudaMemcpy((void*)exp_pred_device, (void*)exp_pred, N*sizeof(float), cudaMemcpyHostToDevice);
     assert(err == 0);
 
+
     err = cudaMalloc((void**)&grad_device, N*sizeof(float));
     assert(err == 0);
     err = cudaMemcpy((void*)grad_device, (void*)grad, N*sizeof(float), cudaMemcpyHostToDevice);
@@ -88,10 +89,10 @@ std::pair<float*, float*> sigmoid_pairwise_grad_hess(int32_t* y_true, float* exp
     assert(err == 0);
 
 
-    err = cudaMemcpy((void*)&grad, (void*)grad_device, N*sizeof(float), cudaMemcpyDeviceToHost);
+    err = cudaMemcpy((void*)grad, (void*)grad_device, N*sizeof(float), cudaMemcpyDeviceToHost);
     assert(err == 0);
 
-    err = cudaMemcpy((void*)&hess, (void*)hess_device, N*sizeof(float), cudaMemcpyDeviceToHost);
+    err = cudaMemcpy((void*)hess, (void*)hess_device, N*sizeof(float), cudaMemcpyDeviceToHost);
     assert(err == 0);
 
     

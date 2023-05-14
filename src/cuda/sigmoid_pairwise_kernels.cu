@@ -56,5 +56,6 @@ __global__ void sigmoid_pairwise_grad_hess_kernel(int32_t* y_true, float* exp_pr
             atomicAdd(&(hess[_i]), cur_d2_dx2_i);
             atomicAdd(&(hess[j]), cur_d2_dx2_j);
         }
+        gid += blockDim.x*gridDim.x;
     }
 }

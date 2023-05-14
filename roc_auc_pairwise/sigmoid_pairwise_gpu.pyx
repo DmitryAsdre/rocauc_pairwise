@@ -13,7 +13,7 @@ cdef extern from '../src/cuda/sigmoid_pairwise.cuh':
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
-def sigmoid_pairwise_loss_py(np.ndarray[np.int32_t, ndim=1, mode='c'] y_true,
+def sigmoid_pairwise_loss_gpu_py(np.ndarray[np.int32_t, ndim=1, mode='c'] y_true,
                              np.ndarray[np.float32_t, ndim=1, mode='c'] y_pred):
     cdef:
         np.ndarray[np.float32_t, ndim=1, mode='c'] exp_pred = np.exp(y_pred)
@@ -25,7 +25,7 @@ def sigmoid_pairwise_loss_py(np.ndarray[np.int32_t, ndim=1, mode='c'] y_true,
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
-def sigmoid_pairwise_diff_hess_py(np.ndarray[np.int32_t, ndim=1, mode='c'] y_true,
+def sigmoid_pairwise_diff_hess_gpu_py(np.ndarray[np.int32_t, ndim=1, mode='c'] y_true,
                                   np.ndarray[np.float32_t, ndim=1, mode='c'] y_pred):
     cdef:
         np.ndarray[np.float32_t, ndim=1, mode='c'] exp_pred = np.exp(y_pred)
