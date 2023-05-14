@@ -123,8 +123,8 @@ exts = [Extension('roc_auc_pairwise.utils',
                 ]
             },
         extra_link_args= ['-fopenmp', '-lstdc++'],
-        include_dirs = [numpy_include, CUDA['include'], 'src']
-        ),
+        include_dirs = [numpy_include, CUDA['include'], 'src']),
+        
         Extension('roc_auc_pairwise.deltaauc_cpu',
         sources = ['roc_auc_pairwise/deltaauc_cpu.pyx', 'src/cpu/deltaauc.cpp'],
         library_dirs = [CUDA['lib64']],
@@ -142,8 +142,8 @@ exts = [Extension('roc_auc_pairwise.utils',
                 ]
             },
         extra_link_args= ['-fopenmp', '-lstdc++'],
-        include_dirs = [numpy_include, CUDA['include'], 'src']
-        ),
+        include_dirs = [numpy_include, CUDA['include'], 'src']),
+        
         Extension('roc_auc_pairwise.sigmoid_pairwise_cpu',
         sources = ['roc_auc_pairwise/sigmoid_pairwise_cpu.pyx', 'src/cpu/sigmoid_pairwise.cpp'],
         library_dirs = [CUDA['lib64']],
@@ -162,8 +162,28 @@ exts = [Extension('roc_auc_pairwise.utils',
             },
         extra_link_args= ['-fopenmp', '-lstdc++'],
         include_dirs = [numpy_include, CUDA['include'], 'src']),
+        
         Extension('roc_auc_pairwise.sigmoid_pairwise_auc_cpu',
         sources = ['roc_auc_pairwise/sigmoid_pairwise_auc_cpu.pyx', 'src/cpu/sigmoid_pairwise_auc.cpp'],
+        library_dirs = [CUDA['lib64']],
+        libraries = ['cudart'],
+        language = 'c++',
+        runtime_library_dirs = [CUDA['lib64']],
+        # This syntax is specific to this build system
+        # we're only going to use certain compiler args with nvcc
+        # and not with gcc the implementation of this trick is in
+        # customize_compiler()
+        extra_compile_args= {
+            'gcc': ['-fopenmp', '-lstdc++'],
+            'nvcc': ['--ptxas-options=-v', '-c',
+                '--compiler-options', "'-fPIC'"
+                ]
+            },
+        extra_link_args= ['-fopenmp', '-lstdc++'],
+        include_dirs = [numpy_include, CUDA['include'], 'src']),
+        
+        Extension('roc_auc_pairwise.deltaauc_gpu',
+        sources = ['roc_auc_pairwise/deltaauc_gpu.pyx', 'src/cuda/deltaauc_kernels.cu', 'src/cuda/deltaauc.cu'],
         library_dirs = [CUDA['lib64']],
         libraries = ['cudart'],
         language = 'c++',
