@@ -33,7 +33,7 @@ def sigmoid_pairwise_loss_auc_gpu_py(np.ndarray[np.int32_t, ndim=1, mode='c'] y_
 
         float loss = 0
 
-    loss = sigmoid_pairwise_loss_auc(&y_true[0], &exp_pred[0], &y_pred_argsorted[0], n_ones, n_zeroes, N)
+    loss = sigmoid_pairwise_loss_auc(&y_true[0], &exp_pred[0], <long*>&y_pred_argsorted[0], n_ones, n_zeroes, N)
 
     return loss
 
@@ -53,7 +53,7 @@ def sigmoid_pairwise_grad_hess_auc_gpu_py(np.ndarray[np.int32_t, ndim=1, mode='c
         pair[float*, float*] grad_hess
     
     grad_hess = sigmoid_pairwise_grad_hess_auc(&y_true[0], &exp_pred[0],
-                                               &y_pred_argsorted[0], n_ones, n_zeroes, N)
+                                               <long*>&y_pred_argsorted[0], n_ones, n_zeroes, N)
 
     cdef:
         np.npy_intp dims = y_true.shape[0]
@@ -77,7 +77,7 @@ def sigmoid_pairwise_loss_auc_exact_gpu_py(np.ndarray[np.int32_t, ndim=1, mode='
 
         float loss = 0
     
-    loss = sigmoid_pairwise_loss_auc_exact(&y_true[0], &exp_pred[0], &y_pred_argsorted[0], n_ones, n_zeroes, N)
+    loss = sigmoid_pairwise_loss_auc_exact(&y_true[0], &exp_pred[0], <long*>&y_pred_argsorted[0], n_ones, n_zeroes, N)
 
     return loss
 
@@ -95,7 +95,7 @@ def sigmoid_pairwise_grad_hess_auc_exact_gpu_py(np.ndarray[np.int32_t, ndim=1, m
 
         pair[float*, float*] grad_hess
     
-    grad_hess = sigmoid_pairwise_grad_hess_auc_exact(&y_true[0], &exp_pred[0], &y_pred_argsorted[0], n_ones, n_zeroes, N)
+    grad_hess = sigmoid_pairwise_grad_hess_auc_exact(&y_true[0], &exp_pred[0], <long*>&y_pred_argsorted[0], n_ones, n_zeroes, N)
 
     cdef:
         np.npy_intp dims = y_true.shape[0]
