@@ -82,13 +82,18 @@ std::tuple<int32_t*, int32_t*, int32_t*, int32_t*> get_labelscount_borders(T_tru
     return std::make_tuple<int32_t*, int32_t*, int32_t*, int32_t*>(&*(counters.first), &*(counters.second), &*(y_pred_sides.first), &*(y_pred_sides.second));
 }
 
-template<class T_true, class T_pred, class T_argsorted>
-long * get_inverse_argsort(T_true* y_true, T_pred* y_pred, T_argsorted* y_pred_argsorted, size_t N){
-    long * y_pred_ranks = new long[N];
-    memset((void*)y_pred_ranks, 0, N*sizeof(long));
+template<class T_out, class T_true, class T_pred, class T_argsorted>
+T_out * get_inverse_argsort(T_true* y_true, T_pred* y_pred, T_argsorted* y_pred_argsorted, size_t N){
+    T_out * y_pred_ranks = new T_out[N];
+    memset((void*)y_pred_ranks, 0, N*sizeof(T_out));
 
     for(size_t k = 0; k < N; k++){
         y_pred_ranks[y_pred_argsorted[N - k - 1]] = k;
     }
     return y_pred_ranks;
+}
+
+template<class T_true, class T_pred, class T_argsorted>
+long* get_inverse_argsort_wrapper(T_true* y_true, T_pred* y_pred, T_argsorted* y_pred_argsorted, size_t N){
+    return get_inverse_argsort<long, T_true, T_pred, T_argsorted>(y_true, y_pred, y_pred_argsorted, N);
 }

@@ -14,7 +14,7 @@ double sigmoid_pairwise_loss_auc_cpu(T_true* y_true, T_pred* exp_pred,
                                      T_argsorted* y_pred_argsorted, size_t n_ones, 
                                      size_t n_zeroes, size_t N){
     double loss = 0.d;
-    long* inverse_argsort = get_inverse_argsort<T_true, T_pred, T_argsorted>(y_true, exp_pred, y_pred_argsorted, N);
+    long* inverse_argsort = get_inverse_argsort<long, T_true, T_pred, T_argsorted>(y_true, exp_pred, y_pred_argsorted, N);
 
     #pragma omp parallel for reduction(+ : loss)
         for(size_t i = 0; i < N; i++)
@@ -82,7 +82,7 @@ std::pair<double*, double*> sigmoid_pairwise_diff_hess_auc_cpu(T_true* y_true, T
     memset((void*)grad, 0, N*sizeof(double));
     memset((void*)hess, 0, N*sizeof(double));
 
-    long* inverse_argsort = get_inverse_argsort<T_true, T_pred, T_argsorted>(y_true, exp_pred, y_pred_argsorted, N);
+    long* inverse_argsort = get_inverse_argsort<long, T_true, T_pred, T_argsorted>(y_true, exp_pred, y_pred_argsorted, N);
 
     #pragma omp parallel for
     for(size_t i = 0; i < N; i++){

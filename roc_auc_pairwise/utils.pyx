@@ -21,7 +21,7 @@ ctypedef fused float_t:
 cdef extern from '../src/cpu/utils.cpp':
     pair[int*, int*] get_non_unique_labels_count[T_true, T_pred, T_argsorted](T_true* y_true, T_pred* y_pred, T_argsorted* y_pred_argsorted, size_t N)
     pair[int*, int*] get_non_unique_borders[T_pred, T_argsorted](T_pred* y_pred, T_argsorted* y_pred_argsorted, size_t N)
-    long* get_inverse_argsort[T_true, T_pred, T_argsorted](T_true* y_true, T_pred* y_pred, T_argsorted* y_pred_argsorted, size_t N)
+    long* get_inverse_argsort_wrapper[T_true, T_pred, T_argsorted](T_true* y_true, T_pred* y_pred, T_argsorted* y_pred_argsorted, size_t N)
 
 
 
@@ -34,7 +34,7 @@ def get_inverse_argsort_py(np.ndarray[int_t, ndim=1, mode='c'] y_true,
     cdef:
         long* _inversed_argsort
 
-    _inversed_argsort = get_inverse_argsort(&y_true[0], &y_pred[0], &y_pred_argsorted[0], y_true.shape[0])
+    _inversed_argsort = get_inverse_argsort_wrapper(&y_true[0], &y_pred[0], &y_pred_argsorted[0], y_true.shape[0])
 
     cdef:
         np.npy_intp dims = y_true.shape[0]

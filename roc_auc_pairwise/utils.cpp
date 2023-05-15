@@ -4098,14 +4098,14 @@ static PyObject *__pyx_pf_16roc_auc_pairwise_5utils_6get_inverse_argsort_py(CYTH
   /* "roc_auc_pairwise/utils.pyx":37
  *         long* _inversed_argsort
  * 
- *     _inversed_argsort = get_inverse_argsort(&y_true[0], &y_pred[0], &y_pred_argsorted[0], y_true.shape[0])             # <<<<<<<<<<<<<<
+ *     _inversed_argsort = get_inverse_argsort_wrapper(&y_true[0], &y_pred[0], &y_pred_argsorted[0], y_true.shape[0])             # <<<<<<<<<<<<<<
  * 
  *     cdef:
  */
   __pyx_t_1 = 0;
   __pyx_t_2 = 0;
   __pyx_t_3 = 0;
-  __pyx_v__inversed_argsort = get_inverse_argsort<__pyx_t_5numpy_int64_t,__pyx_t_5numpy_float32_t,__pyx_t_5numpy_int64_t>((&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_int64_t *, __pyx_pybuffernd_y_true.rcbuffer->pybuffer.buf, __pyx_t_1, __pyx_pybuffernd_y_true.diminfo[0].strides))), (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_float32_t *, __pyx_pybuffernd_y_pred.rcbuffer->pybuffer.buf, __pyx_t_2, __pyx_pybuffernd_y_pred.diminfo[0].strides))), (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_int64_t *, __pyx_pybuffernd_y_pred_argsorted.rcbuffer->pybuffer.buf, __pyx_t_3, __pyx_pybuffernd_y_pred_argsorted.diminfo[0].strides))), (__pyx_v_y_true->dimensions[0]));
+  __pyx_v__inversed_argsort = get_inverse_argsort_wrapper<__pyx_t_5numpy_int64_t,__pyx_t_5numpy_float32_t,__pyx_t_5numpy_int64_t>((&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_int64_t *, __pyx_pybuffernd_y_true.rcbuffer->pybuffer.buf, __pyx_t_1, __pyx_pybuffernd_y_true.diminfo[0].strides))), (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_float32_t *, __pyx_pybuffernd_y_pred.rcbuffer->pybuffer.buf, __pyx_t_2, __pyx_pybuffernd_y_pred.diminfo[0].strides))), (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_int64_t *, __pyx_pybuffernd_y_pred_argsorted.rcbuffer->pybuffer.buf, __pyx_t_3, __pyx_pybuffernd_y_pred_argsorted.diminfo[0].strides))), (__pyx_v_y_true->dimensions[0]));
 
   /* "roc_auc_pairwise/utils.pyx":40
  * 
@@ -4327,14 +4327,14 @@ static PyObject *__pyx_pf_16roc_auc_pairwise_5utils_8get_inverse_argsort_py(CYTH
   /* "roc_auc_pairwise/utils.pyx":37
  *         long* _inversed_argsort
  * 
- *     _inversed_argsort = get_inverse_argsort(&y_true[0], &y_pred[0], &y_pred_argsorted[0], y_true.shape[0])             # <<<<<<<<<<<<<<
+ *     _inversed_argsort = get_inverse_argsort_wrapper(&y_true[0], &y_pred[0], &y_pred_argsorted[0], y_true.shape[0])             # <<<<<<<<<<<<<<
  * 
  *     cdef:
  */
   __pyx_t_1 = 0;
   __pyx_t_2 = 0;
   __pyx_t_3 = 0;
-  __pyx_v__inversed_argsort = get_inverse_argsort<__pyx_t_5numpy_int64_t,__pyx_t_5numpy_float32_t,__pyx_t_5numpy_int32_t>((&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_int64_t *, __pyx_pybuffernd_y_true.rcbuffer->pybuffer.buf, __pyx_t_1, __pyx_pybuffernd_y_true.diminfo[0].strides))), (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_float32_t *, __pyx_pybuffernd_y_pred.rcbuffer->pybuffer.buf, __pyx_t_2, __pyx_pybuffernd_y_pred.diminfo[0].strides))), (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_int32_t *, __pyx_pybuffernd_y_pred_argsorted.rcbuffer->pybuffer.buf, __pyx_t_3, __pyx_pybuffernd_y_pred_argsorted.diminfo[0].strides))), (__pyx_v_y_true->dimensions[0]));
+  __pyx_v__inversed_argsort = get_inverse_argsort_wrapper<__pyx_t_5numpy_int64_t,__pyx_t_5numpy_float32_t,__pyx_t_5numpy_int32_t>((&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_int64_t *, __pyx_pybuffernd_y_true.rcbuffer->pybuffer.buf, __pyx_t_1, __pyx_pybuffernd_y_true.diminfo[0].strides))), (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_float32_t *, __pyx_pybuffernd_y_pred.rcbuffer->pybuffer.buf, __pyx_t_2, __pyx_pybuffernd_y_pred.diminfo[0].strides))), (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_int32_t *, __pyx_pybuffernd_y_pred_argsorted.rcbuffer->pybuffer.buf, __pyx_t_3, __pyx_pybuffernd_y_pred_argsorted.diminfo[0].strides))), (__pyx_v_y_true->dimensions[0]));
 
   /* "roc_auc_pairwise/utils.pyx":40
  * 
@@ -4556,14 +4556,14 @@ static PyObject *__pyx_pf_16roc_auc_pairwise_5utils_10get_inverse_argsort_py(CYT
   /* "roc_auc_pairwise/utils.pyx":37
  *         long* _inversed_argsort
  * 
- *     _inversed_argsort = get_inverse_argsort(&y_true[0], &y_pred[0], &y_pred_argsorted[0], y_true.shape[0])             # <<<<<<<<<<<<<<
+ *     _inversed_argsort = get_inverse_argsort_wrapper(&y_true[0], &y_pred[0], &y_pred_argsorted[0], y_true.shape[0])             # <<<<<<<<<<<<<<
  * 
  *     cdef:
  */
   __pyx_t_1 = 0;
   __pyx_t_2 = 0;
   __pyx_t_3 = 0;
-  __pyx_v__inversed_argsort = get_inverse_argsort<__pyx_t_5numpy_int64_t,__pyx_t_5numpy_float64_t,__pyx_t_5numpy_int64_t>((&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_int64_t *, __pyx_pybuffernd_y_true.rcbuffer->pybuffer.buf, __pyx_t_1, __pyx_pybuffernd_y_true.diminfo[0].strides))), (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_float64_t *, __pyx_pybuffernd_y_pred.rcbuffer->pybuffer.buf, __pyx_t_2, __pyx_pybuffernd_y_pred.diminfo[0].strides))), (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_int64_t *, __pyx_pybuffernd_y_pred_argsorted.rcbuffer->pybuffer.buf, __pyx_t_3, __pyx_pybuffernd_y_pred_argsorted.diminfo[0].strides))), (__pyx_v_y_true->dimensions[0]));
+  __pyx_v__inversed_argsort = get_inverse_argsort_wrapper<__pyx_t_5numpy_int64_t,__pyx_t_5numpy_float64_t,__pyx_t_5numpy_int64_t>((&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_int64_t *, __pyx_pybuffernd_y_true.rcbuffer->pybuffer.buf, __pyx_t_1, __pyx_pybuffernd_y_true.diminfo[0].strides))), (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_float64_t *, __pyx_pybuffernd_y_pred.rcbuffer->pybuffer.buf, __pyx_t_2, __pyx_pybuffernd_y_pred.diminfo[0].strides))), (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_int64_t *, __pyx_pybuffernd_y_pred_argsorted.rcbuffer->pybuffer.buf, __pyx_t_3, __pyx_pybuffernd_y_pred_argsorted.diminfo[0].strides))), (__pyx_v_y_true->dimensions[0]));
 
   /* "roc_auc_pairwise/utils.pyx":40
  * 
@@ -4785,14 +4785,14 @@ static PyObject *__pyx_pf_16roc_auc_pairwise_5utils_12get_inverse_argsort_py(CYT
   /* "roc_auc_pairwise/utils.pyx":37
  *         long* _inversed_argsort
  * 
- *     _inversed_argsort = get_inverse_argsort(&y_true[0], &y_pred[0], &y_pred_argsorted[0], y_true.shape[0])             # <<<<<<<<<<<<<<
+ *     _inversed_argsort = get_inverse_argsort_wrapper(&y_true[0], &y_pred[0], &y_pred_argsorted[0], y_true.shape[0])             # <<<<<<<<<<<<<<
  * 
  *     cdef:
  */
   __pyx_t_1 = 0;
   __pyx_t_2 = 0;
   __pyx_t_3 = 0;
-  __pyx_v__inversed_argsort = get_inverse_argsort<__pyx_t_5numpy_int64_t,__pyx_t_5numpy_float64_t,__pyx_t_5numpy_int32_t>((&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_int64_t *, __pyx_pybuffernd_y_true.rcbuffer->pybuffer.buf, __pyx_t_1, __pyx_pybuffernd_y_true.diminfo[0].strides))), (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_float64_t *, __pyx_pybuffernd_y_pred.rcbuffer->pybuffer.buf, __pyx_t_2, __pyx_pybuffernd_y_pred.diminfo[0].strides))), (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_int32_t *, __pyx_pybuffernd_y_pred_argsorted.rcbuffer->pybuffer.buf, __pyx_t_3, __pyx_pybuffernd_y_pred_argsorted.diminfo[0].strides))), (__pyx_v_y_true->dimensions[0]));
+  __pyx_v__inversed_argsort = get_inverse_argsort_wrapper<__pyx_t_5numpy_int64_t,__pyx_t_5numpy_float64_t,__pyx_t_5numpy_int32_t>((&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_int64_t *, __pyx_pybuffernd_y_true.rcbuffer->pybuffer.buf, __pyx_t_1, __pyx_pybuffernd_y_true.diminfo[0].strides))), (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_float64_t *, __pyx_pybuffernd_y_pred.rcbuffer->pybuffer.buf, __pyx_t_2, __pyx_pybuffernd_y_pred.diminfo[0].strides))), (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_int32_t *, __pyx_pybuffernd_y_pred_argsorted.rcbuffer->pybuffer.buf, __pyx_t_3, __pyx_pybuffernd_y_pred_argsorted.diminfo[0].strides))), (__pyx_v_y_true->dimensions[0]));
 
   /* "roc_auc_pairwise/utils.pyx":40
  * 
@@ -5014,14 +5014,14 @@ static PyObject *__pyx_pf_16roc_auc_pairwise_5utils_14get_inverse_argsort_py(CYT
   /* "roc_auc_pairwise/utils.pyx":37
  *         long* _inversed_argsort
  * 
- *     _inversed_argsort = get_inverse_argsort(&y_true[0], &y_pred[0], &y_pred_argsorted[0], y_true.shape[0])             # <<<<<<<<<<<<<<
+ *     _inversed_argsort = get_inverse_argsort_wrapper(&y_true[0], &y_pred[0], &y_pred_argsorted[0], y_true.shape[0])             # <<<<<<<<<<<<<<
  * 
  *     cdef:
  */
   __pyx_t_1 = 0;
   __pyx_t_2 = 0;
   __pyx_t_3 = 0;
-  __pyx_v__inversed_argsort = get_inverse_argsort<__pyx_t_5numpy_int32_t,__pyx_t_5numpy_float32_t,__pyx_t_5numpy_int64_t>((&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_int32_t *, __pyx_pybuffernd_y_true.rcbuffer->pybuffer.buf, __pyx_t_1, __pyx_pybuffernd_y_true.diminfo[0].strides))), (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_float32_t *, __pyx_pybuffernd_y_pred.rcbuffer->pybuffer.buf, __pyx_t_2, __pyx_pybuffernd_y_pred.diminfo[0].strides))), (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_int64_t *, __pyx_pybuffernd_y_pred_argsorted.rcbuffer->pybuffer.buf, __pyx_t_3, __pyx_pybuffernd_y_pred_argsorted.diminfo[0].strides))), (__pyx_v_y_true->dimensions[0]));
+  __pyx_v__inversed_argsort = get_inverse_argsort_wrapper<__pyx_t_5numpy_int32_t,__pyx_t_5numpy_float32_t,__pyx_t_5numpy_int64_t>((&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_int32_t *, __pyx_pybuffernd_y_true.rcbuffer->pybuffer.buf, __pyx_t_1, __pyx_pybuffernd_y_true.diminfo[0].strides))), (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_float32_t *, __pyx_pybuffernd_y_pred.rcbuffer->pybuffer.buf, __pyx_t_2, __pyx_pybuffernd_y_pred.diminfo[0].strides))), (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_int64_t *, __pyx_pybuffernd_y_pred_argsorted.rcbuffer->pybuffer.buf, __pyx_t_3, __pyx_pybuffernd_y_pred_argsorted.diminfo[0].strides))), (__pyx_v_y_true->dimensions[0]));
 
   /* "roc_auc_pairwise/utils.pyx":40
  * 
@@ -5243,14 +5243,14 @@ static PyObject *__pyx_pf_16roc_auc_pairwise_5utils_16get_inverse_argsort_py(CYT
   /* "roc_auc_pairwise/utils.pyx":37
  *         long* _inversed_argsort
  * 
- *     _inversed_argsort = get_inverse_argsort(&y_true[0], &y_pred[0], &y_pred_argsorted[0], y_true.shape[0])             # <<<<<<<<<<<<<<
+ *     _inversed_argsort = get_inverse_argsort_wrapper(&y_true[0], &y_pred[0], &y_pred_argsorted[0], y_true.shape[0])             # <<<<<<<<<<<<<<
  * 
  *     cdef:
  */
   __pyx_t_1 = 0;
   __pyx_t_2 = 0;
   __pyx_t_3 = 0;
-  __pyx_v__inversed_argsort = get_inverse_argsort<__pyx_t_5numpy_int32_t,__pyx_t_5numpy_float32_t,__pyx_t_5numpy_int32_t>((&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_int32_t *, __pyx_pybuffernd_y_true.rcbuffer->pybuffer.buf, __pyx_t_1, __pyx_pybuffernd_y_true.diminfo[0].strides))), (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_float32_t *, __pyx_pybuffernd_y_pred.rcbuffer->pybuffer.buf, __pyx_t_2, __pyx_pybuffernd_y_pred.diminfo[0].strides))), (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_int32_t *, __pyx_pybuffernd_y_pred_argsorted.rcbuffer->pybuffer.buf, __pyx_t_3, __pyx_pybuffernd_y_pred_argsorted.diminfo[0].strides))), (__pyx_v_y_true->dimensions[0]));
+  __pyx_v__inversed_argsort = get_inverse_argsort_wrapper<__pyx_t_5numpy_int32_t,__pyx_t_5numpy_float32_t,__pyx_t_5numpy_int32_t>((&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_int32_t *, __pyx_pybuffernd_y_true.rcbuffer->pybuffer.buf, __pyx_t_1, __pyx_pybuffernd_y_true.diminfo[0].strides))), (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_float32_t *, __pyx_pybuffernd_y_pred.rcbuffer->pybuffer.buf, __pyx_t_2, __pyx_pybuffernd_y_pred.diminfo[0].strides))), (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_int32_t *, __pyx_pybuffernd_y_pred_argsorted.rcbuffer->pybuffer.buf, __pyx_t_3, __pyx_pybuffernd_y_pred_argsorted.diminfo[0].strides))), (__pyx_v_y_true->dimensions[0]));
 
   /* "roc_auc_pairwise/utils.pyx":40
  * 
@@ -5472,14 +5472,14 @@ static PyObject *__pyx_pf_16roc_auc_pairwise_5utils_18get_inverse_argsort_py(CYT
   /* "roc_auc_pairwise/utils.pyx":37
  *         long* _inversed_argsort
  * 
- *     _inversed_argsort = get_inverse_argsort(&y_true[0], &y_pred[0], &y_pred_argsorted[0], y_true.shape[0])             # <<<<<<<<<<<<<<
+ *     _inversed_argsort = get_inverse_argsort_wrapper(&y_true[0], &y_pred[0], &y_pred_argsorted[0], y_true.shape[0])             # <<<<<<<<<<<<<<
  * 
  *     cdef:
  */
   __pyx_t_1 = 0;
   __pyx_t_2 = 0;
   __pyx_t_3 = 0;
-  __pyx_v__inversed_argsort = get_inverse_argsort<__pyx_t_5numpy_int32_t,__pyx_t_5numpy_float64_t,__pyx_t_5numpy_int64_t>((&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_int32_t *, __pyx_pybuffernd_y_true.rcbuffer->pybuffer.buf, __pyx_t_1, __pyx_pybuffernd_y_true.diminfo[0].strides))), (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_float64_t *, __pyx_pybuffernd_y_pred.rcbuffer->pybuffer.buf, __pyx_t_2, __pyx_pybuffernd_y_pred.diminfo[0].strides))), (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_int64_t *, __pyx_pybuffernd_y_pred_argsorted.rcbuffer->pybuffer.buf, __pyx_t_3, __pyx_pybuffernd_y_pred_argsorted.diminfo[0].strides))), (__pyx_v_y_true->dimensions[0]));
+  __pyx_v__inversed_argsort = get_inverse_argsort_wrapper<__pyx_t_5numpy_int32_t,__pyx_t_5numpy_float64_t,__pyx_t_5numpy_int64_t>((&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_int32_t *, __pyx_pybuffernd_y_true.rcbuffer->pybuffer.buf, __pyx_t_1, __pyx_pybuffernd_y_true.diminfo[0].strides))), (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_float64_t *, __pyx_pybuffernd_y_pred.rcbuffer->pybuffer.buf, __pyx_t_2, __pyx_pybuffernd_y_pred.diminfo[0].strides))), (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_int64_t *, __pyx_pybuffernd_y_pred_argsorted.rcbuffer->pybuffer.buf, __pyx_t_3, __pyx_pybuffernd_y_pred_argsorted.diminfo[0].strides))), (__pyx_v_y_true->dimensions[0]));
 
   /* "roc_auc_pairwise/utils.pyx":40
  * 
@@ -5701,14 +5701,14 @@ static PyObject *__pyx_pf_16roc_auc_pairwise_5utils_20get_inverse_argsort_py(CYT
   /* "roc_auc_pairwise/utils.pyx":37
  *         long* _inversed_argsort
  * 
- *     _inversed_argsort = get_inverse_argsort(&y_true[0], &y_pred[0], &y_pred_argsorted[0], y_true.shape[0])             # <<<<<<<<<<<<<<
+ *     _inversed_argsort = get_inverse_argsort_wrapper(&y_true[0], &y_pred[0], &y_pred_argsorted[0], y_true.shape[0])             # <<<<<<<<<<<<<<
  * 
  *     cdef:
  */
   __pyx_t_1 = 0;
   __pyx_t_2 = 0;
   __pyx_t_3 = 0;
-  __pyx_v__inversed_argsort = get_inverse_argsort<__pyx_t_5numpy_int32_t,__pyx_t_5numpy_float64_t,__pyx_t_5numpy_int32_t>((&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_int32_t *, __pyx_pybuffernd_y_true.rcbuffer->pybuffer.buf, __pyx_t_1, __pyx_pybuffernd_y_true.diminfo[0].strides))), (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_float64_t *, __pyx_pybuffernd_y_pred.rcbuffer->pybuffer.buf, __pyx_t_2, __pyx_pybuffernd_y_pred.diminfo[0].strides))), (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_int32_t *, __pyx_pybuffernd_y_pred_argsorted.rcbuffer->pybuffer.buf, __pyx_t_3, __pyx_pybuffernd_y_pred_argsorted.diminfo[0].strides))), (__pyx_v_y_true->dimensions[0]));
+  __pyx_v__inversed_argsort = get_inverse_argsort_wrapper<__pyx_t_5numpy_int32_t,__pyx_t_5numpy_float64_t,__pyx_t_5numpy_int32_t>((&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_int32_t *, __pyx_pybuffernd_y_true.rcbuffer->pybuffer.buf, __pyx_t_1, __pyx_pybuffernd_y_true.diminfo[0].strides))), (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_float64_t *, __pyx_pybuffernd_y_pred.rcbuffer->pybuffer.buf, __pyx_t_2, __pyx_pybuffernd_y_pred.diminfo[0].strides))), (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_int32_t *, __pyx_pybuffernd_y_pred_argsorted.rcbuffer->pybuffer.buf, __pyx_t_3, __pyx_pybuffernd_y_pred_argsorted.diminfo[0].strides))), (__pyx_v_y_true->dimensions[0]));
 
   /* "roc_auc_pairwise/utils.pyx":40
  * 
