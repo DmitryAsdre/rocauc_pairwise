@@ -2,7 +2,7 @@
 #define SIGMOID_PAIRWISE_AUC_KERNELS
 #include <cstddef>
 #include "sigmoid_pairwise_kernels.cuh"
-#include "deltaauc.cuh"
+#include "deltaauc_kernels.cuh"
 #include "../cpu/utils.hpp"
 
 __global__ void sigmoid_pairwise_loss_auc_kernel(int32_t* y_true, float* exp_pred,

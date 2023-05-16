@@ -233,7 +233,7 @@ exts = [Extension('roc_auc_pairwise.utils',
         extra_compile_args= {
             'gcc': ['-fopenmp', '-lstdc++'],
             'nvcc': ['--ptxas-options=-v', '-c',
-                '--compiler-options', "'-fPIC'"
+                '--compiler-options', "'-fPIC'", "-dc"
                 ]
             },
         extra_link_args= ['-fopenmp', '-lstdc++'],

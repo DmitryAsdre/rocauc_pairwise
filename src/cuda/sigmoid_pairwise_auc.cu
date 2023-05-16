@@ -7,6 +7,7 @@
 #include "constants.cuh"
 #include "../cpu/utils.hpp"
 #include "sigmoid_pairwise_auc_kernels.cuh"
+#include "deltaauc_kernels.cuh"
 
 float sigmoid_pairwise_loss_auc(int32_t* y_true, float* exp_pred,
                                 long* y_pred_argsorted,

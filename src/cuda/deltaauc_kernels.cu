@@ -1,6 +1,7 @@
 #include <cmath>
 #include <cstddef>
 #include "constants.cuh"
+#include "deltaauc_kernels.cuh"
 
 __device__ float deltaauc_kernel(int32_t* y_true, int32_t* y_pred_ranks,
                                  size_t n_ones, size_t n_zeroes,
