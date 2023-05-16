@@ -5,7 +5,7 @@
 #include <tuple>
 #include <assert.h>
 #include "constants.cuh"
-#include "../cpu/utils.hpp"
+#include "../cpu/utils.cpp"
 #include "sigmoid_pairwise_auc_kernels.cuh"
 #include "deltaauc_kernels.cuh"
 

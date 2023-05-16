@@ -11,15 +11,6 @@ cdef extern from '../src/cpu/utils.cpp':
     pair[int*, int*] get_non_unique_borders[T_pred, T_argsorted](T_pred* y_pred, T_argsorted* y_pred_argsorted, size_t N)
     T_out* get_inverse_argsort[T_out, T_true, T_pred, T_argsorted](T_true* y_true, T_pred* y_pred, T_argsorted* y_pred_argsorted, size_t N)
 
-cdef extern from '../src/cpu/deltaauc.cpp':
-    double deltaauc[T_true, T_predranks](T_true* y_true, T_predranks* y_pred_ranks, 
-                                        size_t n_ones, size_t n_zeroes, size_t i, size_t j)
-    double deltaauc_exact[T_true, T_pred](T_true* y_true, T_pred* y_pred, 
-                                         int32_t* counters_p, int32_t* counters_n,
-                                         int32_t* y_pred_left, int32_t* y_pred_right,
-                                         size_t n_ones, size_t n_zeroes,
-                                         size_t i, size_t j)
-
 cdef extern from '../src/cuda/sigmoid_pairwise_auc.cuh':
     float sigmoid_pairwise_loss_auc(int32_t* y_true, float* exp_pred,
                                     long* y_pred_argsorted, 

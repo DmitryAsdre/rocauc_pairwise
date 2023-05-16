@@ -1,7 +1,7 @@
 #include <cmath>
 #include <cstddef>
 #include "constants.cuh"
-#include "deltaauc_kernels.cuh"
+#include "deltaauc_kernels.cu"
 #include "sigmoid_pairwise_kernels.cuh"
 
 __global__ void sigmoid_pairwise_loss_auc_kernel(int32_t* y_true, float* exp_pred,
@@ -19,8 +19,8 @@ __global__ void sigmoid_pairwise_loss_auc_kernel(int32_t* y_true, float* exp_pre
     while(gid < N){
         size_t _i = (gid%2 == 1) ? (N - size_t(gid/2) - 1) : size_t(gid/2);
         for(size_t j = 0; j <= _i; j++){
-            float _deltaauc = deltaauc_kernel(y_true, y_pred_ranks, n_ones, n_zeroes, _i, j);
-            //float _deltaauc = 0.f;
+            //float _deltaauc = deltaauc_kernel(y_true, y_pred_ranks, n_ones, n_zeroes, _i, j);
+            float _deltaauc = 0.f;
             float P_hat = 0.5f*(y_true[_i] - y_true[j]) + 0.5f;
             float P = 1.f / (1.f + (exp_pred[j] / exp_pred[_i]));
             float delta_loss = fabsf(_deltaauc)*(P_hat*log(P + EPS_CU) + (1.f - P_hat)*log(1.f - P - EPS_CU));
