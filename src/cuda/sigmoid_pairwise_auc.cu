@@ -3,6 +3,7 @@
 #include <utility>
 #include <cstring>
 #include <tuple>
+#include <assert.h>
 #include "constants.cuh"
 #include "../cpu/utils.hpp"
 #include "sigmoid_pairwise_auc_kernels.cuh"
@@ -133,7 +134,7 @@ float sigmoid_pairwise_loss_auc_exact(int32_t* y_true, float* exp_pred,
                                       size_t n_ones, size_t n_zeroes, size_t N){
     std::tuple<int32_t*, int32_t*, int32_t*, int32_t*> labelscount;
 
-    labelscount = get_labelscount_borders<int32_t*, float*, long*>(y_true, exp_pred, y_pred_argsorted, N);
+    labelscount = get_labelscount_borders<int32_t, float, long>(y_true, exp_pred, y_pred_argsorted, N);
 
     int32_t* counters_p, *counters_n;
     int32_t* y_pred_left, *y_pred_right;
@@ -194,6 +195,7 @@ float sigmoid_pairwise_loss_auc_exact(int32_t* y_true, float* exp_pred,
     sigmoid_pairwise_loss_auc_exact_kernel<<<128, 64>>>(y_true_device, exp_pred_device, 
                                                         counters_p_device, counters_n_device, 
                                                         y_pred_left_device, y_pred_right_device, 
+                                                        loss_device,
                                                         n_ones, n_zeroes, N);
 
     
@@ -224,7 +226,7 @@ std::pair<float*, float*> sigmoid_pairwise_grad_hess_auc_exact(int32_t* y_true, 
                                                               size_t n_ones, size_t n_zeroes, size_t N){
     std::tuple<int32_t*, int32_t*, int32_t*, int32_t*> labelscount;
 
-    labelscount = get_labelscount_borders<int32_t*, float*, long*>(y_true, exp_pred, y_pred_argsorted, N);
+    labelscount = get_labelscount_borders<int32_t, float, long>(y_true, exp_pred, y_pred_argsorted, N);
 
     int32_t* counters_p, *counters_n;
     int32_t* y_pred_left, *y_pred_right;

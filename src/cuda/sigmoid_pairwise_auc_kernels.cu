@@ -4,7 +4,7 @@
 #include "deltaauc_kernels.cuh"
 
 __global__ void sigmoid_pairwise_loss_auc_kernel(int32_t* y_true, float* exp_pred,
-                                                 float* y_pred_ranks, float* sigmoid_loss,
+                                                 int32_t* y_pred_ranks, float* sigmoid_loss,
                                                  size_t n_ones, size_t n_zeroes, size_t N){
     int gid = threadIdx.x + blockDim.x*blockIdx.x;
 
@@ -34,7 +34,7 @@ __global__ void sigmoid_pairwise_loss_auc_kernel(int32_t* y_true, float* exp_pre
 }
 
 __global__ void sigmoid_pairwise_grad_hess_auc_kernel(int32_t* y_true, float* exp_pred,
-                                                      float* y_pred_ranks,
+                                                      int32_t* y_pred_ranks,
                                                       float* grad, float* hess, 
                                                       size_t n_ones, size_t n_zeroes, size_t N){
     int gid = threadIdx.x + blockDim.x*blockIdx.x;
@@ -53,7 +53,7 @@ __global__ void sigmoid_pairwise_grad_hess_auc_kernel(int32_t* y_true, float* ex
             P_hat = 0.5f*(y_true[_i] - y_true[j]) + 0.5f;
             exp_tmp_diff = exp_pred[_i] / exp_pred[j];
 
-            float _deltaauc = deltaauc_kernel(y_true, y_pred_ranks, n_ones, n_zeroes, _i, j, N);
+            float _deltaauc = deltaauc_kernel(y_true, y_pred_ranks, n_ones, n_zeroes, _i, j);
 
             cur_d_dx_i = fabsf(_deltaauc)*((P_hat - 1.f)*exp_tmp_diff + P_hat) / (exp_tmp_diff + 1.f);
             cur_d_dx_j = -cur_d_dx_i;
@@ -107,7 +107,7 @@ __global__ void sigmoid_pairwise_loss_auc_exact_kernel(int32_t* y_true, float* e
 
 __global__ void sigmoid_pairwise_grad_hess_auc_exact_kernel(int32_t* y_true, float* exp_pred,
                                                             int32_t* counters_p, int32_t* counters_n,
-                                                            int32_t* y_pred_left, int32_t* y_pred_left,
+                                                            int32_t* y_pred_left, int32_t* y_pred_right,
                                                             float* grad, float* hess, 
                                                             size_t n_ones, size_t n_zeroes, size_t N){
     int gid = threadIdx.x + blockDim.x*blockIdx.x;
