@@ -1,9 +1,9 @@
-# RocAuc Pairwise Loss
- This is gpu implementation of rocauc pairwise loss:
+# RocAuc Pairwise Loss/Objective
+ This is gpu implementation of rocauc pairwise objectives for gradient boosting:
 $$L = \sum_{i, j} (\hat P_{ij}\log{P_{ij}} + (1 - \hat P_{ij})\log{(1 - P_{ij})}) |\Delta_{AUC_{ij}}|$$
 This package could be used to solve classification problems with relative small numbers of objects, where you need to improve rocauc score. \
 Also there is cpu multithread implementation of this losses.
-## Losses that are realized in this package
+## Losses that are implemented in this package
 1. **Sigmoid pairwise loss.** (GPU or CPU implementations)
 $$L = \sum_{i, j}\hat P_{ij}\log{P_{ij}} + (1 - \hat P_{ij})\log{(1 - P_{ij})}$$
 2. **RocAuc Pairwise Loss** with approximate auc computation. (GPU or CPU implementations)
