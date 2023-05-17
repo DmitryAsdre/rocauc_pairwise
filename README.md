@@ -3,14 +3,6 @@
 $$L = \sum_{i, j} \left(\hat P_{ij}\log{P_{ij}} + (1 - \hat P_{ij})\log{(1 - P_{ij})}\right)\lvert \Delta_{AUC_{ij}}\vert$$
 Where:
 $$P_{ij} = \frac{1}{1 + e^{-(x_i - x_j)}} $$
-$$\begin{equation*}
-		\hat P_{ij}  = 
-		 \begin{cases}
-		   1 &\text{if $y_i > y_j$}\\
-		   0.5 &\text{if $y_i = y_j$}\\
-		   0 &\text{if $y_i < y_j$}
-		 \end{cases}
-		\end{equation*}$$
 This package could be used to solve classification problems with relative small numbers of objects, where you need to improve rocauc score. \
 Also there is cpu multithread implementation of this losses.
 ## Losses that are realized in this package
