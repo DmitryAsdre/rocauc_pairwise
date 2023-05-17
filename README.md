@@ -1,10 +1,10 @@
 # RocAuc Pairwise Loss
  This is gpu implementation of rocauc pairwise loss:
-$$ L = \sum_{i, j} \left(\hat{P}_{ij}\log{P_{ij}} + (1 - \hat{P}_{ij})\log{(1 - P_{ij})}\right)\lvert \Delta_{AUC_{ij}}\vert$$
+$$ L = \sum_{i, j} \left(\hat P_{ij}\log{P_{ij}} + (1 - \hat P_{ij})\log{(1 - P_{ij})}\right)\lvert \Delta_{AUC_{ij}}\vert$$
 Where:
 $$ P_{ij} = \frac{1}{1 + e^{-(x_i - x_j)}} $$
 $$  \begin{equation*}
-		\hat{P}_{ij}  = 
+		\hat P_{ij}  = 
 		 \begin{cases}
 		   1 &\text{if $y_i > y_j$}\\
 		   0.5 &\text{if $y_i = y_j$}\\
@@ -15,13 +15,13 @@ This package could be used to solve classification problems with relative small 
 Also there is cpu multithread implementation of this losses.
 ## Losses that are realized in this package
 1. **Sigmoid pairwise loss.** (GPU or CPU implementations)
-$$ L = \sum_{i, j}\hat{P}_{ij}\log{P_{ij}} + (1 - \hat{P}_{ij})\log{(1 - P_{ij})}$$
+$$ L = \sum_{i, j}\hat P_{ij}\log{P_{ij}} + (1 - \hat P_{ij})\log{(1 - P_{ij})}$$
 2. **RocAuc Pairwise Loss** with approximate auc computation. (GPU or CPU implementations)
-$$ L = \sum_{i, j} \left(\hat{P}_{ij}\log{P_{ij}} + (1 - \hat{P}_{ij})\log{(1 - P_{ij})}\right)\lvert \Delta_{AUC^{approx}_{ij}}\vert$$
+$$ L = \sum_{i, j} \left(\hat P_{ij}\log{P_{ij}} + (1 - \hat P_{ij})\log{(1 - P_{ij})}\right)\lvert \Delta_{AUC^{approx}_{ij}}\vert$$
 3. **RocAuc Pairwise Loss Exact** (GPU or CPU implementations) with exact auc computation. This could be more compute intensive, but this loss might be helpfull for first boosting rounds (if you are using gradient boosting)
-$$ L = \sum_{i, j} \left(\hat{P}_{ij}\log{P_{ij}} + (1 - \hat{P}_{ij})\log{(1 - P_{ij})}\right)\lvert \Delta_{AUC^{exact}_{ij}}\vert$$
+$$ L = \sum_{i, j} \left(\hat P_{ij}\log{P_{ij}} + (1 - \hat P_{ij})\log{(1 - P_{ij})}\right)\lvert \Delta_{AUC^{exact}_{ij}}\vert$$
 4. **RocAuc Pairwise Loss Exact Smoothened** (GPU or CPU implementations). This loss allows you to incorporate information about equal instances. Because $\Delta_{AUC_{ij}} = 0$ if $y_i = y_j$. So we just add small $\epsilon > 0$ in equation.
-$$ L = \sum_{i, j} \left(\hat{P}_{ij}\log{P_{ij}} + (1 - \hat{P}_{ij})\log{(1 - P_{ij})}\right)(\epsilon + \lvert \Delta_{AUC^{exact}_{ij}}\vert)$$
+$$ L = \sum_{i, j} \left(\hat P_{ij}\log{P_{ij}} + (1 - \hat P_{ij})\log{(1 - P_{ij})}\right)(\epsilon + \lvert \Delta_{AUC^{exact}_{ij}}\vert)$$
 ## Installation
 You can use pip to install this package.
 ```
@@ -64,7 +64,7 @@ def sigmoid_pairwise_loss_auc_exact(preds, train_data, device):
 ### For more information 
 - You can see example notebook:
 ```./examples/gradient_boosting_example.ipynb```
-- Or you can use example notebook on [Google Colab]((https://colab.research.google.com/drive/1w7BN0XGjB5vgFp2pbiCaejabc91xWmI0?usp=sharing))
+- Or you can use example notebook on [Google Colab](https://colab.research.google.com/drive/1w7BN0XGjB5vgFp2pbiCaejabc91xWmI0?usp=sharing)
 - Or you can use example notebook on [Kaggle](https://www.kaggle.com/code/michailindmitry/gradient-boosting-roc-auc-pairwise-example-ipynb)
 
 ## References
