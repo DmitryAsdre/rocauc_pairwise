@@ -193,7 +193,7 @@ float sigmoid_pairwise_loss_auc_exact(int32_t* y_true, float* exp_pred,
     assert(err == 0);
 
 
-    sigmoid_pairwise_loss_auc_exact_kernel<<<128, 64>>>(y_true_device, exp_pred_device, 
+    sigmoid_pairwise_loss_auc_exact_kernel<<<28, 128>>>(y_true_device, exp_pred_device, 
                                                         counters_p_device, counters_n_device, 
                                                         y_pred_left_device, y_pred_right_device, 
                                                         loss_device,
@@ -217,7 +217,7 @@ float sigmoid_pairwise_loss_auc_exact(int32_t* y_true, float* exp_pred,
     cudaFree(y_pred_left_device);
     cudaFree(y_pred_right_device);
     cudaFree(exp_pred_device);
-    cudaFree(y_true);
+    cudaFree(y_true_device);
 
     return loss;
 }
@@ -323,7 +323,7 @@ std::pair<float*, float*> sigmoid_pairwise_grad_hess_auc_exact(int32_t* y_true, 
     cudaFree(y_pred_left_device);
     cudaFree(y_pred_right_device);
     cudaFree(exp_pred_device);
-    cudaFree(y_true);
+    cudaFree(y_true_device);
 
     return std::make_pair<float*, float*>(&*grad, &*hess);
 }

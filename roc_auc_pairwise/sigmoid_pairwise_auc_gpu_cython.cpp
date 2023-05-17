@@ -1895,8 +1895,8 @@ static const char __pyx_k_numpy_core_multiarray_failed_to[] = "numpy.core.multia
 static const char __pyx_k_sigmoid_pairwise_loss_auc_exact[] = "sigmoid_pairwise_loss_auc_exact_gpu_py";
 static const char __pyx_k_numpy_core_umath_failed_to_impor[] = "numpy.core.umath failed to import";
 static const char __pyx_k_roc_auc_pairwise_sigmoid_pairwis[] = "roc_auc_pairwise/sigmoid_pairwise_auc_gpu_cython.pyx";
-static const char __pyx_k_sigmoid_pairwise_grad_hess_auc_e[] = "sigmoid_pairwise_grad_hess_auc_exact_gpu_py";
-static const char __pyx_k_sigmoid_pairwise_grad_hess_auc_g[] = "sigmoid_pairwise_grad_hess_auc_gpu_py";
+static const char __pyx_k_sigmoid_pairwise_diff_hess_auc_e[] = "sigmoid_pairwise_diff_hess_auc_exact_gpu_py";
+static const char __pyx_k_sigmoid_pairwise_diff_hess_auc_g[] = "sigmoid_pairwise_diff_hess_auc_gpu_py";
 static const char __pyx_k_sigmoid_pairwise_loss_auc_gpu_py[] = "sigmoid_pairwise_loss_auc_gpu_py";
 static const char __pyx_k_roc_auc_pairwise_sigmoid_pairwis_2[] = "roc_auc_pairwise.sigmoid_pairwise_auc_gpu";
 static PyObject *__pyx_n_s_ImportError;
@@ -1922,8 +1922,8 @@ static PyObject *__pyx_kp_s_numpy_core_multiarray_failed_to;
 static PyObject *__pyx_kp_s_numpy_core_umath_failed_to_impor;
 static PyObject *__pyx_kp_s_roc_auc_pairwise_sigmoid_pairwis;
 static PyObject *__pyx_n_s_roc_auc_pairwise_sigmoid_pairwis_2;
-static PyObject *__pyx_n_s_sigmoid_pairwise_grad_hess_auc_e;
-static PyObject *__pyx_n_s_sigmoid_pairwise_grad_hess_auc_g;
+static PyObject *__pyx_n_s_sigmoid_pairwise_diff_hess_auc_e;
+static PyObject *__pyx_n_s_sigmoid_pairwise_diff_hess_auc_g;
 static PyObject *__pyx_n_s_sigmoid_pairwise_loss_auc_exact;
 static PyObject *__pyx_n_s_sigmoid_pairwise_loss_auc_gpu_py;
 static PyObject *__pyx_n_s_sum;
@@ -1932,9 +1932,9 @@ static PyObject *__pyx_n_s_y_pred;
 static PyObject *__pyx_n_s_y_pred_argsorted;
 static PyObject *__pyx_n_s_y_true;
 static PyObject *__pyx_pf_16roc_auc_pairwise_24sigmoid_pairwise_auc_gpu_sigmoid_pairwise_loss_auc_gpu_py(CYTHON_UNUSED PyObject *__pyx_self, PyArrayObject *__pyx_v_y_true, PyArrayObject *__pyx_v_y_pred); /* proto */
-static PyObject *__pyx_pf_16roc_auc_pairwise_24sigmoid_pairwise_auc_gpu_2sigmoid_pairwise_grad_hess_auc_gpu_py(CYTHON_UNUSED PyObject *__pyx_self, PyArrayObject *__pyx_v_y_true, PyArrayObject *__pyx_v_y_pred); /* proto */
+static PyObject *__pyx_pf_16roc_auc_pairwise_24sigmoid_pairwise_auc_gpu_2sigmoid_pairwise_diff_hess_auc_gpu_py(CYTHON_UNUSED PyObject *__pyx_self, PyArrayObject *__pyx_v_y_true, PyArrayObject *__pyx_v_y_pred); /* proto */
 static PyObject *__pyx_pf_16roc_auc_pairwise_24sigmoid_pairwise_auc_gpu_4sigmoid_pairwise_loss_auc_exact_gpu_py(CYTHON_UNUSED PyObject *__pyx_self, PyArrayObject *__pyx_v_y_true, PyArrayObject *__pyx_v_y_pred); /* proto */
-static PyObject *__pyx_pf_16roc_auc_pairwise_24sigmoid_pairwise_auc_gpu_6sigmoid_pairwise_grad_hess_auc_exact_gpu_py(CYTHON_UNUSED PyObject *__pyx_self, PyArrayObject *__pyx_v_y_true, PyArrayObject *__pyx_v_y_pred); /* proto */
+static PyObject *__pyx_pf_16roc_auc_pairwise_24sigmoid_pairwise_auc_gpu_6sigmoid_pairwise_diff_hess_auc_exact_gpu_py(CYTHON_UNUSED PyObject *__pyx_self, PyArrayObject *__pyx_v_y_true, PyArrayObject *__pyx_v_y_pred); /* proto */
 static PyObject *__pyx_tuple_;
 static PyObject *__pyx_tuple__2;
 static PyObject *__pyx_tuple__3;
@@ -2310,15 +2310,15 @@ static PyObject *__pyx_pf_16roc_auc_pairwise_24sigmoid_pairwise_auc_gpu_sigmoid_
 /* "roc_auc_pairwise/sigmoid_pairwise_auc_gpu_cython.pyx":49
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
- * def sigmoid_pairwise_grad_hess_auc_gpu_py(np.ndarray[np.int32_t, ndim=1, mode='c'] y_true,             # <<<<<<<<<<<<<<
+ * def sigmoid_pairwise_diff_hess_auc_gpu_py(np.ndarray[np.int32_t, ndim=1, mode='c'] y_true,             # <<<<<<<<<<<<<<
  *                                           np.ndarray[np.float32_t, ndim=1, mode='c'] y_pred):
  *     cdef:
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_16roc_auc_pairwise_24sigmoid_pairwise_auc_gpu_3sigmoid_pairwise_grad_hess_auc_gpu_py(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_16roc_auc_pairwise_24sigmoid_pairwise_auc_gpu_3sigmoid_pairwise_grad_hess_auc_gpu_py = {"sigmoid_pairwise_grad_hess_auc_gpu_py", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_16roc_auc_pairwise_24sigmoid_pairwise_auc_gpu_3sigmoid_pairwise_grad_hess_auc_gpu_py, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_16roc_auc_pairwise_24sigmoid_pairwise_auc_gpu_3sigmoid_pairwise_grad_hess_auc_gpu_py(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_16roc_auc_pairwise_24sigmoid_pairwise_auc_gpu_3sigmoid_pairwise_diff_hess_auc_gpu_py(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_16roc_auc_pairwise_24sigmoid_pairwise_auc_gpu_3sigmoid_pairwise_diff_hess_auc_gpu_py = {"sigmoid_pairwise_diff_hess_auc_gpu_py", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_16roc_auc_pairwise_24sigmoid_pairwise_auc_gpu_3sigmoid_pairwise_diff_hess_auc_gpu_py, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_16roc_auc_pairwise_24sigmoid_pairwise_auc_gpu_3sigmoid_pairwise_diff_hess_auc_gpu_py(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyArrayObject *__pyx_v_y_true = 0;
   PyArrayObject *__pyx_v_y_pred = 0;
   int __pyx_lineno = 0;
@@ -2326,7 +2326,7 @@ static PyObject *__pyx_pw_16roc_auc_pairwise_24sigmoid_pairwise_auc_gpu_3sigmoid
   int __pyx_clineno = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("sigmoid_pairwise_grad_hess_auc_gpu_py (wrapper)", 0);
+  __Pyx_RefNannySetupContext("sigmoid_pairwise_diff_hess_auc_gpu_py (wrapper)", 0);
   {
     static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_y_true,&__pyx_n_s_y_pred,0};
     PyObject* values[2] = {0,0};
@@ -2350,11 +2350,11 @@ static PyObject *__pyx_pw_16roc_auc_pairwise_24sigmoid_pairwise_auc_gpu_3sigmoid
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_y_pred)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("sigmoid_pairwise_grad_hess_auc_gpu_py", 1, 2, 2, 1); __PYX_ERR(0, 49, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("sigmoid_pairwise_diff_hess_auc_gpu_py", 1, 2, 2, 1); __PYX_ERR(0, 49, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "sigmoid_pairwise_grad_hess_auc_gpu_py") < 0)) __PYX_ERR(0, 49, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "sigmoid_pairwise_diff_hess_auc_gpu_py") < 0)) __PYX_ERR(0, 49, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -2367,15 +2367,15 @@ static PyObject *__pyx_pw_16roc_auc_pairwise_24sigmoid_pairwise_auc_gpu_3sigmoid
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("sigmoid_pairwise_grad_hess_auc_gpu_py", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 49, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("sigmoid_pairwise_diff_hess_auc_gpu_py", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 49, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("roc_auc_pairwise.sigmoid_pairwise_auc_gpu.sigmoid_pairwise_grad_hess_auc_gpu_py", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("roc_auc_pairwise.sigmoid_pairwise_auc_gpu.sigmoid_pairwise_diff_hess_auc_gpu_py", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_y_true), __pyx_ptype_5numpy_ndarray, 1, "y_true", 0))) __PYX_ERR(0, 49, __pyx_L1_error)
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_y_pred), __pyx_ptype_5numpy_ndarray, 1, "y_pred", 0))) __PYX_ERR(0, 50, __pyx_L1_error)
-  __pyx_r = __pyx_pf_16roc_auc_pairwise_24sigmoid_pairwise_auc_gpu_2sigmoid_pairwise_grad_hess_auc_gpu_py(__pyx_self, __pyx_v_y_true, __pyx_v_y_pred);
+  __pyx_r = __pyx_pf_16roc_auc_pairwise_24sigmoid_pairwise_auc_gpu_2sigmoid_pairwise_diff_hess_auc_gpu_py(__pyx_self, __pyx_v_y_true, __pyx_v_y_pred);
 
   /* function exit code */
   goto __pyx_L0;
@@ -2386,7 +2386,7 @@ static PyObject *__pyx_pw_16roc_auc_pairwise_24sigmoid_pairwise_auc_gpu_3sigmoid
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_16roc_auc_pairwise_24sigmoid_pairwise_auc_gpu_2sigmoid_pairwise_grad_hess_auc_gpu_py(CYTHON_UNUSED PyObject *__pyx_self, PyArrayObject *__pyx_v_y_true, PyArrayObject *__pyx_v_y_pred) {
+static PyObject *__pyx_pf_16roc_auc_pairwise_24sigmoid_pairwise_auc_gpu_2sigmoid_pairwise_diff_hess_auc_gpu_py(CYTHON_UNUSED PyObject *__pyx_self, PyArrayObject *__pyx_v_y_true, PyArrayObject *__pyx_v_y_pred) {
   size_t __pyx_v_n_ones;
   size_t __pyx_v_N;
   size_t __pyx_v_n_zeroes;
@@ -2425,7 +2425,7 @@ static PyObject *__pyx_pf_16roc_auc_pairwise_24sigmoid_pairwise_auc_gpu_2sigmoid
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("sigmoid_pairwise_grad_hess_auc_gpu_py", 0);
+  __Pyx_RefNannySetupContext("sigmoid_pairwise_diff_hess_auc_gpu_py", 0);
   __pyx_pybuffer_exp_pred.pybuffer.buf = NULL;
   __pyx_pybuffer_exp_pred.refcount = 0;
   __pyx_pybuffernd_exp_pred.data = NULL;
@@ -2716,7 +2716,7 @@ static PyObject *__pyx_pf_16roc_auc_pairwise_24sigmoid_pairwise_auc_gpu_2sigmoid
   /* "roc_auc_pairwise/sigmoid_pairwise_auc_gpu_cython.pyx":49
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
- * def sigmoid_pairwise_grad_hess_auc_gpu_py(np.ndarray[np.int32_t, ndim=1, mode='c'] y_true,             # <<<<<<<<<<<<<<
+ * def sigmoid_pairwise_diff_hess_auc_gpu_py(np.ndarray[np.int32_t, ndim=1, mode='c'] y_true,             # <<<<<<<<<<<<<<
  *                                           np.ndarray[np.float32_t, ndim=1, mode='c'] y_pred):
  *     cdef:
  */
@@ -2738,7 +2738,7 @@ static PyObject *__pyx_pf_16roc_auc_pairwise_24sigmoid_pairwise_auc_gpu_2sigmoid
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_y_pred_argsorted.rcbuffer->pybuffer);
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_y_true.rcbuffer->pybuffer);
   __Pyx_ErrRestore(__pyx_type, __pyx_value, __pyx_tb);}
-  __Pyx_AddTraceback("roc_auc_pairwise.sigmoid_pairwise_auc_gpu.sigmoid_pairwise_grad_hess_auc_gpu_py", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("roc_auc_pairwise.sigmoid_pairwise_auc_gpu.sigmoid_pairwise_diff_hess_auc_gpu_py", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   goto __pyx_L2;
   __pyx_L0:;
@@ -3121,15 +3121,15 @@ static PyObject *__pyx_pf_16roc_auc_pairwise_24sigmoid_pairwise_auc_gpu_4sigmoid
 /* "roc_auc_pairwise/sigmoid_pairwise_auc_gpu_cython.pyx":92
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
- * def sigmoid_pairwise_grad_hess_auc_exact_gpu_py(np.ndarray[np.int32_t, ndim=1, mode='c'] y_true,             # <<<<<<<<<<<<<<
+ * def sigmoid_pairwise_diff_hess_auc_exact_gpu_py(np.ndarray[np.int32_t, ndim=1, mode='c'] y_true,             # <<<<<<<<<<<<<<
  *                                                 np.ndarray[np.float32_t, ndim=1, mode='c'] y_pred):
  *     cdef:
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_16roc_auc_pairwise_24sigmoid_pairwise_auc_gpu_7sigmoid_pairwise_grad_hess_auc_exact_gpu_py(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_16roc_auc_pairwise_24sigmoid_pairwise_auc_gpu_7sigmoid_pairwise_grad_hess_auc_exact_gpu_py = {"sigmoid_pairwise_grad_hess_auc_exact_gpu_py", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_16roc_auc_pairwise_24sigmoid_pairwise_auc_gpu_7sigmoid_pairwise_grad_hess_auc_exact_gpu_py, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_16roc_auc_pairwise_24sigmoid_pairwise_auc_gpu_7sigmoid_pairwise_grad_hess_auc_exact_gpu_py(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_16roc_auc_pairwise_24sigmoid_pairwise_auc_gpu_7sigmoid_pairwise_diff_hess_auc_exact_gpu_py(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_16roc_auc_pairwise_24sigmoid_pairwise_auc_gpu_7sigmoid_pairwise_diff_hess_auc_exact_gpu_py = {"sigmoid_pairwise_diff_hess_auc_exact_gpu_py", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_16roc_auc_pairwise_24sigmoid_pairwise_auc_gpu_7sigmoid_pairwise_diff_hess_auc_exact_gpu_py, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_16roc_auc_pairwise_24sigmoid_pairwise_auc_gpu_7sigmoid_pairwise_diff_hess_auc_exact_gpu_py(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyArrayObject *__pyx_v_y_true = 0;
   PyArrayObject *__pyx_v_y_pred = 0;
   int __pyx_lineno = 0;
@@ -3137,7 +3137,7 @@ static PyObject *__pyx_pw_16roc_auc_pairwise_24sigmoid_pairwise_auc_gpu_7sigmoid
   int __pyx_clineno = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("sigmoid_pairwise_grad_hess_auc_exact_gpu_py (wrapper)", 0);
+  __Pyx_RefNannySetupContext("sigmoid_pairwise_diff_hess_auc_exact_gpu_py (wrapper)", 0);
   {
     static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_y_true,&__pyx_n_s_y_pred,0};
     PyObject* values[2] = {0,0};
@@ -3161,11 +3161,11 @@ static PyObject *__pyx_pw_16roc_auc_pairwise_24sigmoid_pairwise_auc_gpu_7sigmoid
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_y_pred)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("sigmoid_pairwise_grad_hess_auc_exact_gpu_py", 1, 2, 2, 1); __PYX_ERR(0, 92, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("sigmoid_pairwise_diff_hess_auc_exact_gpu_py", 1, 2, 2, 1); __PYX_ERR(0, 92, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "sigmoid_pairwise_grad_hess_auc_exact_gpu_py") < 0)) __PYX_ERR(0, 92, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "sigmoid_pairwise_diff_hess_auc_exact_gpu_py") < 0)) __PYX_ERR(0, 92, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -3178,15 +3178,15 @@ static PyObject *__pyx_pw_16roc_auc_pairwise_24sigmoid_pairwise_auc_gpu_7sigmoid
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("sigmoid_pairwise_grad_hess_auc_exact_gpu_py", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 92, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("sigmoid_pairwise_diff_hess_auc_exact_gpu_py", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 92, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("roc_auc_pairwise.sigmoid_pairwise_auc_gpu.sigmoid_pairwise_grad_hess_auc_exact_gpu_py", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("roc_auc_pairwise.sigmoid_pairwise_auc_gpu.sigmoid_pairwise_diff_hess_auc_exact_gpu_py", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_y_true), __pyx_ptype_5numpy_ndarray, 1, "y_true", 0))) __PYX_ERR(0, 92, __pyx_L1_error)
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_y_pred), __pyx_ptype_5numpy_ndarray, 1, "y_pred", 0))) __PYX_ERR(0, 93, __pyx_L1_error)
-  __pyx_r = __pyx_pf_16roc_auc_pairwise_24sigmoid_pairwise_auc_gpu_6sigmoid_pairwise_grad_hess_auc_exact_gpu_py(__pyx_self, __pyx_v_y_true, __pyx_v_y_pred);
+  __pyx_r = __pyx_pf_16roc_auc_pairwise_24sigmoid_pairwise_auc_gpu_6sigmoid_pairwise_diff_hess_auc_exact_gpu_py(__pyx_self, __pyx_v_y_true, __pyx_v_y_pred);
 
   /* function exit code */
   goto __pyx_L0;
@@ -3197,7 +3197,7 @@ static PyObject *__pyx_pw_16roc_auc_pairwise_24sigmoid_pairwise_auc_gpu_7sigmoid
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_16roc_auc_pairwise_24sigmoid_pairwise_auc_gpu_6sigmoid_pairwise_grad_hess_auc_exact_gpu_py(CYTHON_UNUSED PyObject *__pyx_self, PyArrayObject *__pyx_v_y_true, PyArrayObject *__pyx_v_y_pred) {
+static PyObject *__pyx_pf_16roc_auc_pairwise_24sigmoid_pairwise_auc_gpu_6sigmoid_pairwise_diff_hess_auc_exact_gpu_py(CYTHON_UNUSED PyObject *__pyx_self, PyArrayObject *__pyx_v_y_true, PyArrayObject *__pyx_v_y_pred) {
   size_t __pyx_v_n_ones;
   size_t __pyx_v_N;
   size_t __pyx_v_n_zeroes;
@@ -3236,7 +3236,7 @@ static PyObject *__pyx_pf_16roc_auc_pairwise_24sigmoid_pairwise_auc_gpu_6sigmoid
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("sigmoid_pairwise_grad_hess_auc_exact_gpu_py", 0);
+  __Pyx_RefNannySetupContext("sigmoid_pairwise_diff_hess_auc_exact_gpu_py", 0);
   __pyx_pybuffer_exp_pred.pybuffer.buf = NULL;
   __pyx_pybuffer_exp_pred.refcount = 0;
   __pyx_pybuffernd_exp_pred.data = NULL;
@@ -3509,7 +3509,7 @@ static PyObject *__pyx_pf_16roc_auc_pairwise_24sigmoid_pairwise_auc_gpu_6sigmoid
   /* "roc_auc_pairwise/sigmoid_pairwise_auc_gpu_cython.pyx":92
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
- * def sigmoid_pairwise_grad_hess_auc_exact_gpu_py(np.ndarray[np.int32_t, ndim=1, mode='c'] y_true,             # <<<<<<<<<<<<<<
+ * def sigmoid_pairwise_diff_hess_auc_exact_gpu_py(np.ndarray[np.int32_t, ndim=1, mode='c'] y_true,             # <<<<<<<<<<<<<<
  *                                                 np.ndarray[np.float32_t, ndim=1, mode='c'] y_pred):
  *     cdef:
  */
@@ -3531,7 +3531,7 @@ static PyObject *__pyx_pf_16roc_auc_pairwise_24sigmoid_pairwise_auc_gpu_6sigmoid
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_y_pred_argsorted.rcbuffer->pybuffer);
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_y_true.rcbuffer->pybuffer);
   __Pyx_ErrRestore(__pyx_type, __pyx_value, __pyx_tb);}
-  __Pyx_AddTraceback("roc_auc_pairwise.sigmoid_pairwise_auc_gpu.sigmoid_pairwise_grad_hess_auc_exact_gpu_py", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("roc_auc_pairwise.sigmoid_pairwise_auc_gpu.sigmoid_pairwise_diff_hess_auc_exact_gpu_py", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   goto __pyx_L2;
   __pyx_L0:;
@@ -4637,8 +4637,8 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_numpy_core_umath_failed_to_impor, __pyx_k_numpy_core_umath_failed_to_impor, sizeof(__pyx_k_numpy_core_umath_failed_to_impor), 0, 0, 1, 0},
   {&__pyx_kp_s_roc_auc_pairwise_sigmoid_pairwis, __pyx_k_roc_auc_pairwise_sigmoid_pairwis, sizeof(__pyx_k_roc_auc_pairwise_sigmoid_pairwis), 0, 0, 1, 0},
   {&__pyx_n_s_roc_auc_pairwise_sigmoid_pairwis_2, __pyx_k_roc_auc_pairwise_sigmoid_pairwis_2, sizeof(__pyx_k_roc_auc_pairwise_sigmoid_pairwis_2), 0, 0, 1, 1},
-  {&__pyx_n_s_sigmoid_pairwise_grad_hess_auc_e, __pyx_k_sigmoid_pairwise_grad_hess_auc_e, sizeof(__pyx_k_sigmoid_pairwise_grad_hess_auc_e), 0, 0, 1, 1},
-  {&__pyx_n_s_sigmoid_pairwise_grad_hess_auc_g, __pyx_k_sigmoid_pairwise_grad_hess_auc_g, sizeof(__pyx_k_sigmoid_pairwise_grad_hess_auc_g), 0, 0, 1, 1},
+  {&__pyx_n_s_sigmoid_pairwise_diff_hess_auc_e, __pyx_k_sigmoid_pairwise_diff_hess_auc_e, sizeof(__pyx_k_sigmoid_pairwise_diff_hess_auc_e), 0, 0, 1, 1},
+  {&__pyx_n_s_sigmoid_pairwise_diff_hess_auc_g, __pyx_k_sigmoid_pairwise_diff_hess_auc_g, sizeof(__pyx_k_sigmoid_pairwise_diff_hess_auc_g), 0, 0, 1, 1},
   {&__pyx_n_s_sigmoid_pairwise_loss_auc_exact, __pyx_k_sigmoid_pairwise_loss_auc_exact, sizeof(__pyx_k_sigmoid_pairwise_loss_auc_exact), 0, 0, 1, 1},
   {&__pyx_n_s_sigmoid_pairwise_loss_auc_gpu_py, __pyx_k_sigmoid_pairwise_loss_auc_gpu_py, sizeof(__pyx_k_sigmoid_pairwise_loss_auc_gpu_py), 0, 0, 1, 1},
   {&__pyx_n_s_sum, __pyx_k_sum, sizeof(__pyx_k_sum), 0, 0, 1, 1},
@@ -4696,14 +4696,14 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   /* "roc_auc_pairwise/sigmoid_pairwise_auc_gpu_cython.pyx":49
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
- * def sigmoid_pairwise_grad_hess_auc_gpu_py(np.ndarray[np.int32_t, ndim=1, mode='c'] y_true,             # <<<<<<<<<<<<<<
+ * def sigmoid_pairwise_diff_hess_auc_gpu_py(np.ndarray[np.int32_t, ndim=1, mode='c'] y_true,             # <<<<<<<<<<<<<<
  *                                           np.ndarray[np.float32_t, ndim=1, mode='c'] y_pred):
  *     cdef:
  */
   __pyx_tuple__5 = PyTuple_Pack(11, __pyx_n_s_y_true, __pyx_n_s_y_pred, __pyx_n_s_n_ones, __pyx_n_s_N, __pyx_n_s_n_zeroes, __pyx_n_s_exp_pred, __pyx_n_s_y_pred_argsorted, __pyx_n_s_grad_hess, __pyx_n_s_dims, __pyx_n_s_grad, __pyx_n_s_hess); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(0, 49, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__5);
   __Pyx_GIVEREF(__pyx_tuple__5);
-  __pyx_codeobj__6 = (PyObject*)__Pyx_PyCode_New(2, 0, 11, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__5, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_roc_auc_pairwise_sigmoid_pairwis, __pyx_n_s_sigmoid_pairwise_grad_hess_auc_g, 49, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__6)) __PYX_ERR(0, 49, __pyx_L1_error)
+  __pyx_codeobj__6 = (PyObject*)__Pyx_PyCode_New(2, 0, 11, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__5, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_roc_auc_pairwise_sigmoid_pairwis, __pyx_n_s_sigmoid_pairwise_diff_hess_auc_g, 49, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__6)) __PYX_ERR(0, 49, __pyx_L1_error)
 
   /* "roc_auc_pairwise/sigmoid_pairwise_auc_gpu_cython.pyx":74
  * @cython.boundscheck(False)
@@ -4720,14 +4720,14 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   /* "roc_auc_pairwise/sigmoid_pairwise_auc_gpu_cython.pyx":92
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
- * def sigmoid_pairwise_grad_hess_auc_exact_gpu_py(np.ndarray[np.int32_t, ndim=1, mode='c'] y_true,             # <<<<<<<<<<<<<<
+ * def sigmoid_pairwise_diff_hess_auc_exact_gpu_py(np.ndarray[np.int32_t, ndim=1, mode='c'] y_true,             # <<<<<<<<<<<<<<
  *                                                 np.ndarray[np.float32_t, ndim=1, mode='c'] y_pred):
  *     cdef:
  */
   __pyx_tuple__9 = PyTuple_Pack(11, __pyx_n_s_y_true, __pyx_n_s_y_pred, __pyx_n_s_n_ones, __pyx_n_s_N, __pyx_n_s_n_zeroes, __pyx_n_s_exp_pred, __pyx_n_s_y_pred_argsorted, __pyx_n_s_grad_hess, __pyx_n_s_dims, __pyx_n_s_grad, __pyx_n_s_hess); if (unlikely(!__pyx_tuple__9)) __PYX_ERR(0, 92, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__9);
   __Pyx_GIVEREF(__pyx_tuple__9);
-  __pyx_codeobj__10 = (PyObject*)__Pyx_PyCode_New(2, 0, 11, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__9, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_roc_auc_pairwise_sigmoid_pairwis, __pyx_n_s_sigmoid_pairwise_grad_hess_auc_e, 92, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__10)) __PYX_ERR(0, 92, __pyx_L1_error)
+  __pyx_codeobj__10 = (PyObject*)__Pyx_PyCode_New(2, 0, 11, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__9, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_roc_auc_pairwise_sigmoid_pairwis, __pyx_n_s_sigmoid_pairwise_diff_hess_auc_e, 92, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__10)) __PYX_ERR(0, 92, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -5109,13 +5109,13 @@ if (!__Pyx_RefNanny) {
   /* "roc_auc_pairwise/sigmoid_pairwise_auc_gpu_cython.pyx":49
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
- * def sigmoid_pairwise_grad_hess_auc_gpu_py(np.ndarray[np.int32_t, ndim=1, mode='c'] y_true,             # <<<<<<<<<<<<<<
+ * def sigmoid_pairwise_diff_hess_auc_gpu_py(np.ndarray[np.int32_t, ndim=1, mode='c'] y_true,             # <<<<<<<<<<<<<<
  *                                           np.ndarray[np.float32_t, ndim=1, mode='c'] y_pred):
  *     cdef:
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_16roc_auc_pairwise_24sigmoid_pairwise_auc_gpu_3sigmoid_pairwise_grad_hess_auc_gpu_py, NULL, __pyx_n_s_roc_auc_pairwise_sigmoid_pairwis_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 49, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_16roc_auc_pairwise_24sigmoid_pairwise_auc_gpu_3sigmoid_pairwise_diff_hess_auc_gpu_py, NULL, __pyx_n_s_roc_auc_pairwise_sigmoid_pairwis_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 49, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_sigmoid_pairwise_grad_hess_auc_g, __pyx_t_2) < 0) __PYX_ERR(0, 49, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_sigmoid_pairwise_diff_hess_auc_g, __pyx_t_2) < 0) __PYX_ERR(0, 49, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "roc_auc_pairwise/sigmoid_pairwise_auc_gpu_cython.pyx":74
@@ -5133,13 +5133,13 @@ if (!__Pyx_RefNanny) {
   /* "roc_auc_pairwise/sigmoid_pairwise_auc_gpu_cython.pyx":92
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
- * def sigmoid_pairwise_grad_hess_auc_exact_gpu_py(np.ndarray[np.int32_t, ndim=1, mode='c'] y_true,             # <<<<<<<<<<<<<<
+ * def sigmoid_pairwise_diff_hess_auc_exact_gpu_py(np.ndarray[np.int32_t, ndim=1, mode='c'] y_true,             # <<<<<<<<<<<<<<
  *                                                 np.ndarray[np.float32_t, ndim=1, mode='c'] y_pred):
  *     cdef:
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_16roc_auc_pairwise_24sigmoid_pairwise_auc_gpu_7sigmoid_pairwise_grad_hess_auc_exact_gpu_py, NULL, __pyx_n_s_roc_auc_pairwise_sigmoid_pairwis_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 92, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_16roc_auc_pairwise_24sigmoid_pairwise_auc_gpu_7sigmoid_pairwise_diff_hess_auc_exact_gpu_py, NULL, __pyx_n_s_roc_auc_pairwise_sigmoid_pairwis_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 92, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_sigmoid_pairwise_grad_hess_auc_e, __pyx_t_2) < 0) __PYX_ERR(0, 92, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_sigmoid_pairwise_diff_hess_auc_e, __pyx_t_2) < 0) __PYX_ERR(0, 92, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "roc_auc_pairwise/sigmoid_pairwise_auc_gpu_cython.pyx":1

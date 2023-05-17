@@ -1,6 +1,7 @@
 from copy import deepcopy
 
 import numpy as np
+import pandas as pd
 from sklearn.metrics import roc_auc_score
 
 from roc_auc_pairwise.deltaauc_gpu import deltaauc_py
@@ -195,3 +196,170 @@ def test_deltaauc_equal_numbers():
     assert np.abs(auc_deltaauc - auc_true) < 1e-5
 
  
+#########################################################################################
+
+#################################################################################################
+
+
+def test_deltaauc_unique_8_parquet():
+    df = pd.read_parquet('./tests_unique_8.parquet')
+    
+    for s in range(5):
+        y_true, y_pred = df.iloc[s].y_true, df.iloc[s].y_pred
+        y_true, y_pred = np.array(y_true).astype(np.int32), np.array(y_pred).astype(np.float32)
+        y_pred_argsorted = np.argsort(y_pred)
+        y_pred_ranks = get_inverse_argsort_py(y_true, y_pred, y_pred_argsorted).astype(np.int32)
+        n_ones = np.sum(y_true)
+        n_zeroes = y_true.shape[0] - n_ones
+        for i in range(8):
+            for j in range(8):
+                auc_true = delta_auc_score(y_true, y_pred, i, j)
+                auc_deltaauc = deltaauc_py(y_true, y_pred_ranks, n_ones, n_zeroes, i, j)
+
+                assert(np.abs(auc_true - auc_deltaauc) < 1e-5)
+                
+def test_deltaauc_unique_10_parquet():
+    df = pd.read_parquet('./tests_unique_10.parquet')
+    
+    for s in range(5):
+        y_true, y_pred = df.iloc[s].y_true, df.iloc[s].y_pred
+        y_true, y_pred = np.array(y_true).astype(np.int32), np.array(y_pred).astype(np.float32)
+        y_pred_argsorted = np.argsort(y_pred)
+        y_pred_ranks = get_inverse_argsort_py(y_true, y_pred, y_pred_argsorted).astype(np.int32)
+        n_ones = np.sum(y_true)
+        n_zeroes = y_true.shape[0] - n_ones
+        for i in range(10):
+            for j in range(10):
+                auc_true = delta_auc_score(y_true, y_pred, i, j)
+                auc_deltaauc = deltaauc_py(y_true, y_pred_ranks, n_ones, n_zeroes, i, j)
+
+                assert(np.abs(auc_true - auc_deltaauc) < 1e-5)
+                
+                
+def test_deltaauc_unique_100_parquet():
+    df = pd.read_parquet('./tests_unique_100.parquet')
+    
+    for s in range(2):
+        y_true, y_pred = df.iloc[s].y_true, df.iloc[s].y_pred
+        y_true, y_pred = np.array(y_true).astype(np.int32), np.array(y_pred).astype(np.float32)
+        y_pred_argsorted = np.argsort(y_pred)
+        y_pred_ranks = get_inverse_argsort_py(y_true, y_pred, y_pred_argsorted).astype(np.int32)
+        n_ones = np.sum(y_true)
+        n_zeroes = y_true.shape[0] - n_ones
+        for i in range(10):
+            for j in range(100):
+                auc_true = delta_auc_score(y_true, y_pred, i, j)
+                auc_deltaauc = deltaauc_py(y_true, y_pred_ranks, n_ones, n_zeroes, i, j)
+
+                assert(np.abs(auc_true - auc_deltaauc) < 1e-5)
+                
+#######################################################################################################
+
+def test_deltaauc_exact_unique_8_parquet():
+    df = pd.read_parquet('./tests_unique_8.parquet')
+    
+    for s in range(5):
+        y_true, y_pred = df.iloc[s].y_true, df.iloc[s].y_pred
+        y_true, y_pred = np.array(y_true).astype(np.int32), np.array(y_pred).astype(np.float32)
+        y_pred_argsorted = np.argsort(y_pred)
+        counters_p, counters_n, y_pred_left, y_pred_right = get_labelscount_borders(y_true, y_pred, y_pred_argsorted)
+        n_ones = np.sum(y_true)
+        n_zeroes = y_true.shape[0] - n_ones
+        for i in range(8):
+            for j in range(4):
+                auc_true = delta_auc_score(y_true, y_pred, i, j)
+                
+                auc_deltaauc_exact = deltaauc_exact_py(y_true, y_pred, 
+                                           counters_n, counters_p,
+                                           y_pred_left, y_pred_right,
+                                           n_ones, n_zeroes, i, j)
+
+                assert(np.abs(auc_true - auc_deltaauc_exact) < 1e-5)
+                
+                
+def test_deltaauc_exact_unique_10_parquet():
+    df = pd.read_parquet('./tests_unique_10.parquet')
+    
+    for s in range(5):
+        y_true, y_pred = df.iloc[s].y_true, df.iloc[s].y_pred
+        y_true, y_pred = np.array(y_true).astype(np.int32), np.array(y_pred).astype(np.float32)
+        y_pred_argsorted = np.argsort(y_pred)
+        counters_p, counters_n, y_pred_left, y_pred_right = get_labelscount_borders(y_true, y_pred, y_pred_argsorted)
+        n_ones = np.sum(y_true)
+        n_zeroes = y_true.shape[0] - n_ones
+        for i in range(10):
+            for j in range(5):
+                auc_true = delta_auc_score(y_true, y_pred, i, j)
+                
+                auc_deltaauc_exact = deltaauc_exact_py(y_true, y_pred, 
+                                           counters_n, counters_p,
+                                           y_pred_left, y_pred_right,
+                                           n_ones, n_zeroes, i, j)
+
+                assert(np.abs(auc_true - auc_deltaauc_exact) < 1e-5)
+
+
+def test_deltaauc_exact_non_unique_8_parquet():
+    df = pd.read_parquet('./tests_non_unique_8.parquet')
+    
+    for s in range(5):
+        y_true, y_pred = df.iloc[s].y_true, df.iloc[s].y_pred
+        y_true, y_pred = np.array(y_true).astype(np.int32), np.array(y_pred).astype(np.float32)
+        y_pred_argsorted = np.argsort(y_pred)
+        counters_p, counters_n, y_pred_left, y_pred_right = get_labelscount_borders(y_true, y_pred, y_pred_argsorted)
+        n_ones = np.sum(y_true)
+        n_zeroes = y_true.shape[0] - n_ones
+        for i in range(8):
+            for j in range(4):
+                auc_true = delta_auc_score(y_true, y_pred, i, j)
+                
+                auc_deltaauc_exact = deltaauc_exact_py(y_true, y_pred, 
+                                           counters_n, counters_p,
+                                           y_pred_left, y_pred_right,
+                                           n_ones, n_zeroes, i, j)
+
+                assert(np.abs(auc_true - auc_deltaauc_exact) < 1e-5)
+                
+                
+def test_deltaauc_exact_non_unique_10_parquet():
+    df = pd.read_parquet('./tests_non_unique_10.parquet')
+    
+    for s in range(5):
+        y_true, y_pred = df.iloc[s].y_true, df.iloc[s].y_pred
+        y_true, y_pred = np.array(y_true).astype(np.int32), np.array(y_pred).astype(np.float32)
+        y_pred_argsorted = np.argsort(y_pred)
+        counters_p, counters_n, y_pred_left, y_pred_right = get_labelscount_borders(y_true, y_pred, y_pred_argsorted)
+        n_ones = np.sum(y_true)
+        n_zeroes = y_true.shape[0] - n_ones
+        for i in range(10):
+            for j in range(5):
+                auc_true = delta_auc_score(y_true, y_pred, i, j)
+                
+                auc_deltaauc_exact = deltaauc_exact_py(y_true, y_pred, 
+                                           counters_n, counters_p,
+                                           y_pred_left, y_pred_right,
+                                           n_ones, n_zeroes, i, j)
+
+                assert(np.abs(auc_true - auc_deltaauc_exact) < 1e-5)
+                
+                
+def test_deltaauc_exact_non_unique_100_parquet():
+    df = pd.read_parquet('./tests_non_unique_100.parquet')
+    
+    for s in range(1):
+        y_true, y_pred = df.iloc[s].y_true, df.iloc[s].y_pred
+        y_true, y_pred = np.array(y_true).astype(np.int32), np.array(y_pred).astype(np.float32)
+        y_pred_argsorted = np.argsort(y_pred)
+        counters_p, counters_n, y_pred_left, y_pred_right = get_labelscount_borders(y_true, y_pred, y_pred_argsorted)
+        n_ones = np.sum(y_true)
+        n_zeroes = y_true.shape[0] - n_ones
+        for i in range(10):
+            for j in range(100):
+                auc_true = delta_auc_score(y_true, y_pred, i, j)
+                
+                auc_deltaauc_exact = deltaauc_exact_py(y_true, y_pred, 
+                                           counters_n, counters_p,
+                                           y_pred_left, y_pred_right,
+                                           n_ones, n_zeroes, i, j)
+
+                assert(np.abs(auc_true - auc_deltaauc_exact) < 1e-5)

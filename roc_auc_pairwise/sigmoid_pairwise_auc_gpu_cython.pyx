@@ -46,7 +46,7 @@ def sigmoid_pairwise_loss_auc_gpu_py(np.ndarray[np.int32_t, ndim=1, mode='c'] y_
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
-def sigmoid_pairwise_grad_hess_auc_gpu_py(np.ndarray[np.int32_t, ndim=1, mode='c'] y_true,
+def sigmoid_pairwise_diff_hess_auc_gpu_py(np.ndarray[np.int32_t, ndim=1, mode='c'] y_true,
                                           np.ndarray[np.float32_t, ndim=1, mode='c'] y_pred):
     cdef:
         size_t n_ones = np.sum(y_true)
@@ -89,7 +89,7 @@ def sigmoid_pairwise_loss_auc_exact_gpu_py(np.ndarray[np.int32_t, ndim=1, mode='
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
-def sigmoid_pairwise_grad_hess_auc_exact_gpu_py(np.ndarray[np.int32_t, ndim=1, mode='c'] y_true,
+def sigmoid_pairwise_diff_hess_auc_exact_gpu_py(np.ndarray[np.int32_t, ndim=1, mode='c'] y_true,
                                                 np.ndarray[np.float32_t, ndim=1, mode='c'] y_pred):
     cdef:
         size_t n_ones = np.sum(y_true)
