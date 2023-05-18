@@ -38,7 +38,7 @@ def locate_cuda():
 
     cudaconfig = {'home': home, 'nvcc': nvcc,
                   'include': pjoin(home, 'include'),
-                  'lib64': pjoin(home, 'lib64')}
+                  'lib64': pjoin(home, 'lib')}
     for k, v in iter(cudaconfig.items()):
         if not os.path.exists(v):
             raise EnvironmentError('The CUDA %s path could not be '
@@ -85,7 +85,7 @@ class custom_build_ext(build_ext):
 
 
 CUDA = locate_cuda()
-
+print(CUDA)
 try:
     numpy_include = numpy.get_include()
 except AttributeError:
@@ -99,7 +99,7 @@ exts = [Extension('roc_auc_pairwise.utils',
         language = 'c++',
         runtime_library_dirs = [CUDA['lib64']],
         extra_compile_args= {
-            'gcc': ['-fopenmp', '-lstdc++'],
+            'gcc': ['-fopenmp', '-lstdc++', '-std=c++11' ],
             'nvcc': ['--ptxas-options=-v', '-c',
                 '--compiler-options', "'-fPIC'"
                 ]
@@ -114,7 +114,7 @@ exts = [Extension('roc_auc_pairwise.utils',
         language = 'c++',
         runtime_library_dirs = [CUDA['lib64']],
         extra_compile_args= {
-            'gcc': ['-fopenmp', '-lstdc++'],
+            'gcc': ['-fopenmp', '-lstdc++',  '-std=c++11' ],
             'nvcc': ['--ptxas-options=-v', '-c',
                 '--compiler-options', "'-fPIC'"
                 ]
@@ -129,7 +129,7 @@ exts = [Extension('roc_auc_pairwise.utils',
         language = 'c++',
         runtime_library_dirs = [CUDA['lib64']],
         extra_compile_args= {
-            'gcc': ['-fopenmp', '-lstdc++'],
+            'gcc': ['-fopenmp', '-lstdc++',  '-std=c++11' ],
             'nvcc': ['--ptxas-options=-v', '-c',
                 '--compiler-options', "'-fPIC'"
                 ]
@@ -144,7 +144,7 @@ exts = [Extension('roc_auc_pairwise.utils',
         language = 'c++',
         runtime_library_dirs = [CUDA['lib64']],
         extra_compile_args= {
-            'gcc': ['-fopenmp', '-lstdc++'],
+            'gcc': ['-fopenmp', '-lstdc++',  '-std=c++11' ],
             'nvcc': ['--ptxas-options=-v', '-c',
                 '--compiler-options', "'-fPIC'"
                 ]
@@ -159,9 +159,9 @@ exts = [Extension('roc_auc_pairwise.utils',
         language = 'c++',
         runtime_library_dirs = [CUDA['lib64']],
         extra_compile_args= {
-            'gcc': ['-fopenmp', '-lstdc++'],
+            'gcc': ['-fopenmp', '-lstdc++',  '-std=c++11' ],
             'nvcc': ['--ptxas-options=-v', '-c',
-                '--compiler-options', "'-fPIC'"
+                '--compiler-options', "'-fPIC'",  '-std=c++11' 
                 ]
             },
         extra_link_args= ['-fopenmp', '-lstdc++'],
@@ -174,9 +174,9 @@ exts = [Extension('roc_auc_pairwise.utils',
         language = 'c++',
         runtime_library_dirs = [CUDA['lib64']],
         extra_compile_args= {
-            'gcc': ['-fopenmp', '-lstdc++'],
+            'gcc': ['-fopenmp', '-lstdc++',  '-std=c++11' ],
             'nvcc': ['--ptxas-options=-v', '-c',
-                '--compiler-options', "'-fPIC'"
+                '--compiler-options', "'-fPIC'",  '-std=c++11' 
                 ]
             },
         extra_link_args= ['-fopenmp', '-lstdc++'],
@@ -189,9 +189,9 @@ exts = [Extension('roc_auc_pairwise.utils',
         language = 'c++',
         runtime_library_dirs = [CUDA['lib64']],
         extra_compile_args= {
-            'gcc': ['-fopenmp', '-lstdc++'],
+            'gcc': ['-fopenmp', '-lstdc++',  '-std=c++11' ],
             'nvcc': ['--ptxas-options=-v', '-c',
-                '--compiler-options', "'-fPIC'"
+                '--compiler-options', "'-fPIC'",  '-std=c++11' 
                 ]
             },
         extra_link_args= ['-fopenmp', '-lstdc++'],
@@ -202,7 +202,7 @@ exts = [Extension('roc_auc_pairwise.utils',
 
 setup(name = 'roc_auc_pairwise',
       author = 'Dmitry Michaylin',
-      version = '0.1',
+      version = '0.1.1',
       ext_modules = exts,
       cmdclass = {'build_ext': custom_build_ext},
       zip_safe = False)
