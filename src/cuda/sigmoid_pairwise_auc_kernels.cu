@@ -6,7 +6,7 @@
 
 __global__ void sigmoid_pairwise_loss_auc_kernel(int32_t* y_true, float* exp_pred,
                                                  int32_t* y_pred_ranks, float* sigmoid_loss,
-                                                 size_t n_ones, size_t n_zeroes, size_t N){
+                                                 uint n_ones, uint n_zeroes, uint N){
     int gid = threadIdx.x + blockDim.x*blockIdx.x;
 
     __shared__ float _loss;
@@ -17,12 +17,12 @@ __global__ void sigmoid_pairwise_loss_auc_kernel(int32_t* y_true, float* exp_pre
     __syncthreads();
 
     while(gid < N){
-        size_t _i = (gid%2 == 1) ? (N - size_t(gid/2) - 1) : size_t(gid/2);
-        for(size_t j = 0; j <= _i; j++){
+        uint _i = (gid%2 == 1) ? (N - uint(gid/2) - 1) : uint(gid/2);
+        for(uint j = 0; j <= _i; j++){
             float _deltaauc = deltaauc_kernel(y_true, y_pred_ranks, n_ones, n_zeroes, _i, j);
             float P_hat = 0.5f*(y_true[_i] - y_true[j]) + 0.5f;
             float P = 1.f / (1.f + (exp_pred[j] / exp_pred[_i]));
-            float delta_loss = fabsf(_deltaauc)*(P_hat*log(P + EPS_CU) + (1.f - P_hat)*log(1.f - P - EPS_CU));
+            float delta_loss = fabsf(_deltaauc)*(P_hat*logf(P + EPS_CU) + (1.f - P_hat)*logf(1.f - P - EPS_CU));
             atomicAdd(&_loss, delta_loss);
         }
         gid += blockDim.x*gridDim.x;
@@ -37,7 +37,7 @@ __global__ void sigmoid_pairwise_loss_auc_kernel(int32_t* y_true, float* exp_pre
 __global__ void sigmoid_pairwise_grad_hess_auc_kernel(int32_t* y_true, float* exp_pred,
                                                       int32_t* y_pred_ranks,
                                                       float* grad, float* hess, 
-                                                      size_t n_ones, size_t n_zeroes, size_t N){
+                                                      uint n_ones, uint n_zeroes, uint N){
     int gid = threadIdx.x + blockDim.x*blockIdx.x;
 
     float exp_tmp_diff = 0.;
@@ -49,8 +49,8 @@ __global__ void sigmoid_pairwise_grad_hess_auc_kernel(int32_t* y_true, float* ex
     float P_hat = 0.;
 
     while(gid < N){
-        size_t _i = (gid%2 == 1) ? (N - size_t(gid/2) - 1) : size_t(gid/2);
-        for(size_t j = 0; j < _i; j++){
+        uint _i = (gid%2 == 1) ? (N - uint(gid/2) - 1) : uint(gid/2);
+        for(uint j = 0; j < _i; j++){
             P_hat = 0.5f*(y_true[_i] - y_true[j]) + 0.5f;
             exp_tmp_diff = exp_pred[_i] / exp_pred[j];
 
@@ -76,7 +76,7 @@ __global__ void sigmoid_pairwise_loss_auc_exact_kernel(int32_t* y_true, float* e
                                                        int32_t* counters_p, int32_t* counters_n,
                                                        int32_t* y_pred_left, int32_t* y_pred_right, 
                                                        float* sigmoid_loss, float eps,
-                                                       size_t n_ones, size_t n_zeroes, size_t N){
+                                                       uint n_ones, uint n_zeroes, uint N){
     int gid = threadIdx.x + blockDim.x*blockIdx.x;
 
     __shared__ float _loss;
@@ -87,14 +87,14 @@ __global__ void sigmoid_pairwise_loss_auc_exact_kernel(int32_t* y_true, float* e
     __syncthreads();
 
     while(gid < N){
-        size_t _i = (gid%2 == 1) ? (N - size_t(gid/2) - 1) : size_t(gid/2);
-        for(size_t j = 0; j <= _i; j++){
+        uint _i = (gid%2 == 1) ? (N - uint(gid/2) - 1) : uint(gid/2);
+        for(uint j = 0; j <= _i; j++){
             float P_hat = 0.5f*(y_true[_i] - y_true[j]) + 0.5f;
             float P = 1.f / (1.f + (exp_pred[j] / exp_pred[_i]));
 
             float _deltaauc = deltaauc_exact_kernel(y_true, exp_pred, counters_p, counters_n, y_pred_left, y_pred_right, n_ones, n_zeroes, _i, j);
 
-            float delta_loss = (fabsf(_deltaauc) + eps)*(P_hat*log(P + EPS_CU) + (1.f - P_hat)*log(1.f - P - EPS_CU));
+            float delta_loss = (fabsf(_deltaauc) + eps)*(P_hat*logf(P + EPS_CU) + (1.f - P_hat)*logf(1.f - P - EPS_CU));
             atomicAdd(&_loss, delta_loss);
         }
         gid += blockDim.x*gridDim.x;
@@ -110,7 +110,7 @@ __global__ void sigmoid_pairwise_grad_hess_auc_exact_kernel(int32_t* y_true, flo
                                                             int32_t* counters_p, int32_t* counters_n,
                                                             int32_t* y_pred_left, int32_t* y_pred_right,
                                                             float* grad, float* hess, float eps,
-                                                            size_t n_ones, size_t n_zeroes, size_t N){
+                                                            uint n_ones, uint n_zeroes, uint N){
     int gid = threadIdx.x + blockDim.x*blockIdx.x;
 
     float exp_tmp_diff = 0.;
@@ -122,8 +122,8 @@ __global__ void sigmoid_pairwise_grad_hess_auc_exact_kernel(int32_t* y_true, flo
     float P_hat = 0.;
 
     while(gid < N){
-        size_t _i = (gid%2 == 1) ? (N - size_t(gid/2) - 1) : size_t(gid/2);
-        for(size_t j = 0; j < _i; j++){
+        uint _i = (gid%2 == 1) ? (N - uint(gid/2) - 1) : uint(gid/2);
+        for(uint j = 0; j < _i; j++){
             P_hat = 0.5f*(y_true[_i] - y_true[j]) + 0.5f;
             exp_tmp_diff = exp_pred[_i] / exp_pred[j];
 

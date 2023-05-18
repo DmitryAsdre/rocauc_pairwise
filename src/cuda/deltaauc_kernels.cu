@@ -4,8 +4,8 @@
 #include "deltaauc_kernels.cuh"
 
 __device__ float deltaauc_kernel(int32_t* y_true, int32_t* y_pred_ranks,
-                                 size_t n_ones, size_t n_zeroes,
-                                 size_t i, size_t j){
+                                 uint n_ones, uint n_zeroes,
+                                 uint i, uint j){
     float deltaauc_ = 0.f;
     float ranki = y_pred_ranks[i];
     float rankj = y_pred_ranks[j];
@@ -15,8 +15,8 @@ __device__ float deltaauc_kernel(int32_t* y_true, int32_t* y_pred_ranks,
 }
 
 __global__ void deltaauc_kernel_wrapper(int32_t* y_true, int32_t* y_pred_ranks,
-                                        size_t n_ones, size_t n_zeroes, 
-                                        size_t i, size_t j, float* _deltaauc){
+                                        uint n_ones, uint n_zeroes, 
+                                        uint i, uint j, float* _deltaauc){
     int gid = threadIdx.x + blockDim.x*blockIdx.x;
 
     if(gid == 0){
@@ -27,12 +27,12 @@ __global__ void deltaauc_kernel_wrapper(int32_t* y_true, int32_t* y_pred_ranks,
 __device__ float deltaauc_exact_kernel(int32_t* y_true, float* y_pred,
                                        int32_t* counters_p, int32_t* counters_n,
                                        int32_t* y_pred_left, int32_t* y_pred_right,
-                                       size_t n_ones, size_t n_zeroes, size_t i, size_t j){
+                                       uint n_ones, uint n_zeroes, uint i, uint j){
     float ypredi = y_pred[i];
     float ypredj = y_pred[j];
     
     if(ypredi < ypredj){
-        size_t tmpi = i;
+        uint tmpi = i;
         i = j;
         j = tmpi;
     }
@@ -62,7 +62,7 @@ __device__ float deltaauc_exact_kernel(int32_t* y_true, float* y_pred,
 __global__ void deltaauc_exact_kernel_wrapper(int32_t* y_true, float* y_pred,
                                               int32_t* counters_p, int32_t* counters_n,
                                               int32_t* y_pred_left, int32_t* y_pred_right,
-                                              size_t n_ones, size_t n_zeroes, size_t i, size_t j, float* _deltaauc)
+                                              uint n_ones, uint n_zeroes, uint i, uint j, float* _deltaauc)
 {
     int gid = threadIdx.x + blockDim.x*blockIdx.x;
 

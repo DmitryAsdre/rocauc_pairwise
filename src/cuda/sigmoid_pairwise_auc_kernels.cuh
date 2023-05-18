@@ -7,22 +7,22 @@
 
 __global__ void sigmoid_pairwise_loss_auc_kernel(int32_t* y_true, float* exp_pred,
                                             int32_t* y_pred_ranks, float* sigmoid_loss,
-                                            size_t n_ones, size_t n_zeroes, size_t N);
+                                            uint n_ones, uint n_zeroes, uint N);
 
 __global__ void sigmoid_pairwise_grad_hess_auc_kernel(int32_t* y_true, float* exp_pred,
                                                       int32_t* y_pred_ranks,
                                                       float* grad, float* hess, 
-                                                      size_t n_ones, size_t n_zeroes, size_t N);
+                                                      uint n_ones, uint n_zeroes, uint N);
 
 __global__ void sigmoid_pairwise_loss_auc_exact_kernel(int32_t* y_true, float* exp_pred,
                                                        int32_t* counters_p, int32_t* counters_n,
                                                        int32_t* y_pred_left, int32_t* y_pred_right, 
                                                        float* sigmoid_loss, float eps,
-                                                       size_t n_ones, size_t n_zeroes, size_t N);
+                                                       uint n_ones, uint n_zeroes, uint N);
 
 __global__ void sigmoid_pairwise_grad_hess_auc_exact_kernel(int32_t* y_true, float* exp_pred,
                                                             int32_t* counters_p, int32_t* counters_n,
                                                             int32_t* y_pred_left, int32_t* y_pred_right,
                                                             float* grad, float* hess, float eps,
-                                                            size_t n_ones, size_t n_zeroes, size_t N);
+                                                            uint n_ones, uint n_zeroes, uint N);
 #endif
