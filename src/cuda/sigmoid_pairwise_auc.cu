@@ -42,7 +42,7 @@ float sigmoid_pairwise_loss_auc(int32_t* y_true, float* exp_pred,
     err = cudaMemcpy((void*)loss_device, (void*)&loss, sizeof(float), cudaMemcpyHostToDevice);
     assert(err == 0);
 
-    sigmoid_pairwise_loss_auc_kernel<<<128, 64>>>(y_true_device, exp_pred_device, y_pred_ranks_device, loss_device, n_ones, n_zeroes, N);
+    sigmoid_pairwise_loss_auc_kernel<<<N_BLOCKS_LOSS, N_THREADS_LOSS>>>(y_true_device, exp_pred_device, y_pred_ranks_device, loss_device, n_ones, n_zeroes, N);
 
     err = cudaGetLastError();
     assert(err == 0);
@@ -107,7 +107,7 @@ std::pair<float*, float*> sigmoid_pairwise_grad_hess_auc(int32_t* y_true, float*
     err = cudaMemcpy((void*)y_pred_ranks_device, (void*)y_pred_ranks, N*sizeof(int32_t), cudaMemcpyHostToDevice);
     assert(err == 0);
 
-    sigmoid_pairwise_grad_hess_auc_kernel<<<128, 64>>>(y_true_device, exp_pred_device, y_pred_ranks_device, grad_device, hess_device, n_ones, n_zeroes, N);
+    sigmoid_pairwise_grad_hess_auc_kernel<<<N_BLOCKS_GRADHESS, N_THREADS_GRADHESS>>>(y_true_device, exp_pred_device, y_pred_ranks_device, grad_device, hess_device, n_ones, n_zeroes, N);
 
     err = cudaGetLastError();
     assert(err == 0);
@@ -131,7 +131,7 @@ std::pair<float*, float*> sigmoid_pairwise_grad_hess_auc(int32_t* y_true, float*
 
 
 float sigmoid_pairwise_loss_auc_exact(int32_t* y_true, float* exp_pred, 
-                                      long* y_pred_argsorted, 
+                                      long* y_pred_argsorted, float eps,
                                       size_t n_ones, size_t n_zeroes, size_t N){
     std::tuple<int32_t*, int32_t*, int32_t*, int32_t*> labelscount;
 
@@ -193,10 +193,10 @@ float sigmoid_pairwise_loss_auc_exact(int32_t* y_true, float* exp_pred,
     assert(err == 0);
 
 
-    sigmoid_pairwise_loss_auc_exact_kernel<<<28, 128>>>(y_true_device, exp_pred_device, 
+    sigmoid_pairwise_loss_auc_exact_kernel<<<N_BLOCKS_LOSS, N_THREADS_LOSS>>>(y_true_device, exp_pred_device, 
                                                         counters_p_device, counters_n_device, 
                                                         y_pred_left_device, y_pred_right_device, 
-                                                        loss_device,
+                                                        loss_device, eps,
                                                         n_ones, n_zeroes, N);
 
     
@@ -223,7 +223,7 @@ float sigmoid_pairwise_loss_auc_exact(int32_t* y_true, float* exp_pred,
 }
 
 std::pair<float*, float*> sigmoid_pairwise_grad_hess_auc_exact(int32_t* y_true, float* exp_pred, 
-                                                              long* y_pred_argsorted, 
+                                                              long* y_pred_argsorted, float eps,
                                                               size_t n_ones, size_t n_zeroes, size_t N){
     std::tuple<int32_t*, int32_t*, int32_t*, int32_t*> labelscount;
 
@@ -295,11 +295,11 @@ std::pair<float*, float*> sigmoid_pairwise_grad_hess_auc_exact(int32_t* y_true, 
     assert(err == 0);
 
 
-    sigmoid_pairwise_grad_hess_auc_exact_kernel<<<128, 64>>>(y_true_device, exp_pred_device,
-                                                             counters_p_device, counters_n_device,
-                                                             y_pred_left_device, y_pred_right_device,
-                                                             grad_device, hess_device,
-                                                             n_ones, n_zeroes, N);
+    sigmoid_pairwise_grad_hess_auc_exact_kernel<<<N_BLOCKS_GRADHESS, N_THREADS_GRADHESS>>>(y_true_device, exp_pred_device,
+                                                                                           counters_p_device, counters_n_device,
+                                                                                           y_pred_left_device, y_pred_right_device,
+                                                                                           grad_device, hess_device, eps,
+                                                                                           n_ones, n_zeroes, N);
 
     
     err = cudaGetLastError();

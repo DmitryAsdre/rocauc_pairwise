@@ -19,10 +19,10 @@ cdef extern from '../src/cuda/sigmoid_pairwise_auc.cuh':
                                                         long* y_pred_argsorted,
                                                         size_t n_ones, size_t n_zeroes, size_t N)
     float sigmoid_pairwise_loss_auc_exact(int32_t* y_true, float* exp_pred,
-                                          long* y_pred_argsorted,
+                                          long* y_pred_argsorted, float eps,
                                           size_t n_ones, size_t n_zeroes, size_t N)
     pair[float*, float*] sigmoid_pairwise_grad_hess_auc_exact(int32_t* y_true, float* exp_pred, 
-                                                              long* y_pred_argsorted, 
+                                                              long* y_pred_argsorted, float eps,
                                                               size_t n_ones, size_t n_zeroes, size_t N)
 
 @cython.boundscheck(False)
@@ -72,7 +72,8 @@ def sigmoid_pairwise_diff_hess_auc_gpu_py(np.ndarray[np.int32_t, ndim=1, mode='c
 @cython.boundscheck(False)
 @cython.wraparound(False)
 def sigmoid_pairwise_loss_auc_exact_gpu_py(np.ndarray[np.int32_t, ndim=1, mode='c'] y_true,
-                                           np.ndarray[np.float32_t, ndim=1, mode='c'] y_pred):
+                                           np.ndarray[np.float32_t, ndim=1, mode='c'] y_pred,
+                                           float eps = 0.):
     cdef:
         size_t n_ones = np.sum(y_true)
         size_t N = y_true.shape[0]
@@ -83,14 +84,15 @@ def sigmoid_pairwise_loss_auc_exact_gpu_py(np.ndarray[np.int32_t, ndim=1, mode='
 
         float loss = 0
     
-    loss = sigmoid_pairwise_loss_auc_exact(&y_true[0], &exp_pred[0], <long*>&y_pred_argsorted[0], n_ones, n_zeroes, N)
+    loss = sigmoid_pairwise_loss_auc_exact(&y_true[0], &exp_pred[0], <long*>&y_pred_argsorted[0], eps, n_ones, n_zeroes, N)
 
     return loss
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
 def sigmoid_pairwise_diff_hess_auc_exact_gpu_py(np.ndarray[np.int32_t, ndim=1, mode='c'] y_true,
-                                                np.ndarray[np.float32_t, ndim=1, mode='c'] y_pred):
+                                                np.ndarray[np.float32_t, ndim=1, mode='c'] y_pred,
+                                                float eps = 0.):
     cdef:
         size_t n_ones = np.sum(y_true)
         size_t N = y_true.shape[0]
@@ -101,7 +103,7 @@ def sigmoid_pairwise_diff_hess_auc_exact_gpu_py(np.ndarray[np.int32_t, ndim=1, m
 
         pair[float*, float*] grad_hess
     
-    grad_hess = sigmoid_pairwise_grad_hess_auc_exact(&y_true[0], &exp_pred[0], <long*>&y_pred_argsorted[0], n_ones, n_zeroes, N)
+    grad_hess = sigmoid_pairwise_grad_hess_auc_exact(&y_true[0], &exp_pred[0], <long*>&y_pred_argsorted[0], eps, n_ones, n_zeroes, N)
 
     cdef:
         np.npy_intp dims = y_true.shape[0]

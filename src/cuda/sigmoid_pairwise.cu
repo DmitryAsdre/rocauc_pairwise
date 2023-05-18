@@ -30,7 +30,7 @@ float sigmoid_pairwise_loss(int32_t* y_true, float* exp_pred, size_t N){
     err = cudaMemcpy((void*)sigmoid_loss_device, (void*)&sigmoid_loss, sizeof(float), cudaMemcpyHostToDevice);
     assert(err == 0);
 
-    sigmoid_pairwise_loss_kernel<<<128, 64>>>(y_true_device, exp_pred_device, sigmoid_loss_device, N);
+    sigmoid_pairwise_loss_kernel<<<N_BLOCKS_LOSS, N_THREADS_LOSS>>>(y_true_device, exp_pred_device, sigmoid_loss_device, N);
 
     err = cudaGetLastError();
     assert(err == 0);
@@ -83,7 +83,7 @@ std::pair<float*, float*> sigmoid_pairwise_grad_hess(int32_t* y_true, float* exp
     assert(err == 0);
 
 
-    sigmoid_pairwise_grad_hess_kernel<<<128, 64>>>(y_true_device, exp_pred_device, grad_device, hess_device, N);
+    sigmoid_pairwise_grad_hess_kernel<<<N_BLOCKS_GRADHESS, N_THREADS_GRADHESS>>>(y_true_device, exp_pred_device, grad_device, hess_device, N);
 
     err = cudaGetLastError();
     assert(err == 0);

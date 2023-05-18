@@ -75,7 +75,7 @@ __global__ void sigmoid_pairwise_grad_hess_auc_kernel(int32_t* y_true, float* ex
 __global__ void sigmoid_pairwise_loss_auc_exact_kernel(int32_t* y_true, float* exp_pred,
                                                        int32_t* counters_p, int32_t* counters_n,
                                                        int32_t* y_pred_left, int32_t* y_pred_right, 
-                                                       float* sigmoid_loss, 
+                                                       float* sigmoid_loss, float eps,
                                                        size_t n_ones, size_t n_zeroes, size_t N){
     int gid = threadIdx.x + blockDim.x*blockIdx.x;
 
@@ -94,7 +94,7 @@ __global__ void sigmoid_pairwise_loss_auc_exact_kernel(int32_t* y_true, float* e
 
             float _deltaauc = deltaauc_exact_kernel(y_true, exp_pred, counters_p, counters_n, y_pred_left, y_pred_right, n_ones, n_zeroes, _i, j);
 
-            float delta_loss = fabsf(_deltaauc)*(P_hat*log(P + EPS_CU) + (1.f - P_hat)*log(1.f - P - EPS_CU));
+            float delta_loss = (fabsf(_deltaauc) + eps)*(P_hat*log(P + EPS_CU) + (1.f - P_hat)*log(1.f - P - EPS_CU));
             atomicAdd(&_loss, delta_loss);
         }
         gid += blockDim.x*gridDim.x;
@@ -109,7 +109,7 @@ __global__ void sigmoid_pairwise_loss_auc_exact_kernel(int32_t* y_true, float* e
 __global__ void sigmoid_pairwise_grad_hess_auc_exact_kernel(int32_t* y_true, float* exp_pred,
                                                             int32_t* counters_p, int32_t* counters_n,
                                                             int32_t* y_pred_left, int32_t* y_pred_right,
-                                                            float* grad, float* hess, 
+                                                            float* grad, float* hess, float eps,
                                                             size_t n_ones, size_t n_zeroes, size_t N){
     int gid = threadIdx.x + blockDim.x*blockIdx.x;
 
@@ -129,9 +129,9 @@ __global__ void sigmoid_pairwise_grad_hess_auc_exact_kernel(int32_t* y_true, flo
 
             float _deltaauc = deltaauc_exact_kernel(y_true, exp_pred, counters_p, counters_n, y_pred_left, y_pred_right, n_ones, n_zeroes, _i, j);    
 
-            cur_d_dx_i = fabsf(_deltaauc)*((P_hat - 1.f)*exp_tmp_diff + P_hat) / (exp_tmp_diff + 1.f);
+            cur_d_dx_i = (fabsf(_deltaauc) + eps)*((P_hat - 1.f)*exp_tmp_diff + P_hat) / (exp_tmp_diff + 1.f);
             cur_d_dx_j = -cur_d_dx_i;
-            cur_d2_dx2_i = fabsf(_deltaauc)*(-exp_pred[_i]/(exp_pred[_i] + exp_pred[j]))*(exp_pred[j]/(exp_pred[_i] + exp_pred[j]));
+            cur_d2_dx2_i = (fabsf(_deltaauc) + eps)*(-exp_pred[_i]/(exp_pred[_i] + exp_pred[j]))*(exp_pred[j]/(exp_pred[_i] + exp_pred[j]));
             cur_d2_dx2_j = cur_d2_dx2_i;
         
             atomicAdd(&(grad[_i]), cur_d_dx_i);

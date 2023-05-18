@@ -37,7 +37,7 @@ double sigmoid_pairwise_loss_auc_cpu(T_true* y_true, T_pred* exp_pred,
 
 template<class T_true, class T_pred, class T_argsorted>
 double sigmoid_pairwise_loss_auc_exact_cpu(T_true* y_true, T_pred* exp_pred,
-                                           T_argsorted* y_pred_argsorted,
+                                           T_argsorted* y_pred_argsorted, double eps,
                                            size_t n_ones, size_t n_zeroes, size_t N){
     double loss = 0.d;
     std::tuple<int32_t*, int32_t*, int32_t*, int32_t*> labelscount_borders;
@@ -59,7 +59,7 @@ double sigmoid_pairwise_loss_auc_exact_cpu(T_true* y_true, T_pred* exp_pred,
                 double deltaauc_ij = deltaauc_exact<T_true, T_pred>(y_true, exp_pred, counters_p, counters_n, 
                                                                     y_pred_left, y_pred_right, n_ones, n_zeroes, _i, j);
 
-                loss += fabs(deltaauc_ij)*(P_hat*log(P + EPS) + (1.d - P_hat)*log(1.d - P - EPS));
+                loss += (fabs(deltaauc_ij) + eps)*(P_hat*log(P + EPS) + (1.d - P_hat)*log(1.d - P - EPS));
             }
         }
 
@@ -124,7 +124,7 @@ std::pair<double*, double*> sigmoid_pairwise_diff_hess_auc_cpu(T_true* y_true, T
 
 template<class T_true, class T_pred, class T_argsorted>
 std::pair<double*, double*> sigmoid_pairwise_diff_hess_auc_exact_cpu(T_true* y_true, T_pred* exp_pred,
-                                                                     T_argsorted* y_pred_argsorted, 
+                                                                     T_argsorted* y_pred_argsorted, double eps,
                                                                      size_t n_ones, size_t n_zeroes, size_t N){
     double* grad = new double[N];
     double* hess = new double[N];
@@ -159,10 +159,10 @@ std::pair<double*, double*> sigmoid_pairwise_diff_hess_auc_exact_cpu(T_true* y_t
             double cur_d2_dx2_j = cur_d2_dx2_i;
 
 
-            cur_d_dx_i *= fabs(deltaauc_ij);
-            cur_d_dx_j *= fabs(deltaauc_ij);
-            cur_d2_dx2_i *= fabs(deltaauc_ij);
-            cur_d2_dx2_j *= fabs(deltaauc_ij);
+            cur_d_dx_i *= (fabs(deltaauc_ij) + eps);
+            cur_d_dx_j *= (fabs(deltaauc_ij) + eps);
+            cur_d2_dx2_i *= (fabs(deltaauc_ij) + eps);
+            cur_d2_dx2_j *= (fabs(deltaauc_ij) + eps);
                 
             #pragma omp atomic
                 grad[j] += cur_d_dx_j;

@@ -200,9 +200,16 @@ exts = [Extension('roc_auc_pairwise.utils',
 
 
 
+with open('./README_pypi.md', 'r') as _r:
+    long_description = _r.read()
+
+
+
 setup(name = 'roc_auc_pairwise',
       author = 'Dmitry Michaylin',
-      version = '0.1.1',
+      long_description=long_description,
+      long_description_content_type='text/markdown',
+      version = '0.1',
       ext_modules = exts,
       cmdclass = {'build_ext': custom_build_ext},
       zip_safe = False)

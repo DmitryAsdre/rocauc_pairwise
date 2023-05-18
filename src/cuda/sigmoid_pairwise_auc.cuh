@@ -12,11 +12,11 @@ std::pair<float*, float*> sigmoid_pairwise_grad_hess_auc(int32_t* y_true, float*
                                                          size_t n_ones, size_t n_zeroes, size_t N);
 
 float sigmoid_pairwise_loss_auc_exact(int32_t* y_true, float* exp_pred, 
-                                      long* y_pred_argsorted, 
+                                      long* y_pred_argsorted, float eps,
                                       size_t n_ones, size_t n_zeroes, size_t N);
 
 std::pair<float*, float*> sigmoid_pairwise_grad_hess_auc_exact(int32_t* y_true, float* exp_pred, 
-                                                               long* y_pred_argsorted, 
+                                                               long* y_pred_argsorted, float eps,
                                                                size_t n_ones, size_t n_zeroes, size_t N);
 
 #endif

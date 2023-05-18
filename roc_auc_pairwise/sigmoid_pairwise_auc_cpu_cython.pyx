@@ -36,13 +36,13 @@ cdef extern from '../src/cpu/sigmoid_pairwise_auc.cpp':
                                                                       T_argsorted* y_pred_argsorted, 
                                                                       size_t n_ones, size_t n_zeroes, size_t N)
     double sigmoid_pairwise_loss_auc_exact_cpu[T_true, T_pred, T_argsorted](T_true* y_true, T_pred* exp_pred, 
-                                                                            T_argsorted* y_pred_argsorted, 
+                                                                            T_argsorted* y_pred_argsorted, double eps,
                                                                             size_t n_ones, size_t n_zeroes, size_t N)
     pair[double*, double*] sigmoid_pairwise_diff_hess_auc_cpu[T_true, T_pred, T_argsorted](T_true* y_true, T_pred* exp_pred,
                                                                                            T_argsorted* y_pred_argsorted,
                                                                                            size_t n_ones, size_t n_zeroes, size_t N)
     pair[double*, double*] sigmoid_pairwise_diff_hess_auc_exact_cpu[T_true, T_pred, T_argsorted](T_true* y_true, T_pred* exp_pred,
-                                                                                                 T_argsorted* y_pred_argsorted,
+                                                                                                 T_argsorted* y_pred_argsorted, double eps,
                                                                                                  size_t n_ones, size_t n_zeroes, size_t N)
 
 
@@ -66,7 +66,8 @@ def sigmoid_pairwise_loss_auc_cpu_py(np.ndarray[int_t, ndim=1, mode='c'] y_true,
 @cython.boundscheck(False)
 @cython.wraparound(False)
 def sigmoid_pairwise_loss_auc_exact_cpu_py(np.ndarray[int_t, ndim=1, mode='c'] y_true,
-                                           np.ndarray[float_t, ndim=1, mode='c'] y_pred):
+                                           np.ndarray[float_t, ndim=1, mode='c'] y_pred,
+                                           double eps = 0):
     cdef:
         double loss = 0
         np.ndarray[np.int64_t, ndim=1, mode='c'] y_pred_argsorted = np.argsort(y_pred).copy()
@@ -75,7 +76,7 @@ def sigmoid_pairwise_loss_auc_exact_cpu_py(np.ndarray[int_t, ndim=1, mode='c'] y
         size_t n_ones = np.sum(y_true)
         size_t n_zeroes = N - n_ones
 
-    loss = sigmoid_pairwise_loss_auc_exact_cpu(&y_true[0], &exp_pred[0], &y_pred_argsorted[0], n_ones, n_zeroes, N)
+    loss = sigmoid_pairwise_loss_auc_exact_cpu(&y_true[0], &exp_pred[0], &y_pred_argsorted[0], eps, n_ones, n_zeroes, N)
 
     return loss
 
@@ -104,7 +105,8 @@ def sigmoid_pairwise_diff_hess_auc_cpu_py(np.ndarray[int_t, ndim=1, mode='c'] y_
 @cython.boundscheck(False)
 @cython.wraparound(False)
 def sigmoid_pairwise_diff_hess_auc_exact_cpu_py(np.ndarray[int_t, ndim=1, mode='c'] y_true,
-                                                np.ndarray[float_t, ndim=1, mode='c'] y_pred):
+                                                np.ndarray[float_t, ndim=1, mode='c'] y_pred,
+                                                double eps = 0):
     cdef:
         pair[double*, double*] grad_hess
         np.ndarray[np.int64_t, ndim=1, mode='c'] y_pred_argsorted = np.argsort(y_pred).copy()
@@ -113,7 +115,7 @@ def sigmoid_pairwise_diff_hess_auc_exact_cpu_py(np.ndarray[int_t, ndim=1, mode='
         size_t n_ones = np.sum(y_true)
         size_t n_zeroes = N - n_ones
     
-    grad_hess = sigmoid_pairwise_diff_hess_auc_exact_cpu(&y_true[0], &exp_pred[0], &y_pred_argsorted[0], n_ones, n_zeroes, N)
+    grad_hess = sigmoid_pairwise_diff_hess_auc_exact_cpu(&y_true[0], &exp_pred[0], &y_pred_argsorted[0], eps, n_ones, n_zeroes, N)
 
     cdef:
         np.npy_intp dims = y_true.shape[0]
