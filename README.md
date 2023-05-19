@@ -7,7 +7,7 @@ This package could be used to solve classification problems with relative small 
 Also there is cpu multithread implementation of this objectives and losses.
 ## Objectives that are implemented in this package
 1. **Sigmoid pairwise loss.** (GPU or CPU implementations)
-$$L = \sum_{i, j}\hat P_{ij}\log{P_{ij}} + (1 - \hat P_{ij})\log{(1 - P_{ij})}$$
+$$L = \sum_{i, j}\left(\hat P_{ij}\log{P_{ij}} + (1 - \hat P_{ij})\log{(1 - P_{ij})}\right)$$
 2. **RocAuc Pairwise Loss** with approximate auc computation. (GPU or CPU implementations)
 $$L = \sum_{i, j} \left(\hat P_{ij}\log{P_{ij}} + (1 - \hat P_{ij})\log{(1 - P_{ij})}\right)\lvert \Delta_{AUC^{approx}_{ij}}\vert$$
 3. **RocAuc Pairwise Loss Exact** (GPU or CPU implementations) with exact auc computation. This could be more compute intensive, but this loss might be helpfull for first boosting rounds (if you are using gradient boosting)
