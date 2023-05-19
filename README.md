@@ -1,5 +1,5 @@
 # RocAuc Pairwise custom objective for gradient boosting
- This is gpu implementation of rocauc pairwise objective for gradient boosting:
+ This is GPU implementation of rocauc pairwise objective for gradient boosting:
 $$L = \sum_{i, j} \left(\hat P_{ij}\log{P_{ij}} + (1 - \hat P_{ij})\log{(1 - P_{ij})}\right)\lvert \Delta_{AUC_{ij}}\vert$$
 Where:
 $$P_{ij} = \frac{1}{1 + e^{-(x_i - x_j)}} $$
