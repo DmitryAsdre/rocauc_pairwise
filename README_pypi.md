@@ -13,7 +13,12 @@ $$L = \sum_{i, j} (\hat P_{ij}\log{P_{ij}} + (1 - \hat P_{ij})\log{(1 - P_{ij})}
 4. **RocAuc Pairwise Loss Exact Smoothened** (GPU or CPU implementations). This loss allows you to incorporate information about equal instances. Because $\Delta_{AUC_{ij}} = 0$ if $y_i = y_j$. So we just add small $\epsilon > 0$ in equation.
 $$L = \sum_{i, j} (\hat P_{ij}\log{P_{ij}} + (1 - \hat P_{ij})\log{(1 - P_{ij})})(\epsilon + |\Delta_{AUC^{exact}_{ij}}|)$$
 
-### For more information 
+## Performance
+Intel Core i5 10600KF (12 threads), Nvidia RTX 3060
+
+![Performance Report](https://github.com/DmitryAsdre/rocauc_pairwise/blob/825b8240433642b4232baf3b933c45eaa84da32f/perfomance_report/performance_report.jpg?raw=True)
+
+## For more information 
 - You can see [GitHub repository](https://github.com/DmitryAsdre/rocauc_pairwise).
 - Or you can use example notebook on [Google Colab](https://colab.research.google.com/drive/1w7BN0XGjB5vgFp2pbiCaejabc91xWmI0?usp=sharing)
 - Or you can use example notebook on [Kaggle](https://www.kaggle.com/code/michailindmitry/gradient-boosting-roc-auc-pairwise-example-ipynb)
