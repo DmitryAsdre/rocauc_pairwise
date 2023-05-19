@@ -20,7 +20,7 @@ You can use pip to install this package.
 pip install roc_auc_pairwise
 ```
 
-**Project page on PyPI** - roc_auc_pairwise 
+**Project page on PyPI** - [roc_auc_pairwise](https://pypi.org/project/roc-auc-pairwise/) 
 
 ## Basic usage examples.
 - You can see example notebook:
