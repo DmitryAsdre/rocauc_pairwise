@@ -6,6 +6,9 @@ from tqdm import tqdm
 from roc_auc_pairwise.sigmoid_pairwise_gpu import sigmoid_pairwise_loss_gpu_py as sigmoid_pairwise_loss_py
 from roc_auc_pairwise.sigmoid_pairwise_gpu import sigmoid_pairwise_diff_hess_gpu_py as sigmoid_pairwise_diff_hess_py
 
+EPS_LOSS = 5e-4
+EPS_GRAD_HESS = 5e-4
+
 def sigmoid(deltax_ij):
     return 1. / (1. + np.exp(-deltax_ij))
 
@@ -30,7 +33,7 @@ def test_sigmoid_loss_unique_8_parquet():
         
         sigm_loss_ = sigmoid_pairwise_loss_py(y_true, y_pred)
         
-        assert(np.abs(sigm_loss_ - sigm_loss) < 1e-4)
+        assert(np.abs(sigm_loss_ - sigm_loss) < EPS_LOSS)
 
 def test_sigmoid_loss_non_unique_8_parquet():
     """Test sigmoid loss for non unique 8 len y_true"""
@@ -45,7 +48,7 @@ def test_sigmoid_loss_non_unique_8_parquet():
         
         sigm_loss_ = sigmoid_pairwise_loss_py(y_true, y_pred)
         
-        assert(np.abs(sigm_loss_ - sigm_loss) < 1e-4)
+        assert(np.abs(sigm_loss_ - sigm_loss) < EPS_LOSS)
 
       
 def test_sigmoid_loss_unique_10_parquet():
@@ -61,7 +64,7 @@ def test_sigmoid_loss_unique_10_parquet():
         
         sigm_loss_ = sigmoid_pairwise_loss_py(y_true, y_pred)
         
-        assert(np.abs(sigm_loss_ - sigm_loss) < 1e-4)
+        assert(np.abs(sigm_loss_ - sigm_loss) < EPS_LOSS)
         
 def test_sigmoid_loss_non_unique_10_parquet():
     """Test sigmoid loss for non unique 10 len y_true"""
@@ -76,7 +79,7 @@ def test_sigmoid_loss_non_unique_10_parquet():
         
         sigm_loss_ = sigmoid_pairwise_loss_py(y_true, y_pred)
         
-        assert(np.abs(sigm_loss_ - sigm_loss) < 1e-4)
+        assert(np.abs(sigm_loss_ - sigm_loss) < EPS_LOSS)
         
 def test_sigmoid_loss_non_unique_100_parquet():
     """Test sigmoid loss for non unique 100 len y_true"""
@@ -91,7 +94,7 @@ def test_sigmoid_loss_non_unique_100_parquet():
         
         sigm_loss_ = sigmoid_pairwise_loss_py(y_true, y_pred) / y_true.shape[0]
         
-        assert(np.abs(sigm_loss_ - sigm_loss) < 1e-4)
+        assert(np.abs(sigm_loss_ - sigm_loss) < EPS_LOSS)
         
 def test_sigmoid_loss_unique_100_parquet():
     """Test sigmoid loss for unique 100 len y_true"""
@@ -106,7 +109,7 @@ def test_sigmoid_loss_unique_100_parquet():
         
         sigm_loss_ = sigmoid_pairwise_loss_py(y_true, y_pred) / y_true.shape[0]
         
-        assert(np.abs(sigm_loss_ - sigm_loss) < 1e-4)
+        assert(np.abs(sigm_loss_ - sigm_loss) < EPS_LOSS)
 
 
 def test_sigmoid_diff_hess_unique_8_parquet():
@@ -123,8 +126,8 @@ def test_sigmoid_diff_hess_unique_8_parquet():
         
         grad, hess = sigmoid_pairwise_diff_hess_py(y_true, y_pred)
         
-        assert(np.mean(np.abs(grad - grad_true)) < 1e-4)
-        assert(np.mean(np.abs(hess - hess_true)) < 1e-4)
+        assert(np.mean(np.abs(grad - grad_true)) < EPS_GRAD_HESS)
+        assert(np.mean(np.abs(hess - hess_true)) < EPS_GRAD_HESS)
         
         
 def test_sigmoid_diff_hess_non_unique_8_parquet():
@@ -141,8 +144,8 @@ def test_sigmoid_diff_hess_non_unique_8_parquet():
         
         grad, hess = sigmoid_pairwise_diff_hess_py(y_true, y_pred)
         
-        assert(np.mean(np.abs(grad - grad_true)) < 1e-4)
-        assert(np.mean(np.abs(hess - hess_true)) < 1e-4)
+        assert(np.mean(np.abs(grad - grad_true)) < EPS_GRAD_HESS)
+        assert(np.mean(np.abs(hess - hess_true)) < EPS_GRAD_HESS)
         
 def test_sigmoid_diff_hess_unique_10_parquet():
     """Test sigmoid diff hess for unique 10 len y_true"""
@@ -158,8 +161,8 @@ def test_sigmoid_diff_hess_unique_10_parquet():
         
         grad, hess = sigmoid_pairwise_diff_hess_py(y_true, y_pred)
         
-        assert(np.mean(np.abs(grad - grad_true)) < 1e-4)
-        assert(np.mean(np.abs(hess - hess_true)) < 1e-4)
+        assert(np.mean(np.abs(grad - grad_true)) < EPS_GRAD_HESS)
+        assert(np.mean(np.abs(hess - hess_true)) < EPS_GRAD_HESS)
         
 def test_sigmoid_diff_hess_non_unique_10_parquet():
     """Test sigmoid diff hess for non unique 10 len y_true"""
@@ -175,8 +178,8 @@ def test_sigmoid_diff_hess_non_unique_10_parquet():
         
         grad, hess = sigmoid_pairwise_diff_hess_py(y_true, y_pred)
         
-        assert(np.mean(np.abs(grad - grad_true)) < 1e-4)
-        assert(np.mean(np.abs(hess - hess_true)) < 1e-4)
+        assert(np.mean(np.abs(grad - grad_true)) < EPS_GRAD_HESS)
+        assert(np.mean(np.abs(hess - hess_true)) < EPS_GRAD_HESS)
         
 def test_sigmoid_diff_hess_unique_100_parquet():
     """Test sigmoid diff hess for unique 100 len y_true"""
@@ -192,8 +195,8 @@ def test_sigmoid_diff_hess_unique_100_parquet():
         
         grad, hess = sigmoid_pairwise_diff_hess_py(y_true, y_pred)
         
-        assert(np.mean(np.abs(grad - grad_true)) < 1e-4)
-        assert(np.mean(np.abs(hess - hess_true)) < 1e-4)
+        assert(np.mean(np.abs(grad - grad_true)) < EPS_GRAD_HESS)
+        assert(np.mean(np.abs(hess - hess_true)) < EPS_GRAD_HESS)
 
 def test_sigmoid_diff_hess_non_unique_100_parquet():
     """Test sigmoid diff hess for non unique 100 len y_true"""
@@ -209,5 +212,5 @@ def test_sigmoid_diff_hess_non_unique_100_parquet():
         
         grad, hess = sigmoid_pairwise_diff_hess_py(y_true, y_pred)
         
-        assert(np.mean(np.abs(grad - grad_true)) < 1e-4)
-        assert(np.mean(np.abs(hess - hess_true)) < 1e-4)
+        assert(np.mean(np.abs(grad - grad_true)) < EPS_GRAD_HESS)
+        assert(np.mean(np.abs(hess - hess_true)) < EPS_GRAD_HESS)

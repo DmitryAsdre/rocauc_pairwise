@@ -192,12 +192,19 @@ float sigmoid_pairwise_loss_auc_exact(int32_t* y_true, float* exp_pred,
     err = cudaMemcpy((void*)loss_device, (void*)&loss, sizeof(float), cudaMemcpyHostToDevice);
     assert(err == 0);
 
-
-    sigmoid_pairwise_loss_auc_exact_kernel<<<N_BLOCKS_LOSS, N_THREADS_LOSS>>>(y_true_device, exp_pred_device, 
-                                                        counters_p_device, counters_n_device, 
-                                                        y_pred_left_device, y_pred_right_device, 
-                                                        loss_device, eps,
-                                                        n_ones, n_zeroes, N);
+    if(eps == 0){
+        sigmoid_pairwise_loss_auc_exact_kernel<<<N_BLOCKS_LOSS, N_THREADS_LOSS>>>(y_true_device, exp_pred_device, 
+                                                                                  counters_p_device, counters_n_device, 
+                                                                                  y_pred_left_device, y_pred_right_device, 
+                                                                                  loss_device,
+                                                                                  n_ones, n_zeroes, N);
+    }else{
+        sigmoid_pairwise_loss_auc_exact_sm_kernel<<<N_BLOCKS_LOSS, N_THREADS_LOSS>>>(y_true_device, exp_pred_device, 
+                                                                                     counters_p_device, counters_n_device, 
+                                                                                     y_pred_left_device, y_pred_right_device, 
+                                                                                     loss_device, eps,
+                                                                                     n_ones, n_zeroes, N);
+    }
 
     
     err = cudaGetLastError();
@@ -294,13 +301,19 @@ std::pair<float*, float*> sigmoid_pairwise_grad_hess_auc_exact(int32_t* y_true, 
     err = cudaMemcpy((void*)hess_device, (void*)hess, N*sizeof(float), cudaMemcpyHostToDevice);
     assert(err == 0);
 
-
-    sigmoid_pairwise_grad_hess_auc_exact_kernel<<<N_BLOCKS_GRADHESS, N_THREADS_GRADHESS>>>(y_true_device, exp_pred_device,
-                                                                                           counters_p_device, counters_n_device,
-                                                                                           y_pred_left_device, y_pred_right_device,
-                                                                                           grad_device, hess_device, eps,
-                                                                                           n_ones, n_zeroes, N);
-
+    if(eps == 0){
+        sigmoid_pairwise_grad_hess_auc_exact_kernel<<<N_BLOCKS_GRADHESS, N_THREADS_GRADHESS>>>(y_true_device, exp_pred_device,
+                                                                                               counters_p_device, counters_n_device,
+                                                                                               y_pred_left_device, y_pred_right_device,
+                                                                                               grad_device, hess_device,
+                                                                                               n_ones, n_zeroes, N);
+    }else{
+        sigmoid_pairwise_grad_hess_auc_exact_sm_kernel<<<N_BLOCKS_GRADHESS, N_THREADS_GRADHESS>>>(y_true_device, exp_pred_device,
+                                                                                                  counters_p_device, counters_n_device,
+                                                                                                  y_pred_left_device, y_pred_right_device,
+                                                                                                  grad_device, hess_device, eps,
+                                                                                                  n_ones, n_zeroes, N);
+    }
     
     err = cudaGetLastError();
     assert(err == 0);
